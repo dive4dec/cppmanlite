@@ -8,6 +8,7 @@ Input:  directory containing cpp/ and c/ subdirs with .html files
 Output: <output_dir>/index.json  +  <output_dir>/docs/ with stripped HTML
 """
 
+import html
 import json
 import os
 import re
@@ -29,7 +30,14 @@ P_RE = re.compile(r"<p>(.*?)</p>", re.DOTALL)
 def strip_page(html_text: str) -> tuple[str, str]:
     """Return (title, stripped_content_html) from a cppreference page."""
     m = TITLE_RE.search(html_text)
-    title = m.group(1).replace(" - cppreference.com", "").strip() if m else ""
+    raw_title = m.group(1).replace(" - cppreference.com", "").strip() if m else ""
+    # Decode HTML entities first (&lt; → <, &nbsp; → \xa0, etc.)
+    title = html.unescape(raw_title)
+    # Fix mojibake: cppreference HTML sometimes has \xc3\x82\xc2\xa0 (double-encoded nbsp)
+    # or stray \xc2 from encoding mismatches. Normalise: replace \xc2\xa0 and \xa0 with space.
+    title = title.replace("\xc2\xa0", " ").replace("\xa0", " ")
+    # Collapse multiple spaces
+    title = re.sub(r"\s+", " ", title).strip()
     m = CONTENT_RE.search(html_text)
     content = m.group(1) if m else html_text
     content = SCRIPT_RE.sub("", content)
@@ -47,6 +55,8 @@ def extract_snippet(content: str, max_len: int = 200) -> str:
     m = P_RE.search(content)
     if m:
         text = re.sub(r"<[^>]+>", "", m.group(1))
+        text = html.unescape(text)
+        text = text.replace("\xc2\xa0", " ").replace("\xa0", " ")
         text = re.sub(r"\s+", " ", text).strip()
         return text[:max_len]
     return ""

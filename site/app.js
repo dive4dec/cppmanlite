@@ -1,5 +1,6 @@
-// cppmanlite — client-side search + page reader
-// Uses lunr.js for fuzzy search over a static index.json
+// cppmanlite — client-side search + manpage-style reader
+// Two-panel layout: sidebar (search + results) | main (page content)
+// Press Enter to open the top result directly, like `man`.
 
 let lunrIndex = null;
 let allDocs = [];
@@ -72,7 +73,7 @@ function doSearch(query) {
   countSpan.textContent = `${results.length} result${results.length !== 1 ? "s" : ""}`;
 
   if (results.length === 0) {
-    resultsDiv.innerHTML = `<p style="color:var(--muted);text-align:center;padding:2rem">No results for "${escapeHtml(query)}"</p>`;
+    resultsDiv.innerHTML = `<p style="color:var(--muted);text-align:center;padding:1rem">No results for "${escapeHtml(query)}"</p>`;
     return;
   }
 
@@ -81,7 +82,6 @@ function doSearch(query) {
       (r) => `
     <div class="result-item" data-url="${escapeAttr(r.url)}">
       <div class="result-title">${escapeHtml(r.title)}</div>
-      <div class="result-url">${escapeHtml(r.url)}</div>
       ${r.snippet ? `<div class="result-snippet">${escapeHtml(r.snippet)}</div>` : ""}
     </div>`
     )
@@ -95,24 +95,16 @@ function doSearch(query) {
 
 // ---- Page loading ----
 async function loadPage(urlPath) {
-  const reader = document.getElementById("reader");
   const content = document.getElementById("reader-content");
-  const results = document.getElementById("results");
-  const searchBar = document.querySelector(".search-bar");
+  const backBtn = document.getElementById("back-btn");
+  const titleSpan = document.getElementById("page-title");
 
-  // Show reader, hide results
-  results.style.display = "none";
-  searchBar.style.display = "none";
-  reader.style.display = "block";
+  backBtn.style.display = "inline-block";
   content.innerHTML = '<p style="color:var(--muted)">Loading…</p>';
 
   try {
-    // Fetch from cppreference.com — no CORS headers, so we use the local
-    // copy if this is served from the same origin (Docker/K8s), or
-    // fetch directly and let the browser handle it.
     let htmlText;
     try {
-      // Try local first (when served from Docker with bundled docs)
       const localResp = await fetch(`docs/${urlPath}`);
       if (localResp.ok) {
         htmlText = await localResp.text();
@@ -120,7 +112,6 @@ async function loadPage(urlPath) {
         throw new Error("not local");
       }
     } catch {
-      // Fall back to cppreference.com directly
       const extResp = await fetch(`https://en.cppreference.com/w/${urlPath}`);
       htmlText = await extResp.text();
     }
@@ -150,6 +141,15 @@ async function loadPage(urlPath) {
 
     content.innerHTML = pageContent;
     content.scrollTop = 0;
+
+    // Update title in header
+    const doc = allDocs.find((d) => d.url === urlPath);
+    titleSpan.textContent = doc ? doc.title : urlPath;
+
+    // Highlight active result in sidebar
+    document.querySelectorAll(".result-item").forEach((item) => {
+      item.classList.toggle("active", item.dataset.url === urlPath);
+    });
   } catch (e) {
     content.innerHTML = `<p>Failed to load page: ${escapeHtml(e.message)}</p>
       <p><a href="https://en.cppreference.com/w/${urlPath}" target="_blank">Open on cppreference.com →</a></p>`;
@@ -167,8 +167,6 @@ function escapeAttr(s) {
 }
 
 // Resolve a relative path against a base directory.
-// E.g. resolveRelative("cpp/container/vector/", "../flat_map/flat_map.html")
-//   → "cpp/container/flat_map/flat_map.html"
 function resolveRelative(baseDir, relPath) {
   const baseParts = baseDir.split("/").filter(Boolean);
   const relParts = relPath.split("/");
@@ -184,14 +182,7 @@ document.getElementById("search-input").addEventListener("input", (e) => {
   doSearch(e.target.value);
 });
 
-document.getElementById("back-btn").addEventListener("click", () => {
-  document.getElementById("reader").style.display = "none";
-  document.getElementById("results").style.display = "block";
-  document.querySelector(".search-bar").style.display = "flex";
-  document.getElementById("search-input").focus();
-});
-
-// Keyboard: Enter opens first result
+// Keyboard: Enter opens first result (manpage behavior)
 document.getElementById("search-input").addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
     const first = document.querySelector(".result-item");
@@ -199,8 +190,13 @@ document.getElementById("search-input").addEventListener("keydown", (e) => {
   }
 });
 
+// Back button: return focus to search results
+document.getElementById("back-btn").addEventListener("click", () => {
+  document.getElementById("search-input").focus();
+  document.getElementById("search-input").select();
+});
+
 // Event delegation: intercept link clicks inside reader-content
-// so relative links stay within the app instead of navigating away.
 document.getElementById("reader-content").addEventListener("click", (e) => {
   const a = e.target.closest("a");
   if (!a) return;
