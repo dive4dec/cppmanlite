@@ -1,0 +1,104 @@
+<div class="t-navbar" style=""><div class="t-navbar-sep"> </div><div class="t-navbar-head"><a href="../../c.html" title="c"> C</a><div class="t-navbar-menu"><div><div><table class="t-nv-begin" cellpadding="0" style="line-height:1.1em;">
+<tr class="t-nv"><td colspan="5"><a href="../compiler_support.html" title="c/compiler support">Compiler support</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../language.html" title="c/language">Language</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../header.html" title="c/header">Headers</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../types.html" title="c/types">Type support</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../program.html" title="c/program">Program utilities</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../variadic.html" title="c/variadic">Variadic function support</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../error.html" title="c/error">Error handling</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../memory.html" title="c/memory">Dynamic memory management</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../string.html" title="c/string">Strings library</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../algorithm.html" title="c/algorithm">Algorithms</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../numeric.html" title="c/numeric">Numerics</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../chrono.html" title="c/chrono">Date and time utilities</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../io.html" title="c/io">Input/output support</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../locale.html" title="c/locale">Localization support</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../thread.html" title="c/thread">Concurrency support</a> <span class="t-mark-rev t-since-c11">(C11)</span></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../experimental.html" title="c/experimental">Technical Specifications</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../index.html" title="c/symbol index">Symbol index</a></td></tr>
+</table></div><div></div></div></div></div><div class="t-navbar-sep"> </div><div class="t-navbar-head"><a href="../numeric.html" title="c/numeric"> Numerics</a><div class="t-navbar-menu"><div><div><table class="t-nv-begin" cellpadding="0" style="">
+<tr class="t-nv"><td colspan="5"><a href="math.html" title="c/numeric/math">Common mathematical functions</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="fenv.html" title="c/numeric/fenv">Floating-point environment</a> <span class="t-mark-rev t-since-c99">(C99)</span></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="random.html" title="c/numeric/random">Pseudo-random number generation</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="complex.html" title="c/numeric/complex">Complex number arithmetic</a> <span class="t-mark-rev t-since-c99">(C99)</span></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="tgmath.html" title="c/numeric/tgmath">Type-generic math</a> <span class="t-mark-rev t-since-c99">(C99)</span></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../numeric.html#Bit_manipulation" title="c/numeric">Bit manipulation</a> <span class="t-mark-rev t-since-c23">(C23)</span></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../numeric.html#Checked_integer_arithmetic" title="c/numeric">Checked integer arithmetic</a> <span class="t-mark-rev t-since-c23">(C23)</span></td></tr>
+</table></div><div></div></div></div></div><div class="t-navbar-sep"> </div><div class="t-navbar-head"><a href="../numeric.html#Checked_integer_arithmetic_.28since_C23.29" title="c/numeric">Checked integer arithmetic</a><div class="t-navbar-menu"><div><div><table class="t-nv-begin" cellpadding="0" style="">
+<tr class="t-nv-h2"><td colspan="5"><a href="../numeric.html#Checked_integer_arithmetic_.28since_C23.29" title="c/numeric">Functions</a></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="ckd_add.html" title="c/numeric/ckd add"><span class="t-lines"><span>ckd_add</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-c23">(C23)</span></span></span></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><strong class="selflink"><span class="t-lines"><span>ckd_sub</span></span></strong></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-c23">(C23)</span></span></span></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="ckd_mul.html" title="c/numeric/ckd mul"><span class="t-lines"><span>ckd_mul</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-c23">(C23)</span></span></span></div></div></td></tr>
+</table></div><div></div></div></div></div><div class="t-navbar-sep"> </div></div>
+<table class="t-dcl-begin"><tbody>
+<tr class="t-dsc-header">
+<td> <div>Defined in header <code><a href="../numeric.html#Checked_integer_arithmetic" title="c/numeric"><tt>&lt;stdckdint.h&gt;</tt></a></code>
+ </div></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="t-dcl t-since-c23">
+<td> <div><span class="mw-geshi c source-c"><span class="co2">#define ckd_sub( result, a, b ) /* implementation-defined */</span><br>
+<p><span class="co1">// exposed interface:</span><br>
+</p>
+bool ckd_sub<span class="br0">(</span> type1<span class="sy2">*</span> result, type2 a, type3 b <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td class="t-dcl-nopad">  </td>
+<td> <span class="t-mark-rev t-since-c23">(since C23)</span> </td>
+</tr>
+<tr class="t-dcl-sep"><td></td><td></td><td></td></tr>
+</tbody></table>
+<p>Computes the subtraction <span class="t-c"><span class="mw-geshi c source-c">x <span class="sy2">-</span> y</span></span> and stores the result into <span class="t-c"><span class="mw-geshi c source-c"><span class="sy2">*</span>result</span></span>. The subtraction is performed as if both operands were represented in a signed integer type with infinite range, and the result was then converted from this integer type to <span class="t-c"><span class="mw-geshi c source-c">type1</span></span>. If the value assigned to <span class="t-c"><span class="mw-geshi c source-c"><span class="sy2">*</span>result</span></span> correctly represents the mathematical result of the operation, it returns <span class="t-c"><span class="mw-geshi c source-c"><span class="kw2">false</span></span></span>. Otherwise, it returns <span class="t-c"><span class="mw-geshi c source-c"><span class="kw2">true</span></span></span>. In this case, the value assigned to <span class="t-c"><span class="mw-geshi c source-c"><span class="sy2">*</span>result</span></span> is the mathematical result of the operation wrapped around to the width of <span class="t-c"><span class="mw-geshi c source-c"><span class="sy2">*</span>result</span></span>.
+</p>
+<h3><span class="mw-headline" id="Parameters">Parameters</span></h3>
+<table class="t-par-begin">
+
+
+<tr class="t-par">
+<td> a, b
+</td>
+<td> -
+</td>
+<td> integer values
+</td></tr>
+<tr class="t-par">
+<td> result
+</td>
+<td> -
+</td>
+<td> address of where result should be stored
+</td></tr></table>
+<h3><span class="mw-headline" id="Return_value">Return value</span></h3>
+<p><span class="t-c"><span class="mw-geshi c source-c"><span class="kw2">false</span></span></span> if the value assigned to <span class="t-c"><span class="mw-geshi c source-c"><span class="sy2">*</span>result</span></span> correctly represents the mathematical result of the subtraction, <span class="t-c"><span class="mw-geshi c source-c"><span class="kw2">true</span></span></span> otherwise.
+</p>
+<h3><span class="mw-headline" id="Note">Note</span></h3>
+<p>Both <span class="t-c"><span class="mw-geshi c source-c">type2</span></span> and <span class="t-c"><span class="mw-geshi c source-c">type3</span></span> shall be any integer type other than "plain" <span class="mw-geshi c source-c"><span class="kw4">char</span></span>, <span class="mw-geshi c source-c">bool</span>, a bit-precise integer type, or an enumerated type, and they can be the same. <span class="t-c"><span class="mw-geshi c source-c"><span class="sy2">*</span>result</span></span> shall be a modifiable lvalue of any integer type other than "plain" <span class="mw-geshi c source-c"><span class="kw4">char</span></span>, <span class="mw-geshi c source-c">bool</span>, a bit-precise integer type, or an enumerated type.
+</p><p>It is recommended to produce a diagnostic message if <span class="t-c"><span class="mw-geshi c source-c">type2</span></span> or <span class="t-c"><span class="mw-geshi c source-c">type3</span></span> are not suitable integer types, or if <span class="t-c"><span class="mw-geshi c source-c"><span class="sy2">*</span>result</span></span> is not a modifiable lvalue of a suitable integer type.
+</p>
+<h3><span class="mw-headline" id="Example">Example</span></h3>
+<table class="metadata plainlinks ambox mbox-small-left ambox-notice" style=""><tr><td class="mbox-empty-cell"></td><td class="mbox-text" style="">This section is incomplete<br>Reason: no example </td></tr></table>
+<h3><span class="mw-headline" id="References">References</span></h3>
+<div class="t-ref-std-23">
+<ul><li> C23 standard (ISO/IEC 9899:2024): 
+</li></ul>
+<dl><dd><ul><li> 7.20.1 The ckd_ checked integer operation macros (p: 311)
+</li></ul>
+</dd></dl>
+</div>
+<h3><span class="mw-headline" id="See_also">See also</span></h3>
+<table class="t-dsc-begin">
+
+<tr class="t-dsc">
+<td> <div class="t-dsc-member-div"><div><a href="ckd_add.html" title="c/numeric/ckd add"> <span class="t-lines"><span>ckd_add</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-c23">(C23)</span></span></span></div></div>
+</td>
+<td> checked addition operation on two integers<br><span class="t-mark">(type-generic function macro)</span></td></tr>
+
+
+<tr class="t-dsc">
+<td> <div class="t-dsc-member-div"><div><a href="ckd_mul.html" title="c/numeric/ckd mul"> <span class="t-lines"><span>ckd_mul</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-c23">(C23)</span></span></span></div></div>
+</td>
+<td> checked multiplication operation on two integers<br><span class="t-mark">(type-generic function macro)</span></td></tr>
+</table>
+
+
+
+

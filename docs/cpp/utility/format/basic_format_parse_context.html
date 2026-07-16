@@ -1,0 +1,430 @@
+<div class="t-navbar" style=""><div class="t-navbar-sep"> </div><div class="t-navbar-head"><a href="../../../cpp.html" title="cpp">C++</a><div class="t-navbar-menu"><div><div><table class="t-nv-begin" cellpadding="0" style="line-height:1.1em;">
+<tr class="t-nv"><td colspan="5"><a href="../../compiler_support.html" title="cpp/compiler support">Compiler support</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../freestanding.html" title="cpp/freestanding">Freestanding and hosted</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../language.html" title="cpp/language">Language</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../standard_library.html" title="cpp/standard library">Standard library</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../headers.html" title="cpp/header">Standard library headers</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../named_req.html" title="cpp/named req">Named requirements</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../feature_test.html" title="cpp/feature test">Feature test macros</a> <span class="t-mark-rev t-since-cxx20">(C++20)</span></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../utility.html#Language_support" title="cpp/utility">Language support library</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../concepts.html" title="cpp/concepts">Concepts library</a> <span class="t-mark-rev t-since-cxx20">(C++20)</span></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../error.html" title="cpp/error">Diagnostics library</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../memory.html" title="cpp/memory">Memory management library</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../meta.html" title="cpp/meta">Metaprogramming library</a> <span class="t-mark-rev t-since-cxx11">(C++11)</span></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../utility.html" title="cpp/utility">General utilities library</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../container.html" title="cpp/container">Containers library</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../iterator.html" title="cpp/iterator">Iterators library</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../ranges.html" title="cpp/ranges">Ranges library</a> <span class="t-mark-rev t-since-cxx20">(C++20)</span></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../algorithm.html" title="cpp/algorithm">Algorithms library</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../string.html" title="cpp/string">Strings library</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../text.html" title="cpp/text">Text processing library</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../numeric.html" title="cpp/numeric">Numerics library</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../chrono.html" title="cpp/chrono">Date and time library</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../io.html" title="cpp/io">Input/output library</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../filesystem.html" title="cpp/filesystem">Filesystem library</a> <span class="t-mark-rev t-since-cxx17">(C++17)</span></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../atomic.html" title="cpp/thread">Concurrency support library</a> <span class="t-mark-rev t-since-cxx11">(C++11)</span></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../experimental/execution.html" title="cpp/execution">Execution support library</a> <span class="t-mark-rev t-since-cxx26">(C++26)</span></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../experimental.html" title="cpp/experimental">Technical specifications</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../symbol_index.html" title="cpp/symbol index">Symbols index</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../links/libs.html" title="cpp/links/libs">External libraries</a></td></tr>
+</table></div><div></div></div></div></div><div class="t-navbar-sep"> </div><div class="t-navbar-head"><a href="../../text.html" title="cpp/text">Text processing library</a><div class="t-navbar-menu"><div><div><table class="t-nv-begin" cellpadding="0" style="">
+<tr class="t-nv"><td colspan="5"><a href="../../locale.html" title="cpp/locale">Localization library</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../regex.html" title="cpp/regex">Regular expressions library</a> <span class="t-mark-rev t-since-cxx11">(C++11)</span></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../format.html" title="cpp/utility/format">Formatting library</a> <span class="t-mark-rev t-since-cxx20">(C++20)</span></td></tr>
+<tr class="t-nv-h2"><td colspan="5"><a href="../../text.html#Null-terminated_sequence_utilities" title="cpp/text">Null-terminated sequence utilities</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../string/byte.html" title="cpp/string/byte">Byte strings</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../string/multibyte.html" title="cpp/string/multibyte">Multibyte strings</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../string/wide.html" title="cpp/string/wide">Wide strings</a></td></tr>
+<tr class="t-nv-h2"><td colspan="5"><a href="../../text.html#Primitive_numeric_conversions" title="cpp/text">Primitive numeric conversions</a></td></tr>
+<tr class="t-nv-col-table"><td><div><table class="t-nv-begin" cellpadding="0" style="">
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="../to_chars.html" title="cpp/utility/to chars"><span class="t-lines"><span>to_chars</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx17">(C++17)</span></span></span></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="../to_chars_result.html" title="cpp/utility/to chars result"><span class="t-lines"><span>to_chars_result</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx17">(C++17)</span></span></span></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="../from_chars.html" title="cpp/utility/from chars"><span class="t-lines"><span>from_chars</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx17">(C++17)</span></span></span></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="../from_chars_result.html" title="cpp/utility/from chars result"><span class="t-lines"><span>from_chars_result</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx17">(C++17)</span></span></span></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="../chars_format.html" title="cpp/utility/chars format"><span class="t-lines"><span>chars_format</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx17">(C++17)</span></span></span></div></div></td></tr>
+</table></div></td></tr>
+<tr class="t-nv-h2"><td colspan="5"><a href="../../text.html#Text_encoding_identifications" title="cpp/text">Text encoding identifications</a></td></tr>
+<tr class="t-nv-col-table"><td><div><table class="t-nv-begin" cellpadding="0" style="">
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="../../locale/text_encoding.html" title="cpp/text/text encoding"><span class="t-lines"><span>text_encoding</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx26">(C++26)</span></span></span></div></div></td></tr>
+</table></div></td></tr>
+</table></div><div></div></div></div></div><div class="t-navbar-sep"> </div><div class="t-navbar-head"><a href="../format.html" title="cpp/utility/format">Formatting library</a><div class="t-navbar-menu"><div><div><table class="t-nv-begin" cellpadding="0" style="">
+<tr class="t-nv-h1"><td colspan="5"><a href="spec.html" title="cpp/utility/format/spec">Standard format specification</a></td></tr>
+<tr class="t-nv-h1"><td colspan="5"><a href="format.html#Formatting_functions" title="cpp/utility/format/format">Formatting functions</a></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="format.html" title="cpp/utility/format/format"><span class="t-lines"><span>format</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx20">(C++20)</span></span></span></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="format_to.html" title="cpp/utility/format/format to"><span class="t-lines"><span>format_to</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx20">(C++20)</span></span></span></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="format_to_n.html" title="cpp/utility/format/format to n"><span class="t-lines"><span>format_to_n</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx20">(C++20)</span></span></span></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="formatted_size.html" title="cpp/utility/format/formatted size"><span class="t-lines"><span>formatted_size</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx20">(C++20)</span></span></span></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="vformat.html" title="cpp/utility/format/vformat"><span class="t-lines"><span>vformat</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx20">(C++20)</span></span></span></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="vformat_to.html" title="cpp/utility/format/vformat to"><span class="t-lines"><span>vformat_to</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx20">(C++20)</span></span></span></div></div></td></tr>
+<tr class="t-nv-h1"><td colspan="5"><a href="format.html#Format_strings" title="cpp/utility/format/format">Format strings</a></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="basic_format_string.html" title="cpp/utility/format/basic format string"><span class="t-lines"><span>basic_format_string</span><span>format_string</span><span>wformat_string</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx20">(C++20)</span></span><span><span class="t-mark-rev t-since-cxx20">(C++20)</span></span><span><span class="t-mark-rev t-since-cxx20">(C++20)</span></span></span></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="runtime_format.html" title="cpp/utility/format/runtime format"><span class="t-lines"><span>runtime_format</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx26">(C++26)</span></span></span></div></div></td></tr>
+<tr class="t-nv-h1"><td colspan="5"><a href="format.html#Formatting_concepts" title="cpp/utility/format/format">Formatting concepts</a></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="formattable.html" title="cpp/utility/format/formattable"><span class="t-lines"><span>formattable</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx23">(C++23)</span></span></span></div></div></td></tr>
+<tr class="t-nv-h1"><td colspan="5">Formatter</td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="formatter.html" title="cpp/utility/format/formatter"><span class="t-lines"><span>formatter</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx20">(C++20)</span></span></span></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="tuple_formatter.html" title="cpp/utility/format/tuple formatter"><span class="t-lines"><span>formatter<span class="t-dsc-small">&lt;<i>pair-or-tuple</i>&gt;</span></span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx23">(C++23)</span></span></span></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="ranges_formatter.html" title="cpp/utility/format/ranges formatter"><span class="t-lines"><span>formatter<span class="t-dsc-small">&lt;<i>range</i>&gt;</span></span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx23">(C++23)</span></span></span></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="range_formatter.html" title="cpp/utility/format/range formatter"><span class="t-lines"><span>range_formatter</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx23">(C++23)</span></span></span></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="enable_nonlocking_formatter_optimization.html" title="cpp/utility/format/enable nonlocking formatter optimization"><span class="t-lines"><span>enable_nonlocking_formatter_optimization</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx23">(C++23)</span></span></span></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><strong class="selflink"><span class="t-lines"><span>basic_format_parse_context</span><span>format_parse_context</span><span>wformat_parse_context</span></span></strong></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx20">(C++20)</span></span><span><span class="t-mark-rev t-since-cxx20">(C++20)</span></span><span><span class="t-mark-rev t-since-cxx20">(C++20)</span></span></span></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="basic_format_context.html" title="cpp/utility/format/basic format context"><span class="t-lines"><span>basic_format_context</span><span>format_context</span><span>wformat_context</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx20">(C++20)</span></span><span><span class="t-mark-rev t-since-cxx20">(C++20)</span></span><span><span class="t-mark-rev t-since-cxx20">(C++20)</span></span></span></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="range_format.html" title="cpp/utility/format/range format"><span class="t-lines"><span>range_format</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx23">(C++23)</span></span></span></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="format_kind.html" title="cpp/utility/format/format kind"><span class="t-lines"><span>format_kind</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx23">(C++23)</span></span></span></div></div></td></tr>
+<tr class="t-nv-h1"><td colspan="5">Formatting arguments</td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="basic_format_arg.html" title="cpp/utility/format/basic format arg"><span class="t-lines"><span>basic_format_arg</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx20">(C++20)</span></span></span></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="basic_format_arg/handle.html" title="cpp/utility/format/basic format arg/handle"><span class="t-lines"><span>basic_format_arg::handle</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx20">(C++20)</span></span></span></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="basic_format_args.html" title="cpp/utility/format/basic format args"><span class="t-lines"><span>basic_format_args</span><span>format_args</span><span>wformat_args</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx20">(C++20)</span></span><span><span class="t-mark-rev t-since-cxx20">(C++20)</span></span><span><span class="t-mark-rev t-since-cxx20">(C++20)</span></span></span></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="visit_format_arg.html" title="cpp/utility/format/visit format arg"><span class="t-lines"><span>visit_format_arg</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx20">(C++20)</span> <span class="t-mark-rev t-deprecated-cxx26">(deprecated in C++26)</span></span></span></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="make_format_args.html" title="cpp/utility/format/make format args"><span class="t-lines"><span>make_format_args</span><span>make_wformat_args</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx20">(C++20)</span></span><span><span class="t-mark-rev t-since-cxx20">(C++20)</span></span></span></div></div></td></tr>
+<tr class="t-nv-h1"><td colspan="5"><a href="format.html#Format_error" title="cpp/utility/format/format">Format error</a></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="format_error.html" title="cpp/utility/format/format error"><span class="t-lines"><span>format_error</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx20">(C++20)</span></span></span></div></div></td></tr>
+</table></div><div></div></div></div></div><div class="t-navbar-sep"> </div></div>
+<table class="t-dcl-begin"><tbody>
+<tr class="t-dsc-header">
+<td> <div>Defined in header <code><a href="../../header/format.html" title="cpp/header/format">&lt;format&gt;</a></code>
+ </div></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="t-dcl t-since-cxx20">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> CharT <span class="sy1">&gt;</span><br>
+<span class="kw1">class</span> basic_format_parse_context<span class="sy4">;</span></span></div></td>
+<td class="t-dcl-nopad">  </td>
+<td> <span class="t-mark-rev t-since-cxx20">(since C++20)</span> </td>
+</tr>
+<tr class="t-dcl-sep"><td></td><td></td><td></td></tr>
+</tbody></table>
+<p>Provides access to the format string parsing state consisting of the format string range being parsed and the argument counter for automatic indexing.
+</p><p>A <code>std::basic_format_parse_context</code> instance is passed to <a href="../../named_req/Formatter.html" title="cpp/named req/Formatter"><span style="font-family: Georgia, 'DejaVu Serif', serif; font-style:italic">Formatter</span></a> when parsing the format specification.
+</p><p>A program that declares an explicit or partial specialization of <code>std::basic_format_parse_context</code> is ill-formed, no diagnostic required.
+</p><p>Several typedefs for common character types are provided:
+</p>
+<table class="t-dsc-begin">
+
+<tr class="t-dsc-header">
+<td colspan="2"> <div>Defined in header <code><a href="../../header/format.html" title="cpp/header/format">&lt;format&gt;</a></code> </div>
+</td></tr>
+
+<tr class="t-dsc-hitem">
+<td> Type
+</td>
+<td> Definition
+</td></tr>
+
+
+<tr class="t-dsc">
+<td> <code>std::format_parse_context</code>
+</td>
+<td> <span class="mw-geshi cpp source-cpp">std<span class="sy4">::</span><span class="me2">basic_format_parse_context</span><span class="sy1">&lt;</span><span class="kw4">char</span><span class="sy1">&gt;</span></span>
+</td></tr>
+
+
+<tr class="t-dsc">
+<td> <code>std::wformat_parse_context</code>
+</td>
+<td> <span class="mw-geshi cpp source-cpp">std<span class="sy4">::</span><span class="me2">basic_format_parse_context</span><span class="sy1">&lt;</span><span class="kw4">wchar_t</span><span class="sy1">&gt;</span></span>
+</td></tr>
+
+</table>
+<h3><span class="mw-headline" id="Member_types">Member types</span></h3>
+<table class="t-dsc-begin">
+
+<tr class="t-dsc-hitem">
+<td> Type
+</td>
+<td> Definition
+</td></tr>
+
+
+<tr class="t-dsc">
+<td> <code>char_type</code>
+</td>
+<td> <code>CharT</code>
+</td></tr>
+
+
+<tr class="t-dsc">
+<td> <code>iterator</code>
+</td>
+<td> <span class="mw-geshi cpp source-cpp"><a href="../../string/basic_string_view.html"><span class="kw1254">std::<span class="me2">basic_string_view</span></span></a><span class="sy1">&lt;</span>CharT<span class="sy1">&gt;</span><span class="sy4">::</span><span class="me2">const_iterator</span></span>
+</td></tr>
+
+
+<tr class="t-dsc">
+<td> <code>const_iterator</code>
+</td>
+<td> <span class="mw-geshi cpp source-cpp"><a href="../../string/basic_string_view.html"><span class="kw1254">std::<span class="me2">basic_string_view</span></span></a><span class="sy1">&lt;</span>CharT<span class="sy1">&gt;</span><span class="sy4">::</span><span class="me2">const_iterator</span></span>
+</td></tr>
+
+</table>
+<h3><span class="mw-headline" id="Member_functions">Member functions</span></h3>
+<table class="t-dsc-begin">
+
+<tr class="t-dsc">
+<td>  <div class="t-dsc-member-div t-dsc-member-nobold-div"><div><span class="t-lines"><span>(constructor)</span></span></div></div>
+</td>
+<td>  constructs a <code>std::basic_format_parse_context</code> instance from format string and argument count <br> <span class="t-mark">(public member function)</span>
+</td></tr>
+
+
+<tr class="t-dsc">
+<td>  <div class="t-dsc-member-div"><div><span class="t-lines"><span>operator=</span></span></div><div><span class="t-lines"><span><span class="t-cmark">[deleted]</span></span></span></div></div>
+</td>
+<td>  <code>std::basic_format_parse_context</code> is not copyable <br> <span class="t-mark">(public member function)</span>
+</td></tr>
+
+
+<tr class="t-dsc">
+<td>  <div class="t-dsc-member-div"><div><span class="t-lines"><span>begin</span></span></div></div>
+</td>
+<td>  returns an iterator to the beginning of the format string range <br> <span class="t-mark">(public member function)</span>
+</td></tr>
+
+
+<tr class="t-dsc">
+<td>  <div class="t-dsc-member-div"><div><span class="t-lines"><span>end</span></span></div></div>
+</td>
+<td>  returns an iterator to the end of the format string range <br> <span class="t-mark">(public member function)</span>
+</td></tr>
+
+
+<tr class="t-dsc">
+<td>  <div class="t-dsc-member-div"><div><span class="t-lines"><span>advance_to</span></span></div></div>
+</td>
+<td>  advances the begin iterator to the given position <br> <span class="t-mark">(public member function)</span>
+</td></tr>
+
+
+<tr class="t-dsc">
+<td>  <div class="t-dsc-member-div"><div><span class="t-lines"><span>next_arg_id</span></span></div></div>
+</td>
+<td>  enters automatic indexing mode, and returns the next argument index <br> <span class="t-mark">(public member function)</span>
+</td></tr>
+
+
+<tr class="t-dsc">
+<td>  <div class="t-dsc-member-div"><div><span class="t-lines"><span>check_arg_id</span></span></div></div>
+</td>
+<td>  enters manual indexing mode, checks if the given argument index is in range <br> <span class="t-mark">(public member function)</span>
+</td></tr>
+
+
+<tr class="t-dsc">
+<td>  <div class="t-dsc-member-div"><div><span class="t-lines"><span>check_dynamic_spec</span></span></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx26">(C++26)</span></span></span></div></div>
+</td>
+<td>  checks if the type of the corresponding format argument with the given argument index is in the given type template arguments <br> <span class="t-mark">(public member function)</span>
+</td></tr>
+
+
+<tr class="t-dsc">
+<td>  <div class="t-dsc-member-div"><div><span class="t-lines"><span>check_dynamic_spec_integral</span></span></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx26">(C++26)</span></span></span></div></div>
+</td>
+<td>  checks if the type of the corresponding format argument with the given argument index is an integral type <br> <span class="t-mark">(public member function)</span>
+</td></tr>
+
+
+<tr class="t-dsc">
+<td>  <div class="t-dsc-member-div"><div><span class="t-lines"><span>check_dynamic_spec_string</span></span></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx26">(C++26)</span></span></span></div></div>
+</td>
+<td>  checks if the type of the corresponding format argument with the given argument index is a string type <br> <span class="t-mark">(public member function)</span>
+</td></tr>
+
+</table>
+<div class="t-member">
+<h2> <span class="mw-headline" id="std::basic_format_parse_context::basic_format_parse_context"><span style="font-size:0.7em; line-height:130%">std::basic_format_parse_context::</span>basic_format_parse_context</span></h2>
+<table class="t-dcl-begin"><tbody>
+</tbody>
+<tbody class="t-dcl-rev t-dcl-rev-num"><tr class="t-dcl-rev-aux">
+<td></td>
+<td rowspan="142">(1)</td>
+<td></td>
+</tr>
+<tr class="t-dcl t-until-cxx26">
+<td><div><span class="mw-geshi cpp source-cpp"><span class="kw4">constexpr</span> <span class="kw1">explicit</span> <br>
+<p>basic_format_parse_context<span class="br0">(</span> <a href="../../string/basic_string_view.html"><span class="kw1254">std::<span class="me2">basic_string_view</span></span></a><span class="sy1">&lt;</span>CharT<span class="sy1">&gt;</span> fmt,<br>
+</p>
+                            <a href="../../types/size_t.html"><span class="kw107">std::<span class="me2">size_t</span></span></a> num_args <span class="sy1">=</span> <span class="nu0">0</span> <span class="br0">)</span> <span class="kw1">noexcept</span><span class="sy4">;</span></span></div></td>
+<td class="t-dcl-nopad"> </td>
+<td><span class="t-mark-rev t-until-cxx26">(until C++26)</span></td>
+</tr>
+<tr class="t-dcl t-since-cxx26">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw4">constexpr</span> <span class="kw1">explicit</span> <br>
+basic_format_parse_context<span class="br0">(</span> <a href="../../string/basic_string_view.html"><span class="kw1254">std::<span class="me2">basic_string_view</span></span></a><span class="sy1">&lt;</span>CharT<span class="sy1">&gt;</span> fmt <span class="br0">)</span> <span class="kw1">noexcept</span><span class="sy4">;</span></span></div></td>
+<td class="t-dcl-nopad">  </td>
+<td> <span class="t-mark-rev t-since-cxx26">(since C++26)</span> </td>
+</tr>
+</tbody><tbody>
+<tr class="t-dcl">
+<td> <div><span class="mw-geshi cpp source-cpp">basic_format_parse_context<span class="br0">(</span> <span class="kw4">const</span> basic_format_parse_context<span class="sy3">&amp;</span> <span class="br0">)</span> <span class="sy1">=</span> delete<span class="sy4">;</span></span></div></td>
+<td> (2) </td>
+<td class="t-dcl-nopad">  </td>
+</tr>
+<tr class="t-dcl-sep"><td></td><td></td><td></td></tr>
+</tbody></table>
+<div class="t-li1"><span class="t-li">1)</span> Constructs a <code>std::basic_format_parse_context</code> instance. Initializes the format string range to <span style="display: inline-block;"><code>[</code><span class="t-c"><span class="mw-geshi cpp source-cpp">fmt.<span class="me1">begin</span><span class="br0">(</span><span class="br0">)</span></span></span><code>, </code><span class="t-c"><span class="mw-geshi cpp source-cpp">fmt.<span class="me1">end</span><span class="br0">(</span><span class="br0">)</span></span></span><code>)</code></span>, and the argument count to <span class="t-rev-inl t-until-cxx26"><span><span class="t-c"><span class="mw-geshi cpp source-cpp">num_args</span></span></span><span><span class="t-mark-rev t-until-cxx26">(until C++26)</span></span></span><span class="t-rev-inl t-since-cxx26"><span><span class="t-c"><span class="mw-geshi cpp source-cpp">​<span class="nu0">0</span>​</span></span></span><span><span class="t-mark-rev t-since-cxx26">(since C++26)</span></span></span>. 
+<table class="t-rev-begin">
+<tr class="t-rev t-since-cxx26"><td>
+<p>Any call to <code>next_arg_id</code>, <code>check_arg_id</code>, or <code>check_dynamic_spec</code> on an instance of <code>std::basic_format_parse_context</code> initialized using this constructor is not a core constant expression.
+</p>
+</td>
+<td><span class="t-mark-rev t-since-cxx26">(since C++26)</span></td></tr>
+</table></div>
+<div class="t-li1"><span class="t-li">2)</span> The copy constructor is deleted. <code>std::basic_format_parse_context</code> is not copyable.
+</div></div>
+<div class="t-member">
+<h2> <span class="mw-headline" id="std::basic_format_parse_context::begin"><span style="font-size:0.7em; line-height:130%">std::basic_format_parse_context::</span>begin</span></h2>
+<table class="t-dcl-begin"><tbody>
+
+<tr class="t-dcl">
+<td class="t-dcl-nopad"> <div><span class="mw-geshi cpp source-cpp"><span class="kw4">constexpr</span> const_iterator begin<span class="br0">(</span><span class="br0">)</span> <span class="kw4">const</span> <span class="kw1">noexcept</span><span class="sy4">;</span></span></div></td>
+<td class="t-dcl-nopad">  </td>
+<td class="t-dcl-nopad">  </td>
+</tr>
+<tr class="t-dcl-sep"><td></td><td></td><td></td></tr>
+</tbody></table>
+<p>Returns an iterator to the beginning of the format string range.
+</p>
+</div>
+<div class="t-member">
+<h2> <span class="mw-headline" id="std::basic_format_parse_context::end"><span style="font-size:0.7em; line-height:130%">std::basic_format_parse_context::</span>end</span></h2>
+<table class="t-dcl-begin"><tbody>
+
+<tr class="t-dcl">
+<td class="t-dcl-nopad"> <div><span class="mw-geshi cpp source-cpp"><span class="kw4">constexpr</span> const_iterator end<span class="br0">(</span><span class="br0">)</span> <span class="kw4">const</span> <span class="kw1">noexcept</span><span class="sy4">;</span></span></div></td>
+<td class="t-dcl-nopad">  </td>
+<td class="t-dcl-nopad">  </td>
+</tr>
+<tr class="t-dcl-sep"><td></td><td></td><td></td></tr>
+</tbody></table>
+<p>Returns an iterator to the end of the format string range.
+</p>
+</div>
+<div class="t-member">
+<h2> <span class="mw-headline" id="std::basic_format_parse_context::advance_to"><span style="font-size:0.7em; line-height:130%">std::basic_format_parse_context::</span>advance_to</span></h2>
+<table class="t-dcl-begin"><tbody>
+
+<tr class="t-dcl">
+<td class="t-dcl-nopad"> <div><span class="mw-geshi cpp source-cpp"><span class="kw4">constexpr</span> <span class="kw4">void</span> advance_to<span class="br0">(</span> const_iterator it <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td class="t-dcl-nopad">  </td>
+<td class="t-dcl-nopad">  </td>
+</tr>
+<tr class="t-dcl-sep"><td></td><td></td><td></td></tr>
+</tbody></table>
+<p>Sets the beginning of the format string range to <span class="t-c"><span class="mw-geshi cpp source-cpp">it</span></span>. After a call to <code>advance_to()</code>, subsequent calls to <code>begin()</code> will return a copy of <span class="t-c"><span class="mw-geshi cpp source-cpp">it</span></span>.
+</p><p>The behavior is undefined if <span class="t-c"><span class="mw-geshi cpp source-cpp">end<span class="br0">(</span><span class="br0">)</span></span></span> is not <a href="../../iterator.html#Ranges" title="cpp/iterator">reachable</a> from <span class="t-c"><span class="mw-geshi cpp source-cpp">it</span></span>.
+</p>
+</div>
+<div class="t-member">
+<h2> <span class="mw-headline" id="std::basic_format_parse_context::next_arg_id"><span style="font-size:0.7em; line-height:130%">std::basic_format_parse_context::</span>next_arg_id</span></h2>
+<table class="t-dcl-begin"><tbody>
+
+<tr class="t-dcl">
+<td class="t-dcl-nopad"> <div><span class="mw-geshi cpp source-cpp"><span class="kw4">constexpr</span> <a href="../../types/size_t.html"><span class="kw107">std::<span class="me2">size_t</span></span></a> next_arg_id<span class="br0">(</span><span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td class="t-dcl-nopad">  </td>
+<td class="t-dcl-nopad">  </td>
+</tr>
+<tr class="t-dcl-sep"><td></td><td></td><td></td></tr>
+</tbody></table>
+<p>Enters automatic argument indexing mode, and returns the next argument index, starting from 0.
+</p><p>If <span class="t-c"><span class="mw-geshi cpp source-cpp"><span class="sy2">*</span>this</span></span> has already entered manual argument indexing mode, throws <span class="t-lc"><a href="format_error.html" title="cpp/utility/format/format error">std::format_error</a></span>.
+</p><p>If the next argument index is larger than or equal to the <span class="t-c"><span class="mw-geshi cpp source-cpp">num_args</span></span> provided in the constructor, the call is not a core constant expression.
+</p>
+</div>
+<div class="t-member">
+<h2> <span class="mw-headline" id="std::basic_format_parse_context::check_arg_id"><span style="font-size:0.7em; line-height:130%">std::basic_format_parse_context::</span>check_arg_id</span></h2>
+<table class="t-dcl-begin"><tbody>
+
+<tr class="t-dcl">
+<td class="t-dcl-nopad"> <div><span class="mw-geshi cpp source-cpp"><span class="kw4">constexpr</span> <span class="kw4">void</span> check_arg_id<span class="br0">(</span> <a href="../../types/size_t.html"><span class="kw107">std::<span class="me2">size_t</span></span></a> id <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td class="t-dcl-nopad">  </td>
+<td class="t-dcl-nopad">  </td>
+</tr>
+<tr class="t-dcl-sep"><td></td><td></td><td></td></tr>
+</tbody></table>
+<p>Enters manual argument indexing mode.
+</p><p>If <span class="t-c"><span class="mw-geshi cpp source-cpp"><span class="sy2">*</span>this</span></span> has already entered automatic argument indexing mode, throws <span class="t-lc"><a href="format_error.html" title="cpp/utility/format/format error">std::format_error</a></span>.
+</p><p>If <span class="t-c"><span class="mw-geshi cpp source-cpp">id</span></span> is larger than or equal to the <span class="t-c"><span class="mw-geshi cpp source-cpp">num_args</span></span> provided in the constructor, the call is not a core constant expression.
+</p>
+</div>
+<div class="t-member">
+<h2> <span class="mw-headline" id="std::basic_format_parse_context::check_dynamic_spec"><span style="font-size:0.7em; line-height:130%">std::basic_format_parse_context::</span>check_dynamic_spec</span></h2>
+<table class="t-dcl-begin"><tbody>
+
+<tr class="t-dcl t-since-cxx26">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span>... <span class="me1">Ts</span> <span class="sy1">&gt;</span><br>
+<span class="kw4">constexpr</span> <span class="kw4">void</span> check_dynamic_spec<span class="br0">(</span> <a href="../../types/size_t.html"><span class="kw107">std::<span class="me2">size_t</span></span></a> id <span class="br0">)</span> <span class="kw1">noexcept</span><span class="sy4">;</span></span></div></td>
+<td class="t-dcl-nopad">  </td>
+<td> <span class="t-mark-rev t-since-cxx26">(since C++26)</span> </td>
+</tr>
+<tr class="t-dcl-sep"><td></td><td></td><td></td></tr>
+</tbody></table>
+<p>If <span class="t-c"><span class="mw-geshi cpp source-cpp">id</span></span> is larger than or equal to the <span class="t-c"><span class="mw-geshi cpp source-cpp">num_args</span></span> provided in the constructor or the type of the corresponding format argument (after conversion to <span class="t-lc"><a href="basic_format_arg.html" title="cpp/utility/format/basic format arg">std::basic_format_arg</a></span>) is not one of the types in <span class="t-c"><span class="mw-geshi cpp source-cpp">Ts...</span></span>, the call is not a core constant expression. A call to <span class="t-c"><span class="mw-geshi cpp source-cpp">check_dynamic_spec</span></span> has no effect at runtime.
+</p><p>The program is ill-formed unless <span class="t-c"><span class="mw-geshi cpp source-cpp">sizeof...<span class="br0">(</span>Ts<span class="br0">)</span> <span class="sy1">&gt;=</span> <span class="nu0">1</span></span></span>, the types in <span class="t-c"><span class="mw-geshi cpp source-cpp">Ts...</span></span> are unique, and each type is one of <span class="t-c"><span class="mw-geshi cpp source-cpp"><span class="kw4">bool</span></span></span>, <span class="t-c"><span class="mw-geshi cpp source-cpp">char_type</span></span>, <span class="t-c"><span class="mw-geshi cpp source-cpp"><span class="kw4">int</span></span></span>, <span class="t-c"><span class="mw-geshi cpp source-cpp"><span class="kw4">unsigned</span> <span class="kw4">int</span></span></span>, <span class="t-c"><span class="mw-geshi cpp source-cpp"><span class="kw4">long</span> <span class="kw4">long</span> <span class="kw4">int</span></span></span>, <span class="t-c"><span class="mw-geshi cpp source-cpp"><span class="kw4">unsigned</span> <span class="kw4">long</span> <span class="kw4">long</span> <span class="kw4">int</span></span></span>, <span class="t-c"><span class="mw-geshi cpp source-cpp"><span class="kw4">float</span></span></span>, <span class="t-c"><span class="mw-geshi cpp source-cpp"><span class="kw4">double</span></span></span>, <span class="t-c"><span class="mw-geshi cpp source-cpp"><span class="kw4">long</span> <span class="kw4">double</span></span></span>, <span class="t-c"><span class="mw-geshi cpp source-cpp"><span class="kw4">const</span> char_type<span class="sy2">*</span></span></span>, <span class="t-c"><span class="mw-geshi cpp source-cpp"><a href="../../string/basic_string_view.html"><span class="kw1254">std::<span class="me2">basic_string_view</span></span></a><span class="sy1">&lt;</span>char_type<span class="sy1">&gt;</span></span></span>, or <span class="t-c"><span class="mw-geshi cpp source-cpp"><span class="kw4">const</span> <span class="kw4">void</span><span class="sy2">*</span></span></span>.
+</p>
+</div>
+<div class="t-member">
+<h2> <span class="mw-headline" id="std::basic_format_parse_context::check_dynamic_spec_integral"><span style="font-size:0.7em; line-height:130%">std::basic_format_parse_context::</span>check_dynamic_spec_integral</span></h2>
+<table class="t-dcl-begin"><tbody>
+
+<tr class="t-dcl t-since-cxx26">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw4">constexpr</span> <span class="kw4">void</span> check_dynamic_spec_integral<span class="br0">(</span> <a href="../../types/size_t.html"><span class="kw107">std::<span class="me2">size_t</span></span></a> id <span class="br0">)</span> <span class="kw1">noexcept</span><span class="sy4">;</span></span></div></td>
+<td class="t-dcl-nopad">  </td>
+<td> <span class="t-mark-rev t-since-cxx26">(since C++26)</span> </td>
+</tr>
+<tr class="t-dcl-sep"><td></td><td></td><td></td></tr>
+</tbody></table>
+<p>Equivalent to call <span class="t-c"><span class="mw-geshi cpp source-cpp">check_dynamic_spec<span class="sy1">&lt;</span><span class="kw4">int</span>, <span class="kw4">unsigned</span> <span class="kw4">int</span>, <span class="kw4">long</span> <span class="kw4">long</span> <span class="kw4">int</span>, <span class="kw4">unsigned</span> <span class="kw4">long</span> <span class="kw4">long</span> <span class="kw4">int</span><span class="sy1">&gt;</span><span class="br0">(</span>id<span class="br0">)</span></span></span>. A call to <span class="t-c"><span class="mw-geshi cpp source-cpp">check_dynamic_spec_integral</span></span> has no effect at runtime.
+</p>
+</div>
+<div class="t-member">
+<h2> <span class="mw-headline" id="std::basic_format_parse_context::check_dynamic_spec_string"><span style="font-size:0.7em; line-height:130%">std::basic_format_parse_context::</span>check_dynamic_spec_string</span></h2>
+<table class="t-dcl-begin"><tbody>
+
+<tr class="t-dcl t-since-cxx26">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw4">constexpr</span> <span class="kw4">void</span> check_dynamic_spec_string<span class="br0">(</span> <a href="../../types/size_t.html"><span class="kw107">std::<span class="me2">size_t</span></span></a> id <span class="br0">)</span> <span class="kw1">noexcept</span><span class="sy4">;</span></span></div></td>
+<td class="t-dcl-nopad">  </td>
+<td> <span class="t-mark-rev t-since-cxx26">(since C++26)</span> </td>
+</tr>
+<tr class="t-dcl-sep"><td></td><td></td><td></td></tr>
+</tbody></table>
+<p>Equivalent to call <span class="t-c"><span class="mw-geshi cpp source-cpp">check_dynamic_spec<span class="sy1">&lt;</span><span class="kw4">const</span> char_type<span class="sy2">*</span>, <a href="../../string/basic_string_view.html"><span class="kw1254">std::<span class="me2">basic_string_view</span></span></a><span class="sy1">&lt;</span>char_type<span class="sy1">&gt;&gt;</span><span class="br0">(</span>id<span class="br0">)</span></span></span>. A call to <span class="t-c"><span class="mw-geshi cpp source-cpp">check_dynamic_spec_string</span></span> has no effect at runtime.
+</p>
+</div>
+<h3><span class="mw-headline" id="Example">Example</span></h3>
+<table class="metadata plainlinks ambox mbox-small-left ambox-notice" style=""><tr><td class="mbox-empty-cell"></td><td class="mbox-text" style="">This section is incomplete<br>Reason: no example </td></tr></table>
+<h3><span class="mw-headline" id="Defect_reports">Defect reports</span></h3>
+<p>The following behavior-changing defect reports were applied retroactively to previously published C++ standards.
+</p>
+<table class="dsctable" style="font-size:0.8em">
+<tr>
+<th>DR
+</th>
+<th>Applied to
+</th>
+<th>Behavior as published
+</th>
+<th>Correct behavior
+</th></tr>
+<tr>
+<td><a rel="nofollow" class="external text" href="https://cplusplus.github.io/LWG/issue3825">LWG 3825</a>
+</td>
+<td>C++20
+</td>
+<td><code>check_arg_id</code> has a compile-time argument<br><span class="t-c"><span class="mw-geshi cpp source-cpp">id</span></span> check, but <code>next_arg_id</code> did not have
+</td>
+<td>added
+</td></tr>
+<tr>
+<td><a rel="nofollow" class="external text" href="https://cplusplus.github.io/LWG/issue3975">LWG 3975</a>
+</td>
+<td>C++20
+</td>
+<td>user specialization of <code>basic_format_parse_context</code> was allowed
+</td>
+<td>disallowed
+</td></tr></table>
+
+
+
+

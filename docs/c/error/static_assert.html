@@ -1,0 +1,95 @@
+<div class="t-navbar" style=""><div class="t-navbar-sep"> </div><div class="t-navbar-head"><a href="../../c.html" title="c"> C</a><div class="t-navbar-menu"><div><div><table class="t-nv-begin" cellpadding="0" style="line-height:1.1em;">
+<tr class="t-nv"><td colspan="5"><a href="../compiler_support.html" title="c/compiler support">Compiler support</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../language.html" title="c/language">Language</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../header.html" title="c/header">Headers</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../types.html" title="c/types">Type support</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../program.html" title="c/program">Program utilities</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../variadic.html" title="c/variadic">Variadic function support</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../error.html" title="c/error">Error handling</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../memory.html" title="c/memory">Dynamic memory management</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../string.html" title="c/string">Strings library</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../algorithm.html" title="c/algorithm">Algorithms</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../numeric.html" title="c/numeric">Numerics</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../chrono.html" title="c/chrono">Date and time utilities</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../io.html" title="c/io">Input/output support</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../locale.html" title="c/locale">Localization support</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../thread.html" title="c/thread">Concurrency support</a> <span class="t-mark-rev t-since-c11">(C11)</span></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../experimental.html" title="c/experimental">Technical Specifications</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../index.html" title="c/symbol index">Symbol index</a></td></tr>
+</table></div><div></div></div></div></div><div class="t-navbar-sep"> </div><div class="t-navbar-head"><a href="../error.html" title="c/error"> Error handling</a><div class="t-navbar-menu"><div><div><table class="t-nv-begin" cellpadding="0" style="">
+<tr class="t-nv-h2"><td colspan="5"> Error codes</td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="errno_macros.html" title="c/error/errno macros"> Error codes</a> </td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="errno.html" title="c/error/errno"><span class="t-lines"><span>errno</span></span></a></div></div></td></tr>
+<tr class="t-nv-h2"><td colspan="5"> Assertions</td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="assert.html" title="c/error/assert"><span class="t-lines"><span>assert</span></span></a></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><strong class="selflink"><span class="t-lines"><span>static_assert</span></span></strong></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-c11">(C11)</span><span class="t-mark-rev t-until-c23">(removed in C23)</span></span></span></div></div></td></tr>
+<tr class="t-nv-h2"><td colspan="5"> Bounds checking</td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="set_constraint_handler_s.html" title="c/error/set constraint handler s"><span class="t-lines"><span>set_constraint_handler_s</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-c11">(C11)</span></span></span></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="abort_handler_s.html" title="c/error/abort handler s"><span class="t-lines"><span>abort_handler_s</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-c11">(C11)</span></span></span></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="ignore_handler_s.html" title="c/error/ignore handler s"><span class="t-lines"><span>ignore_handler_s</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-c11">(C11)</span></span></span></div></div></td></tr>
+</table></div><div></div></div></div></div><div class="t-navbar-sep"> </div></div>
+<table class="t-dcl-begin"><tbody>
+<tr class="t-dsc-header">
+<td> <div>Defined in header <code><a href="../error.html" title="c/error"><tt>&lt;assert.h&gt;</tt></a></code>
+ </div></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="t-dcl t-since-c11 t-until-c23">
+<td> <div><span class="mw-geshi c source-c"><span class="co2">#define static_assert _Static_assert</span></span></div></td>
+<td class="t-dcl-nopad">  </td>
+<td> <span class="t-mark-rev t-since-c11">(since C11)</span> <br><span class="t-mark-rev t-until-c23">(removed in C23)</span> </td>
+</tr>
+<tr class="t-dcl-sep"><td></td><td></td><td></td></tr>
+</tbody></table>
+<p>This convenience macro expands to the keyword <a href="../keyword/_Static_assert.html" title="c/keyword/ Static assert"><tt>_Static_assert</tt></a>.
+</p>
+<h3><span class="mw-headline" id="Example">Example</span></h3>
+<div class="t-example"><div class="t-example-live-link"><div class="coliru-btn coliru-btn-run-init">Run this code</div></div>
+<div dir="ltr" class="mw-geshi" style="text-align: left;"><div class="c source-c"><pre class="de1"><span class="co2">#include &lt;assert.h&gt;</span>
+ 
+<span class="kw4">int</span> main<span class="br0">(</span><span class="kw4">void</span><span class="br0">)</span>
+<span class="br0">{</span>
+    static_assert<span class="br0">(</span><span class="nu0">2</span> <span class="sy2">+</span> <span class="nu0">2</span> <span class="sy1">==</span> <span class="nu0">4</span>, <span class="st0">"2+2 isn't 4"</span><span class="br0">)</span><span class="sy4">;</span>   <span class="co1">// well-formed</span>
+ 
+    static_assert<span class="br0">(</span><span class="kw4">sizeof</span><span class="br0">(</span><span class="kw4">int</span><span class="br0">)</span> <span class="sy1">&lt;</span> <span class="kw4">sizeof</span><span class="br0">(</span><span class="kw4">char</span><span class="br0">)</span>,   <span class="co1">// compile-time error</span>
+                  <span class="st0">"this program requires that int is less than char"</span><span class="br0">)</span><span class="sy4">;</span>
+<span class="br0">}</span></pre></div></div>
+</div>
+<h3><span class="mw-headline" id="Notes">Notes</span></h3>
+<p>Since C23, <a href="../language/static_assert.html" title="c/language/ Static assert"><tt>static_assert</tt></a> is itself a keyword, which may also be a predefined macro, so <a href="../error.html" title="c/error"><tt>&lt;assert.h&gt;</tt></a> no longer provides it.
+</p>
+<h3><span class="mw-headline" id="References">References</span></h3>
+<div class="t-ref-std-23">
+<ul><li> C23 standard (ISO/IEC 9899:2024): 
+</li></ul>
+<dl><dd><ul><li> 7.2/3 Diagnostics &lt;assert.h&gt; (p: TBD)
+</li></ul>
+</dd></dl>
+</div>
+<div class="t-ref-std-17">
+<ul><li> C17 standard (ISO/IEC 9899:2018): 
+</li></ul>
+<dl><dd><ul><li> 7.2/3 Diagnostics &lt;assert.h&gt; (p: 135)
+</li></ul>
+</dd></dl>
+</div>
+<div class="t-ref-std-11">
+<ul><li> C11 standard (ISO/IEC 9899:2011): 
+</li></ul>
+<dl><dd><ul><li> 7.2/3 Diagnostics &lt;assert.h&gt; (p: 186)
+</li></ul>
+</dd></dl>
+</div>
+<h3><span class="mw-headline" id="See_also">See also</span></h3>
+<table class="t-dsc-begin">
+
+<tr class="t-dsc">
+<td colspan="2"> <div class="t-dsc-see"><span><a href="../../cpp/language/static_assert.html" title="cpp/language/static assert">C++ documentation</a></span> for <span class=""><span>Static Assertion</span></span></div>
+</td></tr>
+
+</table>
+
+
+
+

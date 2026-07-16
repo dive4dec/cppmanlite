@@ -1,0 +1,85 @@
+<div class="t-navbar" style=""><div class="t-navbar-sep"> </div><div class="t-navbar-head"><a href="../../c.html" title="c"> C</a><div class="t-navbar-menu"><div><div><table class="t-nv-begin" cellpadding="0" style="line-height:1.1em;">
+<tr class="t-nv"><td colspan="5"><a href="../compiler_support.html" title="c/compiler support">Compiler support</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../language.html" title="c/language">Language</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../header.html" title="c/header">Headers</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../types.html" title="c/types">Type support</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../program.html" title="c/program">Program utilities</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../variadic.html" title="c/variadic">Variadic function support</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../error.html" title="c/error">Error handling</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../memory.html" title="c/memory">Dynamic memory management</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../string.html" title="c/string">Strings library</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../algorithm.html" title="c/algorithm">Algorithms</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../numeric.html" title="c/numeric">Numerics</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../chrono.html" title="c/chrono">Date and time utilities</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../io.html" title="c/io">Input/output support</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../locale.html" title="c/locale">Localization support</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../thread.html" title="c/thread">Concurrency support</a> <span class="t-mark-rev t-since-c11">(C11)</span></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../experimental.html" title="c/experimental">Technical Specifications</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../index.html" title="c/symbol index">Symbol index</a></td></tr>
+</table></div><div></div></div></div></div><div class="t-navbar-sep"> </div><div class="t-navbar-head"><a href="../language.html" title="c/language"> C language</a><div class="t-navbar-menu"><div><div><table class="t-nv-begin" cellpadding="0" style="">
+<tr class="t-nv"><td colspan="5"> <a href="basic_concepts.html" title="c/language/basic concepts">Basic concepts</a></td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="../keyword.html" title="c/keyword"> Keywords</a></td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="../preprocessor.html" title="c/preprocessor"> Preprocessor</a></td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="statements.html" title="c/language/statements"> Statements</a></td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="expressions.html" title="c/language/expressions"> Expressions</a></td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="initialization.html" title="c/language/initialization"> Initialization</a></td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="declarations.html" title="c/language/declarations"> Declarations</a></td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="functions.html" title="c/language/functions"> Functions</a></td></tr>
+<tr class="t-nv-h2"><td colspan="5"> Miscellaneous</td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="history.html" title="c/language/history"> History of C</a></td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="../experimental.html" title="c/experimental">Technical Specifications</a> </td></tr>
+</table></div><div></div></div></div></div><div class="t-navbar-sep"> </div></div>
+<p>This optional extension to the C language limits the potential results of executing some forms of undefined behavior, which improves the effectiveness of static analysis of such programs. Analyzability is only guaranteed to be enabled if the <a href="../preprocessor/replace.html" title="c/preprocessor/replace">predefined macro constant</a> <span class="t-c"><span class="mw-geshi c source-c">__STDC_ANALYZABLE__</span></span><span class="t-mark-rev t-since-c11">(C11)</span> is defined by the compiler.
+</p><p>If the compiler supports analyzability, any language or library construct whose behavior is undefined is further classified between <i>critical</i> and <i>bounded</i> undefined behavior, and the behavior of all bounded UB cases is limited as specified below. 
+</p>
+<h3><span class="mw-headline" id="Critical_undefined_behavior">Critical undefined behavior</span></h3>
+<p>Critical UB is undefined behavior that might perform a memory write or a volatile memory read out of bounds of any object. A program that has critical undefined behavior may be susceptible to security exploits.
+</p><p>Only the following undefined behaviors are critical:
+</p>
+<ul><li> access to an object outside of its <a href="lifetime.html" title="c/language/lifetime">lifetime</a> (e.g. through a dangling pointer)
+</li><li> write to an object whose declarations are not <a href="compatible_type.html#Compatible_types" title="c/language/type">compatible</a>
+</li><li> function call through a function pointer whose type is not <a href="compatible_type.html#Compatible_types" title="c/language/type">compatible</a> with the type of the function it points to
+</li><li> <a href="value_category.html" title="c/language/value category">lvalue expression</a> is evaluated, but does not designate an object
+</li><li> attempted modification of a <a href="string_literal.html" title="c/language/string literal">string literal</a>
+</li><li> <a href="operator_member_access.html" title="c/language/operator member access">dereferencing</a> an invalid (null, indeterminate, etc) or  <a href="operator_arithmetic.html" title="c/language/operator arithmetic">past-the-end</a> pointer
+</li><li> modification of a <a href="const.html" title="c/language/const">const object</a> through a non-const pointer
+</li><li> call to a standard library function or macro with an invalid argument
+</li><li> call to a variadic standard library function with unexpected argument type (e.g. call to <span class="t-lc"><a href="../io/fprintf.html" title="c/io/fprintf">printf</a></span> with an argument of the type that doesn't match its conversion specifier)
+</li><li> <span class="t-lc"><a href="../program/longjmp.html" title="c/program/longjmp">longjmp</a></span> where there is no <span class="t-lc"><a href="../program/setjmp.html" title="c/program/setjmp">setjmp</a></span> up the calling scope, across threads, or from within the scope of a VM type.
+</li><li> any use of the pointer that was deallocated by <span class="t-lc"><a href="../memory/free.html" title="c/memory/free">free</a></span> or <span class="t-lc"><a href="../memory/realloc.html" title="c/memory/realloc">realloc</a></span>
+</li><li> any <a href="../string/byte.html" title="c/string/byte">string</a> or <a href="../string/wide.html" title="c/string/wide">wide string</a> library function accesses an array out of bounds
+</li></ul>
+<h3><span class="mw-headline" id="Bounded_undefined_behavior">Bounded undefined behavior</span></h3>
+<p>Bounded UB is undefined behavior that cannot perform an illegal memory write, although it may trap and may produce or store indeterminate values.
+</p>
+<ul><li> All undefined behavior not listed as critical is bounded, including
+</li></ul>
+<dl><dd><ul><li> multithreaded data races
+</li><li> use of a <a href="initialization.html" title="c/language/initialization">indeterminate values</a> with automatic storage duration
+</li><li> <a href="object.html#Strict_aliasing" title="c/language/object">strict aliasing</a> violations
+</li><li> <a href="object.html#alignment" title="c/language/object">misaligned</a> object access
+</li><li> signed integer overflow
+</li><li> <a href="eval_order.html" title="c/language/eval order">unsequenced side-effects</a> modify the same scalar or modify and read the same scalar
+</li><li> floating-to-integer or pointer-to-integer <a href="conversion.html" title="c/language/conversion">conversion</a> overflow
+</li><li> <a href="operator_arithmetic.html" title="c/language/operator arithmetic">bitwise shift</a> by a negative or too large bit count
+</li><li> <a href="operator_arithmetic.html" title="c/language/operator arithmetic">integer division</a> by zero
+</li><li> use of a void expression
+</li><li> direct <a href="operator_assignment.html" title="c/language/operator assignment">assignment</a> or <span class="t-lc"><a href="../string/byte/memcpy.html" title="c/string/byte/memcpy">memcpy</a></span> of inexactly-overlapped objects
+</li><li> <a href="restrict.html" title="c/language/restrict">restrict</a> violations
+</li><li> etc.. ALL undefined behavior that's not in the critical list.
+</li></ul>
+</dd></dl>
+<h3><span class="mw-headline" id="Notes">Notes</span></h3>
+<p>Bounded undefined behavior disables certain optimizations: compilation with analyzability enabled preserves source-code causality, which <a href="as_if.html" title="c/language/as if">may be violated</a> by undefined behavior otherwise.
+</p><p>Analyzability extension permits, as a form of implementation-defined behavior, for the <a href="../error/set_constraint_handler_s.html" title="c/error/set constraint handler s">runtime constraint handler</a> to be invoked when a trap occurs.
+</p>
+<h3><span class="mw-headline" id="References">References</span></h3>
+<div class="t-ref-std-11">
+<ul><li> C11 standard (ISO/IEC 9899:2011): 
+</li></ul>
+<dl><dd><ul><li> 6.10.8.3/1 Conditional feature macros (p: 177)
+</li></ul>
+</dd></dl>
+<dl><dd><ul><li> Annex L Analyzability (p: 652-653)
+</li></ul>
+</dd></dl>

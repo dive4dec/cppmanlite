@@ -1,0 +1,133 @@
+<div class="t-navbar" style=""><div class="t-navbar-sep"> </div><div class="t-navbar-head"><a href="../../c.html" title="c"> C</a><div class="t-navbar-menu"><div><div><table class="t-nv-begin" cellpadding="0" style="line-height:1.1em;">
+<tr class="t-nv"><td colspan="5"><a href="../compiler_support.html" title="c/compiler support">Compiler support</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../language.html" title="c/language">Language</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../header.html" title="c/header">Headers</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../types.html" title="c/types">Type support</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../program.html" title="c/program">Program utilities</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../variadic.html" title="c/variadic">Variadic function support</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../error.html" title="c/error">Error handling</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../memory.html" title="c/memory">Dynamic memory management</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../string.html" title="c/string">Strings library</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../algorithm.html" title="c/algorithm">Algorithms</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../numeric.html" title="c/numeric">Numerics</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../chrono.html" title="c/chrono">Date and time utilities</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../io.html" title="c/io">Input/output support</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../locale.html" title="c/locale">Localization support</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../thread.html" title="c/thread">Concurrency support</a> <span class="t-mark-rev t-since-c11">(C11)</span></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../experimental.html" title="c/experimental">Technical Specifications</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../index.html" title="c/symbol index">Symbol index</a></td></tr>
+</table></div><div></div></div></div></div><div class="t-navbar-sep"> </div><div class="t-navbar-head"><a href="../language.html" title="c/language"> C language</a><div class="t-navbar-menu"><div><div><table class="t-nv-begin" cellpadding="0" style="">
+<tr class="t-nv"><td colspan="5"> <a href="basic_concepts.html" title="c/language/basic concepts">Basic concepts</a></td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="../keyword.html" title="c/keyword"> Keywords</a></td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="../preprocessor.html" title="c/preprocessor"> Preprocessor</a></td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="statements.html" title="c/language/statements"> Statements</a></td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="expressions.html" title="c/language/expressions"> Expressions</a></td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="initialization.html" title="c/language/initialization"> Initialization</a></td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="declarations.html" title="c/language/declarations"> Declarations</a></td></tr>
+<tr class="t-nv"><td colspan="5"> <strong class="selflink"> Functions</strong></td></tr>
+<tr class="t-nv-h2"><td colspan="5"> Miscellaneous</td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="history.html" title="c/language/history"> History of C</a></td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="../experimental.html" title="c/experimental">Technical Specifications</a> </td></tr>
+</table></div><div></div></div></div></div><div class="t-navbar-sep"> </div><div class="t-navbar-head"><strong class="selflink"> Functions</strong><div class="t-navbar-menu"><div><div style="display:inline-block">
+<div><table class="t-nv-begin" cellpadding="0" style="">
+<tr class="t-nv"><td colspan="5"> <a href="function_declaration.html" title="c/language/function declaration"> function declaration</a> </td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="function_definition.html" title="c/language/function definition"> function definition</a> </td></tr>
+<tr class="t-nv"><td colspan="5"> <a href="variadic.html" title="c/language/variadic"> variadic arguments</a> </td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="inline.html" title="c/language/inline"><span class="t-lines"><span>inline</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-c99">(C99)</span></span></span></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="_Noreturn.html" title="c/language/ Noreturn"><span class="t-lines"><span>_Noreturn</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-c11">(C11)</span></span></span></div></div></td></tr>
+</table></div>
+</div><div></div></div></div></div><div class="t-navbar-sep"> </div></div>
+<p>A function is a C language construct that associates a <a href="statements.html#Compound_statements" title="c/language/statements">compound statement</a> (the function body) with an <a href="identifier.html" title="c/language/identifier">identifier</a> (the function name). Every C program begins execution from the <a href="main_function.html" title="c/language/main function">main function</a>, which either terminates, or invokes other, user-defined or library functions.
+</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;"><div class="c source-c"><pre class="de1"><span class="co1">// function definition.</span>
+<span class="co1">// defines a function with the name "sum" and with the body "{ return x+y; }"</span>
+<span class="kw4">int</span> sum<span class="br0">(</span><span class="kw4">int</span> x, <span class="kw4">int</span> y<span class="br0">)</span> 
+<span class="br0">{</span>
+    <span class="kw1">return</span> x <span class="sy2">+</span> y<span class="sy4">;</span>
+<span class="br0">}</span></pre></div></div>
+<p>A function is introduced by a <a href="function_declaration.html" title="c/language/function declaration">function declaration</a> or a <a href="function_definition.html" title="c/language/function definition">function definition</a>.
+</p><p>Functions may accept zero or more <i>parameters</i>, which are initialized from the <i>arguments</i> of a <a href="operator_other.html#Function_call" title="c/language/operator other">function call operator</a>, and may return a value to its caller by means of the <a href="return.html" title="c/language/return">return statement</a>.
+</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;"><div class="c source-c"><pre class="de1"><span class="kw4">int</span> n <span class="sy1">=</span> sum<span class="br0">(</span><span class="nu0">1</span>, <span class="nu0">2</span><span class="br0">)</span><span class="sy4">;</span> <span class="co1">// parameters x and y are initialized with the arguments 1 and 2</span></pre></div></div>
+<p>The body of a function is provided in a <a href="function_definition.html" title="c/language/function definition">function definition</a>. Each <span class="t-rev-inl t-since-c99"><span>non-<a href="inline.html" title="c/language/inline">inline</a></span><span><span class="t-mark-rev t-since-c99">(since C99)</span></span></span> function that is used in an expression (unless <a href="expressions.html#Unevaluated_expressions" title="c/language/expressions">unevaluated</a>) must be <a href="extern.html#One_definition_rule" title="c/language/extern">defined only once</a> in a program.
+</p><p>There are no nested functions (except where allowed through non-standard compiler extensions): each function definition must appear at file scope, and functions have no access to the local variables from the caller:
+</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;"><div class="c source-c"><pre class="de1"><span class="kw4">int</span> main<span class="br0">(</span><span class="kw4">void</span><span class="br0">)</span> <span class="co1">// the main function definition</span>
+<span class="br0">{</span>
+    <span class="kw4">int</span> sum<span class="br0">(</span><span class="kw4">int</span>, <span class="kw4">int</span><span class="br0">)</span><span class="sy4">;</span> <span class="co1">// function declaration (may appear at any scope)</span>
+    <span class="kw4">int</span> x <span class="sy1">=</span> <span class="nu0">1</span><span class="sy4">;</span>  <span class="co1">// local variable in main</span>
+    sum<span class="br0">(</span><span class="nu0">1</span>, <span class="nu0">2</span><span class="br0">)</span><span class="sy4">;</span> <span class="co1">// function call</span>
+ 
+<span class="co1">//    int sum(int a, int b) // error: no nested functions</span>
+<span class="co1">//    {</span>
+<span class="co1">//        return  a + b; </span>
+<span class="co1">//    }</span>
+<span class="br0">}</span>
+<span class="kw4">int</span> sum<span class="br0">(</span><span class="kw4">int</span> a, <span class="kw4">int</span> b<span class="br0">)</span> <span class="co1">// function definition</span>
+<span class="br0">{</span>
+<span class="co1">//    return x + a + b; //  error: main's x is not accessible within sum</span>
+    <span class="kw1">return</span> a <span class="sy2">+</span> b<span class="sy4">;</span>
+<span class="br0">}</span></pre></div></div>
+<h3><span class="mw-headline" id="References">References</span></h3>
+<div class="t-ref-std-23">
+<ul><li> C23 standard (ISO/IEC 9899:2024): 
+</li></ul>
+<dl><dd><ul><li> 6.7.7.4 Function declarators (including prototypes) (p: TBD)
+</li></ul>
+</dd></dl>
+<dl><dd><ul><li> 6.9.2 Function definitions (p: TBD)
+</li></ul>
+</dd></dl>
+</div>
+<div class="t-ref-std-17">
+<ul><li> C17 standard (ISO/IEC 9899:2018): 
+</li></ul>
+<dl><dd><ul><li> 6.7.6.3 Function declarators (including prototypes) (p: 96-98)
+</li></ul>
+</dd></dl>
+<dl><dd><ul><li> 6.9.1 Function definitions (p: 113-115)
+</li></ul>
+</dd></dl>
+</div>
+<div class="t-ref-std-11">
+<ul><li> C11 standard (ISO/IEC 9899:2011): 
+</li></ul>
+<dl><dd><ul><li> 6.7.6.3 Function declarators (including prototypes) (p: 133-136)
+</li></ul>
+</dd></dl>
+<dl><dd><ul><li> 6.9.1 Function definitions (p: 156-158)
+</li></ul>
+</dd></dl>
+</div>
+<div class="t-ref-std-c99">
+<ul><li> C99 standard (ISO/IEC 9899:1999): 
+</li></ul>
+<dl><dd><ul><li> 6.7.5.3 Function declarators (including prototypes) (p: 118-121)
+</li></ul>
+</dd></dl>
+<dl><dd><ul><li> 6.9.1 Function definitions (p: 141-143)
+</li></ul>
+</dd></dl>
+</div>
+<div class="t-ref-std-c89">
+<ul><li> C89/C90 standard (ISO/IEC 9899:1990): 
+</li></ul>
+<dl><dd><ul><li> 3.5.4.3 Function declarators (including prototypes) 
+</li></ul>
+</dd></dl>
+<dl><dd><ul><li> 3.7.1 Function definitions 
+</li></ul>
+</dd></dl>
+</div>
+<h3><span class="mw-headline" id="See_also">See also</span></h3>
+<table class="t-dsc-begin">
+
+<tr class="t-dsc">
+<td colspan="2"> <div class="t-dsc-see"><span><a href="../../cpp/language/function.html" title="cpp/language/function">C++ documentation</a></span> for <span class=""><span>Declaring functions</span></span></div>
+</td></tr>
+
+</table>
+
+
+
+

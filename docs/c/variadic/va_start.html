@@ -1,0 +1,193 @@
+<div class="t-navbar" style=""><div class="t-navbar-sep"> </div><div class="t-navbar-head"><a href="../../c.html" title="c"> C</a><div class="t-navbar-menu"><div><div><table class="t-nv-begin" cellpadding="0" style="line-height:1.1em;">
+<tr class="t-nv"><td colspan="5"><a href="../compiler_support.html" title="c/compiler support">Compiler support</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../language.html" title="c/language">Language</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../header.html" title="c/header">Headers</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../types.html" title="c/types">Type support</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../program.html" title="c/program">Program utilities</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../variadic.html" title="c/variadic">Variadic function support</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../error.html" title="c/error">Error handling</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../memory.html" title="c/memory">Dynamic memory management</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../string.html" title="c/string">Strings library</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../algorithm.html" title="c/algorithm">Algorithms</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../numeric.html" title="c/numeric">Numerics</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../chrono.html" title="c/chrono">Date and time utilities</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../io.html" title="c/io">Input/output support</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../locale.html" title="c/locale">Localization support</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../thread.html" title="c/thread">Concurrency support</a> <span class="t-mark-rev t-since-c11">(C11)</span></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../experimental.html" title="c/experimental">Technical Specifications</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../index.html" title="c/symbol index">Symbol index</a></td></tr>
+</table></div><div></div></div></div></div><div class="t-navbar-sep"> </div><div class="t-navbar-head"><a href="../variadic.html" title="c/variadic"> Variadic functions</a><div class="t-navbar-menu"><div><div><table class="t-nv-begin" cellpadding="0" style="">
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><strong class="selflink"><span class="t-lines"><span>va_start</span></span></strong></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="va_arg.html" title="c/variadic/va arg"><span class="t-lines"><span>va_arg</span></span></a></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="va_copy.html" title="c/variadic/va copy"><span class="t-lines"><span>va_copy</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-c99">(C99)</span></span></span></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="va_end.html" title="c/variadic/va end"><span class="t-lines"><span>va_end</span></span></a></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="va_list.html" title="c/variadic/va list"><span class="t-lines"><span>va_list</span></span></a></div></div></td></tr>
+</table></div><div></div></div></div></div><div class="t-navbar-sep"> </div></div>
+<table class="t-dcl-begin"><tbody>
+<tr class="t-dsc-header">
+<td> <div>Defined in header <code><a href="../variadic.html" title="c/variadic"><tt>&lt;stdarg.h&gt;</tt></a></code>
+ </div></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+<tbody class="t-dcl-rev">
+<tr class="t-dcl t-until-c23">
+<td><div><span class="mw-geshi c source-c"><span class="kw4">void</span> va_start<span class="br0">(</span> va_list ap, parmN <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td class="t-dcl-nopad"> </td>
+<td><span class="t-mark-rev t-until-c23">(until C23)</span></td>
+</tr>
+<tr class="t-dcl t-since-c23">
+<td> <div><span class="mw-geshi c source-c"><span class="kw4">void</span> va_start<span class="br0">(</span> va_list ap, ... <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td class="t-dcl-nopad">  </td>
+<td> <span class="t-mark-rev t-since-c23">(since C23)</span> </td>
+</tr>
+</tbody><tbody>
+<tr class="t-dcl-sep"><td></td><td></td><td></td></tr>
+</tbody></table>
+<p>The <code>va_start</code> macro enables access to the variable arguments<span class="t-rev-inl t-until-c23"><span> following the named argument <code>parmN</code></span><span><span class="t-mark-rev t-until-c23">(until C23)</span></span></span>.
+</p><p><code>va_start</code> shall be invoked with an instance to a valid <span class="t-lc">va_list</span> object <code>ap</code> before any calls to <span class="t-lc">va_arg</span>.
+</p>
+<table class="t-rev-begin">
+<tr class="t-rev t-until-c23"><td>
+<p>If <code>parmN</code> is declared with <code>register</code> storage class specifier, with an array type, with a function type, or with a type not compatible with the type that results from default argument promotions, the behavior is undefined.
+</p>
+</td>
+<td><span class="t-mark-rev t-until-c23">(until C23)</span></td></tr>
+<tr class="t-rev t-since-c23"><td>
+<p>Only the first argument passed to <code>va_start</code> is evaluated. Any additional arguments are neither expanded nor used in any way.
+</p>
+</td>
+<td><span class="t-mark-rev t-since-c23">(since C23)</span></td></tr>
+</table>
+<h3><span class="mw-headline" id="Parameters">Parameters</span></h3>
+<table class="t-par-begin">
+
+
+<tr class="t-par">
+<td>  ap
+</td>
+<td> -
+</td>
+<td>  an instance of the <span class="t-lc">va_list</span> type
+</td></tr>
+<tr class="t-par">
+<td>  parmN
+</td>
+<td> -
+</td>
+<td>  the named parameter preceding the first variable parameter
+</td></tr></table>
+<h3><span class="mw-headline" id="Expanded_value">Expanded value</span></h3>
+<p>(none)
+</p>
+<h3><span class="mw-headline" id="Example">Example</span></h3>
+<div class="t-example"><div class="t-example-live-link"><div class="coliru-btn coliru-btn-run-init">Run this code</div></div>
+<div dir="ltr" class="mw-geshi" style="text-align: left;"><div class="c source-c"><pre class="de1"><span class="co2">#include &lt;stdio.h&gt;</span>
+<span class="co2">#include &lt;stdarg.h&gt;</span>
+ 
+<span class="kw4">int</span> add_nums_C99<span class="br0">(</span><span class="kw4">int</span> count, ...<span class="br0">)</span>
+<span class="br0">{</span>
+    <span class="kw4">int</span> result <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span>
+    va_list args<span class="sy4">;</span>
+    va_start<span class="br0">(</span>args, count<span class="br0">)</span><span class="sy4">;</span> <span class="co1">// count can be omitted since C23</span>
+ 
+    <span class="kw1">for</span> <span class="br0">(</span><span class="kw4">int</span> i <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span> i <span class="sy1">&lt;</span> count<span class="sy4">;</span> <span class="sy2">++</span>i<span class="br0">)</span> <span class="br0">{</span>
+        result <span class="sy2">+</span><span class="sy1">=</span> va_arg<span class="br0">(</span>args, <span class="kw4">int</span><span class="br0">)</span><span class="sy4">;</span>
+    <span class="br0">}</span>
+ 
+    va_end<span class="br0">(</span>args<span class="br0">)</span><span class="sy4">;</span>
+    <span class="kw1">return</span> result<span class="sy4">;</span>
+<span class="br0">}</span>
+ 
+<span class="co2">#if __STDC_VERSION__ &gt; 201710L</span>
+<span class="co1">// Same as above, valid since C23</span>
+<span class="kw4">int</span> add_nums_C23<span class="br0">(</span>...<span class="br0">)</span>
+<span class="br0">{</span>
+    <span class="kw4">int</span> result <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span>
+    va_list args<span class="sy4">;</span>
+    va_start<span class="br0">(</span>args<span class="br0">)</span><span class="sy4">;</span>
+ 
+    <span class="kw4">int</span> count <span class="sy1">=</span> va_arg<span class="br0">(</span>args, <span class="kw4">int</span><span class="br0">)</span><span class="sy4">;</span>
+    <span class="kw1">for</span> <span class="br0">(</span><span class="kw4">int</span> i <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span> i <span class="sy1">&lt;</span> count<span class="sy4">;</span> <span class="sy2">++</span>i<span class="br0">)</span> <span class="br0">{</span>
+        result <span class="sy2">+</span><span class="sy1">=</span> va_arg<span class="br0">(</span>args, <span class="kw4">int</span><span class="br0">)</span><span class="sy4">;</span>
+    <span class="br0">}</span>
+ 
+    va_end<span class="br0">(</span>args<span class="br0">)</span><span class="sy4">;</span>
+    <span class="kw1">return</span> result<span class="sy4">;</span>
+<span class="br0">}</span>
+<span class="co2">#endif</span>
+ 
+<span class="kw4">int</span> main<span class="br0">(</span><span class="kw4">void</span><span class="br0">)</span>
+<span class="br0">{</span>
+    <a href="../io/fprintf.html"><span class="kw851">printf</span></a><span class="br0">(</span><span class="st0">"%d<span class="es1">\n</span>"</span>, add_nums_C99<span class="br0">(</span><span class="nu0">4</span>, <span class="nu0">25</span>, <span class="nu0">25</span>, <span class="nu0">50</span>, <span class="nu0">50</span><span class="br0">)</span><span class="br0">)</span><span class="sy4">;</span>
+<span class="co2">#if __STDC_VERSION__ &gt; 201710L</span>
+    <a href="../io/fprintf.html"><span class="kw851">printf</span></a><span class="br0">(</span><span class="st0">"%d<span class="es1">\n</span>"</span>, add_nums_C23<span class="br0">(</span><span class="nu0">4</span>, <span class="nu0">25</span>, <span class="nu0">25</span>, <span class="nu0">50</span>, <span class="nu0">50</span><span class="br0">)</span><span class="br0">)</span><span class="sy4">;</span>
+<span class="co2">#endif</span>
+<span class="br0">}</span></pre></div></div>
+<p>Possible output:
+</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;"><div class="text source-text"><pre class="de1">150
+150</pre></div></div> 
+</div>
+<h3><span class="mw-headline" id="References">References</span></h3>
+<div class="t-ref-std-17">
+<ul><li> C17 standard (ISO/IEC 9899:2018): 
+</li></ul>
+<dl><dd><ul><li> 7.16.1.4 The va_start macro (p: 198-199)
+</li></ul>
+</dd></dl>
+</div>
+<div class="t-ref-std-11">
+<ul><li> C11 standard (ISO/IEC 9899:2011): 
+</li></ul>
+<dl><dd><ul><li> 7.16.1.4 The va_start macro (p: 271-272)
+</li></ul>
+</dd></dl>
+</div>
+<div class="t-ref-std-c99">
+<ul><li> C99 standard (ISO/IEC 9899:1999): 
+</li></ul>
+<dl><dd><ul><li> 7.15.1.4 The va_start macro (p: 251-252)
+</li></ul>
+</dd></dl>
+</div>
+<div class="t-ref-std-c89">
+<ul><li> C89/C90 standard (ISO/IEC 9899:1990): 
+</li></ul>
+<dl><dd><ul><li> 4.8.1.1 The va_start macro 
+</li></ul>
+</dd></dl>
+</div>
+<h3><span class="mw-headline" id="See_also">See also</span></h3>
+<table class="t-dsc-begin">
+
+<tr class="t-dsc">
+<td>  <div class="t-dsc-member-div"><div><a href="va_arg.html" title="c/variadic/va arg"> <span class="t-lines"><span>va_arg</span></span></a></div></div>
+</td>
+<td>   accesses the next variadic function argument <br> <span class="t-mark">(function macro)</span> </td></tr>
+
+<tr class="t-dsc">
+<td>  <div class="t-dsc-member-div"><div><a href="va_copy.html" title="c/variadic/va copy"> <span class="t-lines"><span>va_copy</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-c99">(C99)</span></span></span></div></div>
+</td>
+<td>   makes a copy of the variadic function arguments  <br> <span class="t-mark">(function macro)</span> </td></tr>
+
+<tr class="t-dsc">
+<td>  <div class="t-dsc-member-div"><div><a href="va_end.html" title="c/variadic/va end"> <span class="t-lines"><span>va_end</span></span></a></div></div>
+</td>
+<td>   ends traversal of the variadic function arguments <br> <span class="t-mark">(function macro)</span> </td></tr>
+
+<tr class="t-dsc">
+<td>  <div class="t-dsc-member-div"><div><a href="va_list.html" title="c/variadic/va list"> <span class="t-lines"><span>va_list</span></span></a></div></div>
+</td>
+<td>  holds the information needed by <span class="t-lc">va_start</span>, <span class="t-lc">va_arg</span>, <span class="t-lc">va_end</span>, and <span class="t-lc">va_copy</span> <br> <span class="t-mark">(typedef)</span> </td></tr>
+
+<tr class="t-dsc">
+<td colspan="2"> <div class="t-dsc-see"><span><a href="../../cpp/utility/variadic/va_start.html" title="cpp/utility/variadic/va start">C++ documentation</a></span> for <span class="t-dsc-see-tt"><span>va_start</span></span></div>
+</td></tr>
+
+</table>
+
+
+
+

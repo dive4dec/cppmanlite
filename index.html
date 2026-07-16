@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>cppmanlite — C++ Documentation</title>
+  <link rel="stylesheet" href="style.css?v=0.6">
+  <script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script>
+</head>
+<body>
+  <div class="app">
+    <!-- Sidebar: search + results -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h1>cppmanlite</h1>
+      </div>
+      <div class="search-bar">
+        <input type="text" id="search-input" placeholder="Search C++ docs (vector, sort…)" autofocus>
+      </div>
+      <div id="result-count" class="result-count"></div>
+      <div id="results" class="results"></div>
+    </aside>
+
+    <!-- Main: manpage content -->
+    <main class="main">
+      <div class="main-header">
+        <button id="back-btn" style="display:none">← Results</button>
+        <span id="page-title" class="page-title"></span>
+      </div>
+      <div id="reader-content" class="reader-content">
+        <div class="welcome">
+          <h2>Welcome</h2>
+          <p>Type a C++ keyword in the search box and press <kbd>Enter</kbd> to view the documentation,
+             or click any result in the sidebar.</p>
+          <p>Examples: <code>vector</code>, <code>std::sort</code>, <code>shared_ptr</code>,
+             <code>std::string</code>, <code>flat_map</code></p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <footer>
+    Documentation from <a href="https://en.cppreference.com" target="_blank">cppreference.com</a> (CC-BY-SA / GFDL).
+  </footer>
+
+  <script src="app.js?v=0.6"></script>
+</body>
+</html>

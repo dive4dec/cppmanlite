@@ -1,0 +1,675 @@
+<div class="t-navbar" style=""><div class="t-navbar-sep"> </div><div class="t-navbar-head"><a href="../../../cpp.html" title="cpp">C++</a><div class="t-navbar-menu"><div><div><table class="t-nv-begin" cellpadding="0" style="line-height:1.1em;">
+<tr class="t-nv"><td colspan="5"><a href="../../compiler_support.html" title="cpp/compiler support">Compiler support</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../freestanding.html" title="cpp/freestanding">Freestanding and hosted</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../language.html" title="cpp/language">Language</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../standard_library.html" title="cpp/standard library">Standard library</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../headers.html" title="cpp/header">Standard library headers</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../named_req.html" title="cpp/named req">Named requirements</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../feature_test.html" title="cpp/feature test">Feature test macros</a> <span class="t-mark-rev t-since-cxx20">(C++20)</span></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../utility.html#Language_support" title="cpp/utility">Language support library</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../concepts.html" title="cpp/concepts">Concepts library</a> <span class="t-mark-rev t-since-cxx20">(C++20)</span></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../error.html" title="cpp/error">Diagnostics library</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../memory.html" title="cpp/memory">Memory management library</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../meta.html" title="cpp/meta">Metaprogramming library</a> <span class="t-mark-rev t-since-cxx11">(C++11)</span></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../utility.html" title="cpp/utility">General utilities library</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../container.html" title="cpp/container">Containers library</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../iterator.html" title="cpp/iterator">Iterators library</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../ranges.html" title="cpp/ranges">Ranges library</a> <span class="t-mark-rev t-since-cxx20">(C++20)</span></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../algorithm.html" title="cpp/algorithm">Algorithms library</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../string.html" title="cpp/string">Strings library</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../text.html" title="cpp/text">Text processing library</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../numeric.html" title="cpp/numeric">Numerics library</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../chrono.html" title="cpp/chrono">Date and time library</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../io.html" title="cpp/io">Input/output library</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../filesystem.html" title="cpp/filesystem">Filesystem library</a> <span class="t-mark-rev t-since-cxx17">(C++17)</span></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../atomic.html" title="cpp/thread">Concurrency support library</a> <span class="t-mark-rev t-since-cxx11">(C++11)</span></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../experimental/execution.html" title="cpp/execution">Execution support library</a> <span class="t-mark-rev t-since-cxx26">(C++26)</span></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../experimental.html" title="cpp/experimental">Technical specifications</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../symbol_index.html" title="cpp/symbol index">Symbols index</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../links/libs.html" title="cpp/links/libs">External libraries</a></td></tr>
+</table></div><div></div></div></div></div><div class="t-navbar-sep"> </div><div class="t-navbar-head"><a href="../../text.html" title="cpp/text">Text processing library</a><div class="t-navbar-menu"><div><div><table class="t-nv-begin" cellpadding="0" style="">
+<tr class="t-nv"><td colspan="5"><a href="../../locale.html" title="cpp/locale">Localization library</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../regex.html" title="cpp/regex">Regular expressions library</a> <span class="t-mark-rev t-since-cxx11">(C++11)</span></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../utility/format.html" title="cpp/utility/format">Formatting library</a> <span class="t-mark-rev t-since-cxx20">(C++20)</span></td></tr>
+<tr class="t-nv-h2"><td colspan="5"><a href="../../text.html#Null-terminated_sequence_utilities" title="cpp/text">Null-terminated sequence utilities</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../string/byte.html" title="cpp/string/byte">Byte strings</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../string/multibyte.html" title="cpp/string/multibyte">Multibyte strings</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="../../string/wide.html" title="cpp/string/wide">Wide strings</a></td></tr>
+<tr class="t-nv-h2"><td colspan="5"><a href="../../text.html#Primitive_numeric_conversions" title="cpp/text">Primitive numeric conversions</a></td></tr>
+<tr class="t-nv-col-table"><td><div><table class="t-nv-begin" cellpadding="0" style="">
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="../../utility/to_chars.html" title="cpp/utility/to chars"><span class="t-lines"><span>to_chars</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx17">(C++17)</span></span></span></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="../../utility/to_chars_result.html" title="cpp/utility/to chars result"><span class="t-lines"><span>to_chars_result</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx17">(C++17)</span></span></span></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="../../utility/from_chars.html" title="cpp/utility/from chars"><span class="t-lines"><span>from_chars</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx17">(C++17)</span></span></span></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="../../utility/from_chars_result.html" title="cpp/utility/from chars result"><span class="t-lines"><span>from_chars_result</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx17">(C++17)</span></span></span></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="../../utility/chars_format.html" title="cpp/utility/chars format"><span class="t-lines"><span>chars_format</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx17">(C++17)</span></span></span></div></div></td></tr>
+</table></div></td></tr>
+<tr class="t-nv-h2"><td colspan="5"><a href="../../text.html#Text_encoding_identifications" title="cpp/text">Text encoding identifications</a></td></tr>
+<tr class="t-nv-col-table"><td><div><table class="t-nv-begin" cellpadding="0" style="">
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="../../locale/text_encoding.html" title="cpp/text/text encoding"><span class="t-lines"><span>text_encoding</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx26">(C++26)</span></span></span></div></div></td></tr>
+</table></div></td></tr>
+</table></div><div></div></div></div></div><div class="t-navbar-sep"> </div><div class="t-navbar-head"><a href="../../regex.html" title="cpp/regex">Regular expressions library</a><div class="t-navbar-menu"><div><div><table class="t-nv-begin" cellpadding="0" style="">
+<tr class="t-nv-h1"><td colspan="5">Classes</td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="../basic_regex.html" title="cpp/regex/basic regex"><span class="t-lines"><span>basic_regex</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx11">(C++11)</span></span></span></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="../sub_match.html" title="cpp/regex/sub match"><span class="t-lines"><span>sub_match</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx11">(C++11)</span></span></span></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="../match_results.html" title="cpp/regex/match results"><span class="t-lines"><span>match_results</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx11">(C++11)</span></span></span></div></div></td></tr>
+<tr class="t-nv-h1"><td colspan="5">Algorithms</td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="../regex_match.html" title="cpp/regex/regex match"><span class="t-lines"><span>regex_match</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx11">(C++11)</span></span></span></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="../regex_search.html" title="cpp/regex/regex search"><span class="t-lines"><span>regex_search</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx11">(C++11)</span></span></span></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="../regex_replace.html" title="cpp/regex/regex replace"><span class="t-lines"><span>regex_replace</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx11">(C++11)</span></span></span></div></div></td></tr>
+<tr class="t-nv-h1"><td colspan="5">Iterators</td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="../regex_iterator.html" title="cpp/regex/regex iterator"><span class="t-lines"><span>regex_iterator</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx11">(C++11)</span></span></span></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="../regex_token_iterator.html" title="cpp/regex/regex token iterator"><span class="t-lines"><span>regex_token_iterator</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx11">(C++11)</span></span></span></div></div></td></tr>
+<tr class="t-nv-h1"><td colspan="5">Exceptions</td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="../regex_error.html" title="cpp/regex/regex error"><span class="t-lines"><span>regex_error</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx11">(C++11)</span></span></span></div></div></td></tr>
+<tr class="t-nv-h1"><td colspan="5">Traits</td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="../regex_traits.html" title="cpp/regex/regex traits"><span class="t-lines"><span>regex_traits</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx11">(C++11)</span></span></span></div></div></td></tr>
+<tr class="t-nv-h1"><td colspan="5">Constants</td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="../syntax_option_type.html" title="cpp/regex/syntax option type"><span class="t-lines"><span>syntax_option_type</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx11">(C++11)</span></span></span></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="../match_flag_type.html" title="cpp/regex/match flag type"><span class="t-lines"><span>match_flag_type</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx11">(C++11)</span></span></span></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="../error_type.html" title="cpp/regex/error type"><span class="t-lines"><span>error_type</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx11">(C++11)</span></span></span></div></div></td></tr>
+<tr class="t-nv-h1"><td colspan="5">Regex Grammar</td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="../ecmascript.html" title="cpp/regex/ecmascript"><span class="t-lines"><span>Modified ECMAScript-262</span></span></a></div><div><span class="t-lines"><span><span class="t-mark-rev t-since-cxx11">(C++11)</span></span></span></div></div></td></tr>
+</table></div><div></div></div></div></div><div class="t-navbar-sep"> </div><div class="t-navbar-head"><a href="../sub_match.html" title="cpp/regex/sub match"><tt>std::sub_match</tt></a><div class="t-navbar-menu"><div><div><table class="t-nv-begin" cellpadding="0" style="">
+<tr class="t-nv-h1"><td colspan="5">Member functions</td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="sub_match.html" title="cpp/regex/sub match/sub match"><span class="t-lines"><span>sub_match::sub_match</span></span></a></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="length.html" title="cpp/regex/sub match/length"><span class="t-lines"><span>sub_match::length</span></span></a></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="str.html" title="cpp/regex/sub match/str"><span class="t-lines"><span>sub_match::str</span><span>sub_match::operator string_type</span></span></a></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="compare.html" title="cpp/regex/sub match/compare"><span class="t-lines"><span>sub_match::compare</span></span></a></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="swap.html" title="cpp/regex/sub match/swap"><span class="t-lines"><span>sub_match::swap</span></span></a></div></div></td></tr>
+<tr class="t-nv-h1"><td colspan="5">Non-member functions</td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><strong class="selflink"><span class="t-lines"><span>operator==</span><span>operator!=</span><span>operator&lt;&lt;</span><span>operator&lt;=</span><span>operator&gt;</span><span>operator&gt;=</span><span>operator&lt;=&gt;</span></span></strong></div><div><span class="t-lines"><span></span><span><span class="t-mark-rev t-until-cxx20">(until C++20)</span></span><span><span class="t-mark-rev t-until-cxx20">(until C++20)</span></span><span><span class="t-mark-rev t-until-cxx20">(until C++20)</span></span><span><span class="t-mark-rev t-until-cxx20">(until C++20)</span></span><span><span class="t-mark-rev t-until-cxx20">(until C++20)</span></span><span><span class="t-mark-rev t-since-cxx20">(C++20)</span></span></span></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="operator_ltlt.html" title="cpp/regex/sub match/operator ltlt"><span class="t-lines"><span>operator&lt;&lt;</span></span></a></div></div></td></tr>
+</table></div><div></div></div></div></div><div class="t-navbar-sep"> </div></div>
+<table class="t-dcl-begin"><tbody>
+<tr class="t-dsc-header">
+<td> <div>Defined in header <code><a href="../../header/regex.html" title="cpp/header/regex">&lt;regex&gt;</a></code>
+ </div></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="t-dcl-h">
+<td> <div>Direct comparison</div></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="t-dcl t-since-cxx11">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt <span class="sy1">&gt;</span><br>
+<p><span class="kw4">bool</span> operator<span class="sy1">==</span> <span class="br0">(</span> <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> lhs, <br>
+</p>
+                  <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> rhs <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td> (1) </td>
+<td> <span class="t-mark-rev t-since-cxx11">(since C++11)</span> </td>
+</tr>
+<tr class="t-dcl t-since-cxx11 t-until-cxx20">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt <span class="sy1">&gt;</span><br>
+<p><span class="kw4">bool</span> operator<span class="sy3">!</span><span class="sy1">=</span> <span class="br0">(</span> <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> lhs, <br>
+</p>
+                  <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> rhs <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td> (2) </td>
+<td> <span class="t-mark-rev t-since-cxx11">(since C++11)</span> <br><span class="t-mark-rev t-until-cxx20">(until C++20)</span> </td>
+</tr>
+<tr class="t-dcl t-since-cxx11 t-until-cxx20">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt <span class="sy1">&gt;</span><br>
+<p><span class="kw4">bool</span> operator<span class="sy1">&lt;</span>  <span class="br0">(</span> <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> lhs, <br>
+</p>
+                  <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> rhs <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td> (3) </td>
+<td> <span class="t-mark-rev t-since-cxx11">(since C++11)</span> <br><span class="t-mark-rev t-until-cxx20">(until C++20)</span> </td>
+</tr>
+<tr class="t-dcl t-since-cxx11 t-until-cxx20">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt <span class="sy1">&gt;</span><br>
+<p><span class="kw4">bool</span> operator<span class="sy1">&lt;=</span> <span class="br0">(</span> <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> lhs, <br>
+</p>
+                  <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> rhs <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td> (4) </td>
+<td> <span class="t-mark-rev t-since-cxx11">(since C++11)</span> <br><span class="t-mark-rev t-until-cxx20">(until C++20)</span> </td>
+</tr>
+<tr class="t-dcl t-since-cxx11 t-until-cxx20">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt <span class="sy1">&gt;</span><br>
+<p><span class="kw4">bool</span> operator<span class="sy1">&gt;</span>  <span class="br0">(</span> <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> lhs, <br>
+</p>
+                  <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> rhs <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td> (5) </td>
+<td> <span class="t-mark-rev t-since-cxx11">(since C++11)</span> <br><span class="t-mark-rev t-until-cxx20">(until C++20)</span> </td>
+</tr>
+<tr class="t-dcl t-since-cxx11 t-until-cxx20">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt <span class="sy1">&gt;</span><br>
+<p><span class="kw4">bool</span> operator<span class="sy1">&gt;=</span> <span class="br0">(</span> <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> lhs, <br>
+</p>
+                  <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> rhs <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td> (6) </td>
+<td> <span class="t-mark-rev t-since-cxx11">(since C++11)</span> <br><span class="t-mark-rev t-until-cxx20">(until C++20)</span> </td>
+</tr>
+<tr class="t-dcl t-since-cxx20">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt <span class="sy1">&gt;</span><br>
+<p><span class="kw4">auto</span> operator<span class="sy1">&lt;=&gt;</span><span class="br0">(</span> <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> lhs, <br>
+</p>
+                  <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> rhs <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td> (7) </td>
+<td> <span class="t-mark-rev t-since-cxx20">(since C++20)</span> </td>
+</tr>
+
+<tr class="t-dcl-h">
+<td> <div>Comparing with a <span class="t-lc"><a href="../../string/basic_string.html" title="cpp/string/basic string">std::basic_string</a></span></div></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="t-dcl t-since-cxx11">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt, <span class="kw1">class</span> Traits, <span class="kw1">class</span> Alloc <span class="sy1">&gt;</span><br>
+<p><span class="kw4">bool</span> operator<span class="sy1">==</span> <span class="br0">(</span> <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> lhs,<br>
+                  <span class="kw4">const</span> <a href="../../string/basic_string.html"><span class="kw1236">std::<span class="me2">basic_string</span></span></a><span class="sy1">&lt;</span><span class="coMULTI">/*value-type-of*/</span><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span>,<br>
+</p>
+                                          Traits, Alloc<span class="sy1">&gt;</span><span class="sy3">&amp;</span> str <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td> (8) </td>
+<td> <span class="t-mark-rev t-since-cxx11">(since C++11)</span> </td>
+</tr>
+<tr class="t-dcl t-since-cxx11 t-until-cxx20">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt, <span class="kw1">class</span> Traits, <span class="kw1">class</span> Alloc <span class="sy1">&gt;</span><br>
+<p><span class="kw4">bool</span> operator<span class="sy3">!</span><span class="sy1">=</span> <span class="br0">(</span> <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> lhs,<br>
+                  <span class="kw4">const</span> <a href="../../string/basic_string.html"><span class="kw1236">std::<span class="me2">basic_string</span></span></a><span class="sy1">&lt;</span><span class="coMULTI">/*value-type-of*/</span><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span>,<br>
+</p>
+                                          Traits, Alloc<span class="sy1">&gt;</span><span class="sy3">&amp;</span> str <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td> (9) </td>
+<td> <span class="t-mark-rev t-since-cxx11">(since C++11)</span> <br><span class="t-mark-rev t-until-cxx20">(until C++20)</span> </td>
+</tr>
+<tr class="t-dcl t-since-cxx11 t-until-cxx20">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt, <span class="kw1">class</span> Traits, <span class="kw1">class</span> Alloc <span class="sy1">&gt;</span><br>
+<p><span class="kw4">bool</span> operator<span class="sy1">&lt;</span>  <span class="br0">(</span> <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> lhs,<br>
+                  <span class="kw4">const</span> <a href="../../string/basic_string.html"><span class="kw1236">std::<span class="me2">basic_string</span></span></a><span class="sy1">&lt;</span><span class="coMULTI">/*value-type-of*/</span><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span>,<br>
+</p>
+                                          Traits, Alloc<span class="sy1">&gt;</span><span class="sy3">&amp;</span> str <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td> (10) </td>
+<td> <span class="t-mark-rev t-since-cxx11">(since C++11)</span> <br><span class="t-mark-rev t-until-cxx20">(until C++20)</span> </td>
+</tr>
+<tr class="t-dcl t-since-cxx11 t-until-cxx20">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt, <span class="kw1">class</span> Traits, <span class="kw1">class</span> Alloc <span class="sy1">&gt;</span><br>
+<p><span class="kw4">bool</span> operator<span class="sy1">&lt;=</span> <span class="br0">(</span> <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> lhs,<br>
+                  <span class="kw4">const</span> <a href="../../string/basic_string.html"><span class="kw1236">std::<span class="me2">basic_string</span></span></a><span class="sy1">&lt;</span><span class="coMULTI">/*value-type-of*/</span><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span>,<br>
+</p>
+                                          Traits, Alloc<span class="sy1">&gt;</span><span class="sy3">&amp;</span> str <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td> (11) </td>
+<td> <span class="t-mark-rev t-since-cxx11">(since C++11)</span> <br><span class="t-mark-rev t-until-cxx20">(until C++20)</span> </td>
+</tr>
+<tr class="t-dcl t-since-cxx11 t-until-cxx20">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt, <span class="kw1">class</span> Traits, <span class="kw1">class</span> Alloc <span class="sy1">&gt;</span><br>
+<p><span class="kw4">bool</span> operator<span class="sy1">&gt;</span>  <span class="br0">(</span> <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> lhs,<br>
+                  <span class="kw4">const</span> <a href="../../string/basic_string.html"><span class="kw1236">std::<span class="me2">basic_string</span></span></a><span class="sy1">&lt;</span><span class="coMULTI">/*value-type-of*/</span><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span>,<br>
+</p>
+                                          Traits, Alloc<span class="sy1">&gt;</span><span class="sy3">&amp;</span> str <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td> (12) </td>
+<td> <span class="t-mark-rev t-since-cxx11">(since C++11)</span> <br><span class="t-mark-rev t-until-cxx20">(until C++20)</span> </td>
+</tr>
+<tr class="t-dcl t-since-cxx11 t-until-cxx20">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt, <span class="kw1">class</span> Traits, <span class="kw1">class</span> Alloc <span class="sy1">&gt;</span><br>
+<p><span class="kw4">bool</span> operator<span class="sy1">&gt;=</span> <span class="br0">(</span> <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> lhs,<br>
+                  <span class="kw4">const</span> <a href="../../string/basic_string.html"><span class="kw1236">std::<span class="me2">basic_string</span></span></a><span class="sy1">&lt;</span><span class="coMULTI">/*value-type-of*/</span><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span>,<br>
+</p>
+                                          Traits, Alloc<span class="sy1">&gt;</span><span class="sy3">&amp;</span> str <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td> (13) </td>
+<td> <span class="t-mark-rev t-since-cxx11">(since C++11)</span> <br><span class="t-mark-rev t-until-cxx20">(until C++20)</span> </td>
+</tr>
+<tr class="t-dcl t-since-cxx20">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt, <span class="kw1">class</span> Traits, <span class="kw1">class</span> Alloc <span class="sy1">&gt;</span><br>
+<p><span class="kw4">auto</span> operator<span class="sy1">&lt;=&gt;</span><span class="br0">(</span> <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> lhs,<br>
+                  <span class="kw4">const</span> <a href="../../string/basic_string.html"><span class="kw1236">std::<span class="me2">basic_string</span></span></a><span class="sy1">&lt;</span><span class="coMULTI">/*value-type-of*/</span><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span>,<br>
+</p>
+                                          Traits, Alloc<span class="sy1">&gt;</span><span class="sy3">&amp;</span> str <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td> (14) </td>
+<td> <span class="t-mark-rev t-since-cxx20">(since C++20)</span> </td>
+</tr>
+
+<tr class="t-dcl t-since-cxx11 t-until-cxx20">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt, <span class="kw1">class</span> Traits, <span class="kw1">class</span> Alloc <span class="sy1">&gt;</span><br>
+<p><span class="kw4">bool</span> operator<span class="sy1">==</span> <span class="br0">(</span> <span class="kw4">const</span> <a href="../../string/basic_string.html"><span class="kw1236">std::<span class="me2">basic_string</span></span></a><span class="sy1">&lt;</span><span class="coMULTI">/*value-type-of*/</span><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span>,<br>
+                                          Traits, Alloc<span class="sy1">&gt;</span><span class="sy3">&amp;</span> str,<br>
+</p>
+                  <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> rhs <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td> (15) </td>
+<td> <span class="t-mark-rev t-since-cxx11">(since C++11)</span> <br><span class="t-mark-rev t-until-cxx20">(until C++20)</span> </td>
+</tr>
+<tr class="t-dcl t-since-cxx11 t-until-cxx20">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt, <span class="kw1">class</span> Traits, <span class="kw1">class</span> Alloc <span class="sy1">&gt;</span><br>
+<p><span class="kw4">bool</span> operator<span class="sy3">!</span><span class="sy1">=</span> <span class="br0">(</span> <span class="kw4">const</span> <a href="../../string/basic_string.html"><span class="kw1236">std::<span class="me2">basic_string</span></span></a><span class="sy1">&lt;</span><span class="coMULTI">/*value-type-of*/</span><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span>,<br>
+                                          Traits, Alloc<span class="sy1">&gt;</span><span class="sy3">&amp;</span> str,<br>
+</p>
+                  <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> rhs <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td> (16) </td>
+<td> <span class="t-mark-rev t-since-cxx11">(since C++11)</span> <br><span class="t-mark-rev t-until-cxx20">(until C++20)</span> </td>
+</tr>
+<tr class="t-dcl t-since-cxx11 t-until-cxx20">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt, <span class="kw1">class</span> Traits, <span class="kw1">class</span> Alloc <span class="sy1">&gt;</span><br>
+<p><span class="kw4">bool</span> operator<span class="sy1">&lt;</span>  <span class="br0">(</span> <span class="kw4">const</span> <a href="../../string/basic_string.html"><span class="kw1236">std::<span class="me2">basic_string</span></span></a><span class="sy1">&lt;</span><span class="coMULTI">/*value-type-of*/</span><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span>,<br>
+                                          Traits, Alloc<span class="sy1">&gt;</span><span class="sy3">&amp;</span> str,<br>
+</p>
+                  <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> rhs <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td> (17) </td>
+<td> <span class="t-mark-rev t-since-cxx11">(since C++11)</span> <br><span class="t-mark-rev t-until-cxx20">(until C++20)</span> </td>
+</tr>
+<tr class="t-dcl t-since-cxx11 t-until-cxx20">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt, <span class="kw1">class</span> Traits, <span class="kw1">class</span> Alloc <span class="sy1">&gt;</span><br>
+<p><span class="kw4">bool</span> operator<span class="sy1">&lt;=</span> <span class="br0">(</span> <span class="kw4">const</span> <a href="../../string/basic_string.html"><span class="kw1236">std::<span class="me2">basic_string</span></span></a><span class="sy1">&lt;</span><span class="coMULTI">/*value-type-of*/</span><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span>,<br>
+                                          Traits, Alloc<span class="sy1">&gt;</span><span class="sy3">&amp;</span> str,<br>
+</p>
+                  <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> rhs <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td> (18) </td>
+<td> <span class="t-mark-rev t-since-cxx11">(since C++11)</span> <br><span class="t-mark-rev t-until-cxx20">(until C++20)</span> </td>
+</tr>
+<tr class="t-dcl t-since-cxx11 t-until-cxx20">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt, <span class="kw1">class</span> Traits, <span class="kw1">class</span> Alloc <span class="sy1">&gt;</span><br>
+<p><span class="kw4">bool</span> operator<span class="sy1">&gt;</span>  <span class="br0">(</span> <span class="kw4">const</span> <a href="../../string/basic_string.html"><span class="kw1236">std::<span class="me2">basic_string</span></span></a><span class="sy1">&lt;</span><span class="coMULTI">/*value-type-of*/</span><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span>,<br>
+                                          Traits, Alloc<span class="sy1">&gt;</span><span class="sy3">&amp;</span> str,<br>
+</p>
+                  <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> rhs <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td> (19) </td>
+<td> <span class="t-mark-rev t-since-cxx11">(since C++11)</span> <br><span class="t-mark-rev t-until-cxx20">(until C++20)</span> </td>
+</tr>
+<tr class="t-dcl t-since-cxx11 t-until-cxx20">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt, <span class="kw1">class</span> Traits, <span class="kw1">class</span> Alloc <span class="sy1">&gt;</span><br>
+<p><span class="kw4">bool</span> operator<span class="sy1">&gt;=</span> <span class="br0">(</span> <span class="kw4">const</span> <a href="../../string/basic_string.html"><span class="kw1236">std::<span class="me2">basic_string</span></span></a><span class="sy1">&lt;</span><span class="coMULTI">/*value-type-of*/</span><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span>,<br>
+                                          Traits, Alloc<span class="sy1">&gt;</span><span class="sy3">&amp;</span> str,<br>
+</p>
+                  <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> rhs <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td> (20) </td>
+<td> <span class="t-mark-rev t-since-cxx11">(since C++11)</span> <br><span class="t-mark-rev t-until-cxx20">(until C++20)</span> </td>
+</tr>
+
+<tr class="t-dcl-h">
+<td> <div>Comparing with a C-style string</div></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="t-dcl t-since-cxx11">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt <span class="sy1">&gt;</span><br>
+<p><span class="kw4">bool</span> operator<span class="sy1">==</span> <span class="br0">(</span> <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> lhs,<br>
+</p>
+                  <span class="kw4">const</span> <span class="coMULTI">/*value-type-of*/</span><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy2">*</span> s <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td> (21) </td>
+<td> <span class="t-mark-rev t-since-cxx11">(since C++11)</span> </td>
+</tr>
+<tr class="t-dcl t-since-cxx11 t-until-cxx20">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt <span class="sy1">&gt;</span><br>
+<p><span class="kw4">bool</span> operator<span class="sy3">!</span><span class="sy1">=</span> <span class="br0">(</span> <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> lhs,<br>
+</p>
+                  <span class="kw4">const</span> <span class="coMULTI">/*value-type-of*/</span><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy2">*</span> s <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td> (22) </td>
+<td> <span class="t-mark-rev t-since-cxx11">(since C++11)</span> <br><span class="t-mark-rev t-until-cxx20">(until C++20)</span> </td>
+</tr>
+<tr class="t-dcl t-since-cxx11 t-until-cxx20">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt <span class="sy1">&gt;</span><br>
+<p><span class="kw4">bool</span> operator<span class="sy1">&lt;</span>  <span class="br0">(</span> <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> lhs,<br>
+</p>
+                  <span class="kw4">const</span> <span class="coMULTI">/*value-type-of*/</span><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy2">*</span> s <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td> (23) </td>
+<td> <span class="t-mark-rev t-since-cxx11">(since C++11)</span> <br><span class="t-mark-rev t-until-cxx20">(until C++20)</span> </td>
+</tr>
+<tr class="t-dcl t-since-cxx11 t-until-cxx20">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt <span class="sy1">&gt;</span><br>
+<p><span class="kw4">bool</span> operator<span class="sy1">&lt;=</span> <span class="br0">(</span> <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> lhs,<br>
+</p>
+                  <span class="kw4">const</span> <span class="coMULTI">/*value-type-of*/</span><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy2">*</span> s <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td> (24) </td>
+<td> <span class="t-mark-rev t-since-cxx11">(since C++11)</span> <br><span class="t-mark-rev t-until-cxx20">(until C++20)</span> </td>
+</tr>
+<tr class="t-dcl t-since-cxx11 t-until-cxx20">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt <span class="sy1">&gt;</span><br>
+<p><span class="kw4">bool</span> operator<span class="sy1">&gt;</span>  <span class="br0">(</span> <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> lhs,<br>
+</p>
+                  <span class="kw4">const</span> <span class="coMULTI">/*value-type-of*/</span><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy2">*</span> s <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td> (25) </td>
+<td> <span class="t-mark-rev t-since-cxx11">(since C++11)</span> <br><span class="t-mark-rev t-until-cxx20">(until C++20)</span> </td>
+</tr>
+<tr class="t-dcl t-since-cxx11 t-until-cxx20">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt <span class="sy1">&gt;</span><br>
+<p><span class="kw4">bool</span> operator<span class="sy1">&gt;=</span> <span class="br0">(</span> <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> lhs,<br>
+</p>
+                  <span class="kw4">const</span> <span class="coMULTI">/*value-type-of*/</span><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy2">*</span> s <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td> (26) </td>
+<td> <span class="t-mark-rev t-since-cxx11">(since C++11)</span> <br><span class="t-mark-rev t-until-cxx20">(until C++20)</span> </td>
+</tr>
+<tr class="t-dcl t-since-cxx20">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt <span class="sy1">&gt;</span><br>
+<p><span class="kw4">auto</span> operator<span class="sy1">&lt;=&gt;</span><span class="br0">(</span> <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> lhs,<br>
+</p>
+                  <span class="kw4">const</span> <span class="coMULTI">/*value-type-of*/</span><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy2">*</span> s <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td> (27) </td>
+<td> <span class="t-mark-rev t-since-cxx20">(since C++20)</span> </td>
+</tr>
+
+<tr class="t-dcl t-since-cxx11 t-until-cxx20">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt <span class="sy1">&gt;</span><br>
+<p><span class="kw4">bool</span> operator<span class="sy1">==</span> <span class="br0">(</span> <span class="kw4">const</span> <span class="coMULTI">/*value-type-of*/</span><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy2">*</span> s,<br>
+</p>
+                  <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> rhs <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td> (28) </td>
+<td> <span class="t-mark-rev t-since-cxx11">(since C++11)</span> <br><span class="t-mark-rev t-until-cxx20">(until C++20)</span> </td>
+</tr>
+<tr class="t-dcl t-since-cxx11 t-until-cxx20">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt <span class="sy1">&gt;</span><br>
+<p><span class="kw4">bool</span> operator<span class="sy3">!</span><span class="sy1">=</span> <span class="br0">(</span> <span class="kw4">const</span> <span class="coMULTI">/*value-type-of*/</span><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy2">*</span> s,<br>
+</p>
+                  <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> rhs <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td> (29) </td>
+<td> <span class="t-mark-rev t-since-cxx11">(since C++11)</span> <br><span class="t-mark-rev t-until-cxx20">(until C++20)</span> </td>
+</tr>
+<tr class="t-dcl t-since-cxx11 t-until-cxx20">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt <span class="sy1">&gt;</span><br>
+<p><span class="kw4">bool</span> operator<span class="sy1">&lt;</span>  <span class="br0">(</span> <span class="kw4">const</span> <span class="coMULTI">/*value-type-of*/</span><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy2">*</span> s,<br>
+</p>
+                  <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> rhs <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td> (30) </td>
+<td> <span class="t-mark-rev t-since-cxx11">(since C++11)</span> <br><span class="t-mark-rev t-until-cxx20">(until C++20)</span> </td>
+</tr>
+<tr class="t-dcl t-since-cxx11 t-until-cxx20">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt <span class="sy1">&gt;</span><br>
+<p><span class="kw4">bool</span> operator<span class="sy1">&lt;=</span> <span class="br0">(</span> <span class="kw4">const</span> <span class="coMULTI">/*value-type-of*/</span><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy2">*</span> s,<br>
+</p>
+                  <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> rhs <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td> (31) </td>
+<td> <span class="t-mark-rev t-since-cxx11">(since C++11)</span> <br><span class="t-mark-rev t-until-cxx20">(until C++20)</span> </td>
+</tr>
+<tr class="t-dcl t-since-cxx11 t-until-cxx20">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt <span class="sy1">&gt;</span><br>
+<p><span class="kw4">bool</span> operator<span class="sy1">&gt;</span>  <span class="br0">(</span> <span class="kw4">const</span> <span class="coMULTI">/*value-type-of*/</span><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy2">*</span> s,<br>
+</p>
+                  <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> rhs <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td> (32) </td>
+<td> <span class="t-mark-rev t-since-cxx11">(since C++11)</span> <br><span class="t-mark-rev t-until-cxx20">(until C++20)</span> </td>
+</tr>
+<tr class="t-dcl t-since-cxx11 t-until-cxx20">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt <span class="sy1">&gt;</span><br>
+<p><span class="kw4">bool</span> operator<span class="sy1">&gt;=</span> <span class="br0">(</span> <span class="kw4">const</span> <span class="coMULTI">/*value-type-of*/</span><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy2">*</span> s,<br>
+</p>
+                  <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> rhs <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td> (33) </td>
+<td> <span class="t-mark-rev t-since-cxx11">(since C++11)</span> <br><span class="t-mark-rev t-until-cxx20">(until C++20)</span> </td>
+</tr>
+
+<tr class="t-dcl-h">
+<td> <div>Comparing with a single character</div></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="t-dcl t-since-cxx11">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt <span class="sy1">&gt;</span><br>
+<p><span class="kw4">bool</span> operator<span class="sy1">==</span> <span class="br0">(</span> <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> lhs,<br>
+</p>
+                  <span class="kw4">const</span> <span class="coMULTI">/*value-type-of*/</span><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> ch <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td> (34) </td>
+<td> <span class="t-mark-rev t-since-cxx11">(since C++11)</span> </td>
+</tr>
+<tr class="t-dcl t-since-cxx11 t-until-cxx20">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt <span class="sy1">&gt;</span><br>
+<p><span class="kw4">bool</span> operator<span class="sy3">!</span><span class="sy1">=</span> <span class="br0">(</span> <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> lhs,<br>
+</p>
+                  <span class="kw4">const</span> <span class="coMULTI">/*value-type-of*/</span><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> ch <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td> (35) </td>
+<td> <span class="t-mark-rev t-since-cxx11">(since C++11)</span> <br><span class="t-mark-rev t-until-cxx20">(until C++20)</span> </td>
+</tr>
+<tr class="t-dcl t-since-cxx11 t-until-cxx20">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt <span class="sy1">&gt;</span><br>
+<p><span class="kw4">bool</span> operator<span class="sy1">&lt;</span>  <span class="br0">(</span> <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> lhs,<br>
+</p>
+                  <span class="kw4">const</span> <span class="coMULTI">/*value-type-of*/</span><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> ch <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td> (36) </td>
+<td> <span class="t-mark-rev t-since-cxx11">(since C++11)</span> <br><span class="t-mark-rev t-until-cxx20">(until C++20)</span> </td>
+</tr>
+<tr class="t-dcl t-since-cxx11 t-until-cxx20">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt <span class="sy1">&gt;</span><br>
+<p><span class="kw4">bool</span> operator<span class="sy1">&lt;=</span> <span class="br0">(</span> <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> lhs,<br>
+</p>
+                  <span class="kw4">const</span> <span class="coMULTI">/*value-type-of*/</span><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> ch <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td> (37) </td>
+<td> <span class="t-mark-rev t-since-cxx11">(since C++11)</span> <br><span class="t-mark-rev t-until-cxx20">(until C++20)</span> </td>
+</tr>
+<tr class="t-dcl t-since-cxx11 t-until-cxx20">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt <span class="sy1">&gt;</span><br>
+<p><span class="kw4">bool</span> operator<span class="sy1">&gt;</span>  <span class="br0">(</span> <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> lhs,<br>
+</p>
+                  <span class="kw4">const</span> <span class="coMULTI">/*value-type-of*/</span><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> ch <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td> (38) </td>
+<td> <span class="t-mark-rev t-since-cxx11">(since C++11)</span> <br><span class="t-mark-rev t-until-cxx20">(until C++20)</span> </td>
+</tr>
+<tr class="t-dcl t-since-cxx11 t-until-cxx20">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt <span class="sy1">&gt;</span><br>
+<p><span class="kw4">bool</span> operator<span class="sy1">&gt;=</span> <span class="br0">(</span> <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> lhs,<br>
+</p>
+                  <span class="kw4">const</span> <span class="coMULTI">/*value-type-of*/</span><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> ch <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td> (39) </td>
+<td> <span class="t-mark-rev t-since-cxx11">(since C++11)</span> <br><span class="t-mark-rev t-until-cxx20">(until C++20)</span> </td>
+</tr>
+<tr class="t-dcl t-since-cxx20">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt <span class="sy1">&gt;</span><br>
+<p><span class="kw4">auto</span> operator<span class="sy1">&lt;=&gt;</span><span class="br0">(</span> <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> lhs,<br>
+</p>
+                  <span class="kw4">const</span> <span class="coMULTI">/*value-type-of*/</span><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> ch <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td> (40) </td>
+<td> <span class="t-mark-rev t-since-cxx20">(since C++20)</span> </td>
+</tr>
+
+<tr class="t-dcl t-since-cxx11 t-until-cxx20">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt <span class="sy1">&gt;</span><br>
+<p><span class="kw4">bool</span> operator<span class="sy1">==</span> <span class="br0">(</span> <span class="kw4">const</span> <span class="coMULTI">/*value-type-of*/</span><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> ch,<br>
+</p>
+                  <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> rhs <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td> (41) </td>
+<td> <span class="t-mark-rev t-since-cxx11">(since C++11)</span> <br><span class="t-mark-rev t-until-cxx20">(until C++20)</span> </td>
+</tr>
+<tr class="t-dcl t-since-cxx11 t-until-cxx20">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt <span class="sy1">&gt;</span><br>
+<p><span class="kw4">bool</span> operator<span class="sy3">!</span><span class="sy1">=</span> <span class="br0">(</span> <span class="kw4">const</span> <span class="coMULTI">/*value-type-of*/</span><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> ch,<br>
+</p>
+                  <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> rhs <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td> (42) </td>
+<td> <span class="t-mark-rev t-since-cxx11">(since C++11)</span> <br><span class="t-mark-rev t-until-cxx20">(until C++20)</span> </td>
+</tr>
+<tr class="t-dcl t-since-cxx11 t-until-cxx20">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt <span class="sy1">&gt;</span><br>
+<p><span class="kw4">bool</span> operator<span class="sy1">&lt;</span>  <span class="br0">(</span> <span class="kw4">const</span> <span class="coMULTI">/*value-type-of*/</span><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> ch,<br>
+</p>
+                  <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> rhs <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td> (43) </td>
+<td> <span class="t-mark-rev t-since-cxx11">(since C++11)</span> <br><span class="t-mark-rev t-until-cxx20">(until C++20)</span> </td>
+</tr>
+<tr class="t-dcl t-since-cxx11 t-until-cxx20">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt <span class="sy1">&gt;</span><br>
+<p><span class="kw4">bool</span> operator<span class="sy1">&lt;=</span> <span class="br0">(</span> <span class="kw4">const</span> <span class="coMULTI">/*value-type-of*/</span><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> ch,<br>
+</p>
+                  <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> rhs <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td> (44) </td>
+<td> <span class="t-mark-rev t-since-cxx11">(since C++11)</span> <br><span class="t-mark-rev t-until-cxx20">(until C++20)</span> </td>
+</tr>
+<tr class="t-dcl t-since-cxx11 t-until-cxx20">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt <span class="sy1">&gt;</span><br>
+<p><span class="kw4">bool</span> operator<span class="sy1">&gt;</span>  <span class="br0">(</span> <span class="kw4">const</span> <span class="coMULTI">/*value-type-of*/</span><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> ch,<br>
+</p>
+                  <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> rhs <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td> (45) </td>
+<td> <span class="t-mark-rev t-since-cxx11">(since C++11)</span> <br><span class="t-mark-rev t-until-cxx20">(until C++20)</span> </td>
+</tr>
+<tr class="t-dcl t-since-cxx11 t-until-cxx20">
+<td> <div><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt <span class="sy1">&gt;</span><br>
+<p><span class="kw4">bool</span> operator<span class="sy1">&gt;=</span> <span class="br0">(</span> <span class="kw4">const</span> <span class="coMULTI">/*value-type-of*/</span><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> ch,<br>
+</p>
+                  <span class="kw4">const</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy3">&amp;</span> rhs <span class="br0">)</span><span class="sy4">;</span></span></div></td>
+<td> (46) </td>
+<td> <span class="t-mark-rev t-since-cxx11">(since C++11)</span> <br><span class="t-mark-rev t-until-cxx20">(until C++20)</span> </td>
+</tr>
+<tr class="t-dcl-h">
+<td> <div>Helper type aliases</div></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="t-dcl">
+<td><div><span id="Version_47"></span><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt <span class="sy1">&gt;</span><br>
+<p><span class="kw1">using</span> <span class="coMULTI">/*value-type-of*/</span> <span class="sy1">=</span><br>
+</p>
+    <span class="kw1">typename</span> <a href="../../iterator/iterator_traits.html"><span class="kw656">std::<span class="me2">iterator_traits</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy4">::</span><span class="me2">value_type</span><span class="sy4">;</span></span></div></td>
+<td> (47)</td>
+<td class="t-dcl-nopad"><span class="t-mark t-mark-expos">(<span title="This definition is for illustration purposes only. An implementation does not need to define an entity in this manner. The name of this entity is unspecified.">exposition only*</span>)</span></td>
+</tr>
+<tr class="t-dcl t-since-cxx20">
+<td><div><span id="Version_48"></span><span class="mw-geshi cpp source-cpp"><span class="kw1">template</span><span class="sy1">&lt;</span> <span class="kw1">class</span> BidirIt <span class="sy1">&gt;</span><br>
+<p><span class="kw1">using</span> <span class="coMULTI">/*cat-type-of*/</span> <span class="sy1">=</span><br>
+    <a href="../../utility/compare/compare_three_way_result.html"><span class="kw3226">std::<span class="me2">compare_three_way_result_t</span></span></a><br>
+</p>
+        <span class="sy1">&lt;</span><a href="../../string/basic_string.html"><span class="kw1236">std::<span class="me2">basic_string</span></span></a><span class="sy1">&lt;</span><span class="coMULTI">/*value-type-of*/</span><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;&gt;&gt;</span><span class="sy4">;</span></span></div></td>
+<td> (48)</td>
+<td><span class="t-mark-rev t-since-cxx20">(since C++20)</span> <br><span class="t-mark t-mark-expos">(<span title="This definition is for illustration purposes only. An implementation does not need to define an entity in this manner. The name of this entity is unspecified.">exposition only*</span>)</span></td>
+</tr>
+<tr class="t-dcl-sep"><td></td><td></td><td></td></tr>
+</tbody></table>
+<p>Compares a <code>sub_match</code> to another <code>sub_match</code>, a <span class="t-lc"><a href="../../string/basic_string.html" title="cpp/string/basic string">std::string</a></span>, a C-style string or a single character.
+</p>
+<div class="t-li1"><span class="t-li">1-7)</span> Compares two <code>sub_match</code> directly.</div>
+<div class="t-li1"><span class="t-li">8-20)</span> Compares a <code>sub_match</code> with a <span class="t-lc"><a href="../../string/basic_string.html" title="cpp/string/basic string">std::basic_string</a></span>.</div>
+<div class="t-li1"><span class="t-li">21-33)</span> Compares a <code>sub_match</code> with a C-style string.</div>
+<div class="t-li1"><span class="t-li">34-46)</span> Compares a <code>sub_match</code> with a single character.</div>
+<table class="t-rev-begin">
+<tr class="t-rev t-since-cxx20"><td>
+<p>The <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&gt;=</code>, and <code>!=</code> operators are <a href="../../language/operators.html#Comparison_operators" title="cpp/language/operators">synthesized</a> from <span class="mw-geshi cpp source-cpp">operator<span class="sy1">&lt;=&gt;</span></span> and <span class="mw-geshi cpp source-cpp">operator<span class="sy1">==</span></span> respectively.
+</p>
+</td>
+<td><span class="t-mark-rev t-since-cxx20">(since C++20)</span></td></tr>
+</table>
+<div class="t-li1"><span class="t-li">47)</span> <code><i>value-type-of</i></code> ﻿<span class="mw-geshi cpp source-cpp"><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span></span> is the <a href="../../iterator.html#Types_and_writability" title="cpp/iterator">value type</a> of <code>BidirIt</code>.</div>
+<div class="t-li1"><span class="t-li">48)</span> <code><i>cat-type-of</i></code> ﻿<span class="mw-geshi cpp source-cpp"><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span></span> is the result type of three-way comparison of <span class="mw-geshi cpp source-cpp"><a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span></span>.</div>
+<h3><span class="mw-headline" id="Parameters">Parameters</span></h3>
+<table class="t-par-begin">
+
+
+<tr class="t-par">
+<td> lhs, rhs
+</td>
+<td> -
+</td>
+<td> a <code>sub_match</code> to compare
+</td></tr>
+<tr class="t-par">
+<td> str
+</td>
+<td> -
+</td>
+<td> a <span class="t-lc"><a href="../../string/basic_string.html" title="cpp/string/basic string">std::basic_string</a></span> to compare
+</td></tr>
+<tr class="t-par">
+<td> s
+</td>
+<td> -
+</td>
+<td> a pointer to a C-style string to compare
+</td></tr>
+<tr class="t-par">
+<td> ch
+</td>
+<td> -
+</td>
+<td> a character to compare
+</td></tr></table>
+<h3><span class="mw-headline" id="Return_value">Return value</span></h3>
+<p>Let <span class="t-c"><span class="mw-geshi cpp source-cpp">target</span></span> be the following values:
+</p>
+<div class="t-li1"><span class="t-li">1-7)</span> <span class="t-c"><span class="mw-geshi cpp source-cpp">rhs</span></span></div>
+<div class="t-li1"><span class="t-li">8-20)</span> <span class="t-c"><span class="mw-geshi cpp source-cpp"><span class="kw1">typename</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy4">::</span><span class="me2">string_type</span><span class="br0">(</span>str.<span class="me1">data</span><span class="br0">(</span><span class="br0">)</span>, str.<span class="me1">size</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span></span></span></div>
+<div class="t-li1"><span class="t-li">21-33)</span> <span class="t-c"><span class="mw-geshi cpp source-cpp">s</span></span></div>
+<div class="t-li1"><span class="t-li">34-46)</span> <span class="t-c"><span class="mw-geshi cpp source-cpp"><span class="kw1">typename</span> <a href="../sub_match.html"><span class="kw2019">std::<span class="me2">sub_match</span></span></a><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span><span class="sy4">::</span><span class="me2">string_type</span><span class="br0">(</span><span class="nu0">1</span>, ch<span class="br0">)</span></span></span></div>
+<p>The return values are defined as follows:
+</p>
+<table class="wikitable" style="text-align: center;">
+<tr>
+<th rowspan="2"> Operator 
+</th>
+<th colspan="2">Return value
+</th></tr>
+<tr>
+<th>Overloads <span class="t-v">(1-14,21-27,34-40)</span><br><span style="font-weight: normal;"><span style="font-size:0.7em; line-height:130%">(overloads with parameter <span class="t-c"><span class="mw-geshi cpp source-cpp">lhs</span></span>)</span></span>
+</th>
+<th>      Overloads <span class="t-v">(15-20,28-33,41-46)</span>      <br><span style="font-weight: normal;"><span style="font-size:0.7em; line-height:130%">(overloads without parameter <span class="t-c"><span class="mw-geshi cpp source-cpp">lhs</span></span>)</span></span>
+</th></tr>
+<tr>
+<td><code>==</code>
+</td>
+<td><span class="t-c"><span class="mw-geshi cpp source-cpp">lhs.<span class="me1">compare</span><span class="br0">(</span>target<span class="br0">)</span> <span class="sy1">==</span> <span class="nu0">0</span></span></span>
+</td>
+<td><span class="t-c"><span class="mw-geshi cpp source-cpp">rhs.<span class="me1">compare</span><span class="br0">(</span>target<span class="br0">)</span> <span class="sy1">==</span> <span class="nu0">0</span></span></span>
+</td></tr>
+<tr>
+<td><code>!=</code>
+</td>
+<td><span class="t-c"><span class="mw-geshi cpp source-cpp">lhs.<span class="me1">compare</span><span class="br0">(</span>target<span class="br0">)</span> <span class="sy3">!</span><span class="sy1">=</span> <span class="nu0">0</span></span></span>
+</td>
+<td><span class="t-c"><span class="mw-geshi cpp source-cpp">rhs.<span class="me1">compare</span><span class="br0">(</span>target<span class="br0">)</span> <span class="sy3">!</span><span class="sy1">=</span> <span class="nu0">0</span></span></span>
+</td></tr>
+<tr>
+<td><code>&lt;</code>
+</td>
+<td><span class="t-c"><span class="mw-geshi cpp source-cpp">lhs.<span class="me1">compare</span><span class="br0">(</span>target<span class="br0">)</span> <span class="sy1">&lt;</span> <span class="nu0">0</span></span></span>
+</td>
+<td><span class="t-c"><span class="mw-geshi cpp source-cpp">rhs.<span class="me1">compare</span><span class="br0">(</span>target<span class="br0">)</span> <span class="sy1">&gt;</span> <span class="nu0">0</span></span></span>
+</td></tr>
+<tr>
+<td><code>&lt;=</code>
+</td>
+<td><span class="t-c"><span class="mw-geshi cpp source-cpp">lhs.<span class="me1">compare</span><span class="br0">(</span>target<span class="br0">)</span> <span class="sy1">&lt;=</span> <span class="nu0">0</span></span></span>
+</td>
+<td><span class="t-c"><span class="mw-geshi cpp source-cpp">rhs.<span class="me1">compare</span><span class="br0">(</span>target<span class="br0">)</span> <span class="sy1">&gt;=</span> <span class="nu0">0</span></span></span>
+</td></tr>
+<tr>
+<td><code>&gt;</code>
+</td>
+<td><span class="t-c"><span class="mw-geshi cpp source-cpp">lhs.<span class="me1">compare</span><span class="br0">(</span>target<span class="br0">)</span> <span class="sy1">&gt;</span> <span class="nu0">0</span></span></span>
+</td>
+<td><span class="t-c"><span class="mw-geshi cpp source-cpp">rhs.<span class="me1">compare</span><span class="br0">(</span>target<span class="br0">)</span> <span class="sy1">&lt;</span> <span class="nu0">0</span></span></span>
+</td></tr>
+<tr>
+<td><code>&gt;=</code>
+</td>
+<td><span class="t-c"><span class="mw-geshi cpp source-cpp">lhs.<span class="me1">compare</span><span class="br0">(</span>target<span class="br0">)</span> <span class="sy1">&gt;=</span> <span class="nu0">0</span></span></span>
+</td>
+<td><span class="t-c"><span class="mw-geshi cpp source-cpp">rhs.<span class="me1">compare</span><span class="br0">(</span>target<span class="br0">)</span> <span class="sy1">&lt;=</span> <span class="nu0">0</span></span></span>
+</td></tr>
+<tr>
+<td><code>&lt;=&gt;</code>
+</td>
+<td> <span style="text-align: start;"><span class="t-c"><span class="mw-geshi cpp source-cpp"><span class="kw1">static_cast</span><span class="sy1">&lt;</span></span><code><i>cat-type-of</i></code> ﻿<span class="mw-geshi cpp source-cpp"><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;&gt;</span></span><br><code>    </code><span class="mw-geshi cpp source-cpp"><span class="br0">(</span>lhs.<span class="me1">compare</span><span class="br0">(</span>target<span class="br0">)</span> <span class="sy1">&lt;=&gt;</span> <span class="nu0">0</span><span class="br0">)</span></span></span></span> 
+</td>
+<td style="background: #ececec; color: grey; vertical-align: middle; text-align: center;" class="table-na"> <small>N/A</small>
+</td></tr></table>
+<h3><span class="mw-headline" id="Notes">Notes</span></h3>
+<p>The return type of <span class="mw-geshi cpp source-cpp">operator<span class="sy1">&lt;=&gt;</span></span> is guaranteed to be a comparison category type. If <code><i>value-type-of</i></code> ﻿<span class="mw-geshi cpp source-cpp"><span class="sy1">&lt;</span>BidirIt<span class="sy1">&gt;</span></span> is <span class="mw-geshi cpp source-cpp"><span class="kw4">char</span></span>, <span class="mw-geshi cpp source-cpp"><span class="kw4">wchar_t</span></span>, <span class="mw-geshi cpp source-cpp">char8_t</span>, <span class="mw-geshi cpp source-cpp"><span class="kw4">char16_t</span></span>, or <span class="mw-geshi cpp source-cpp"><span class="kw4">char32_t</span></span>, the return type of <code>operator&lt;=&gt;</code> is <a href="../../utility/compare/strong_ordering.html" title="cpp/utility/compare/strong ordering"><tt>std::strong_ordering</tt></a>.
+</p>
+<h3><span class="mw-headline" id="Example">Example</span></h3>
+<table class="metadata plainlinks ambox mbox-small-left ambox-notice" style=""><tr><td class="mbox-empty-cell"></td><td class="mbox-text" style="">This section is incomplete<br>Reason: no example </td></tr></table>
+<h3><span class="mw-headline" id="Defect_reports">Defect reports</span></h3>
+<p>The following behavior-changing defect reports were applied retroactively to previously published C++ standards.
+</p>
+<table class="dsctable" style="font-size:0.8em">
+<tr>
+<th>DR
+</th>
+<th>Applied to
+</th>
+<th>Behavior as published
+</th>
+<th>Correct behavior
+</th></tr>
+<tr>
+<td><a rel="nofollow" class="external text" href="https://cplusplus.github.io/LWG/issue2217">LWG 2217</a>
+</td>
+<td>C++11
+</td>
+<td>for comparisons with <span class="t-lc"><a href="../../string/basic_string.html" title="cpp/string/basic string">std::string</a></span>, the<br>argument of <a href="compare.html" title="cpp/regex/sub match/compare"><code>compare()</code></a> was <span class="t-c"><span class="mw-geshi cpp source-cpp">str.<span class="me1">c_str</span><span class="br0">(</span><span class="br0">)</span></span></span>
+</td>
+<td>the argument is<br><span class="t-c"><span class="mw-geshi cpp source-cpp">string_type<span class="br0">(</span>str.<span class="me1">data</span><span class="br0">(</span><span class="br0">)</span>, str.<span class="me1">size</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="br0">)</span></span></span>
+</td></tr></table>
+<h3><span class="mw-headline" id="See_also">See also</span></h3>
+<table class="t-dsc-begin">
+
+<tr class="t-dsc">
+<td>  <div class="t-dsc-member-div"><div><a href="compare.html" title="cpp/regex/sub match/compare"> <span class="t-lines"><span>compare</span></span></a></div></div>
+</td>
+<td>  compares matched subsequence (if any) <br> <span class="t-mark">(public member function)</span> </td></tr>
+</table>
+
+
+
+

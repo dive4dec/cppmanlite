@@ -1,0 +1,118 @@
+<div class="t-navbar" style=""><div class="t-navbar-sep"> </div><div class="t-navbar-head"><a href="../c.html" title="c"> C</a><div class="t-navbar-menu"><div><div><table class="t-nv-begin" cellpadding="0" style="line-height:1.1em;">
+<tr class="t-nv"><td colspan="5"><a href="compiler_support.html" title="c/compiler support">Compiler support</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="language.html" title="c/language">Language</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="header.html" title="c/header">Headers</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="types.html" title="c/types">Type support</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="program.html" title="c/program">Program utilities</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="variadic.html" title="c/variadic">Variadic function support</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="error.html" title="c/error">Error handling</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="memory.html" title="c/memory">Dynamic memory management</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="string.html" title="c/string">Strings library</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="algorithm.html" title="c/algorithm">Algorithms</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="numeric.html" title="c/numeric">Numerics</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="chrono.html" title="c/chrono">Date and time utilities</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="io.html" title="c/io">Input/output support</a></td></tr>
+<tr class="t-nv"><td colspan="5"><strong class="selflink">Localization support</strong></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="thread.html" title="c/thread">Concurrency support</a> <span class="t-mark-rev t-since-c11">(C11)</span></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="experimental.html" title="c/experimental">Technical Specifications</a></td></tr>
+<tr class="t-nv"><td colspan="5"><a href="index.html" title="c/symbol index">Symbol index</a></td></tr>
+</table></div><div></div></div></div></div><div class="t-navbar-sep"> </div><div class="t-navbar-head"><strong class="selflink"> Localization support</strong><div class="t-navbar-menu"><div><div><table class="t-nv-begin" cellpadding="0" style="">
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="locale/setlocale.html" title="c/locale/setlocale"><span class="t-lines"><span>setlocale</span></span></a></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="locale/localeconv.html" title="c/locale/localeconv"><span class="t-lines"><span>localeconv</span></span></a></div></div></td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="locale/lconv.html" title="c/locale/lconv"><span class="t-lines"><span>lconv</span></span></a></div></div></td></tr>
+<tr class="t-nv-h2"><td colspan="5"> Locale categories</td></tr>
+<tr class="t-nv"><td colspan="5"><div class="t-nv-ln-table"><div><a href="locale/LC_categories.html" title="c/locale/LC categories"><span class="t-lines"><span>LC_ALL</span><span>LC_COLLATE</span><span>LC_CTYPE</span><span>LC_MONETARY</span><span>LC_NUMERIC</span><span>LC_TIME</span></span></a></div></div></td></tr>
+</table></div><div></div></div></div></div><div class="t-navbar-sep"> </div></div>
+<table class="t-dsc-begin">
+
+<tr class="t-dsc-header">
+<td colspan="2"> <div>Defined in header <code><strong class="selflink"><tt>&lt;locale.h&gt;</tt></strong></code> </div>
+</td></tr>
+
+<tr class="t-dsc">
+<td>  <div class="t-dsc-member-div"><div><a href="locale/setlocale.html" title="c/locale/setlocale"> <span class="t-lines"><span>setlocale</span></span></a></div></div>
+</td>
+<td>   gets and sets the current C locale <br> <span class="t-mark">(function)</span> </td></tr>
+
+<tr class="t-dsc">
+<td>  <div class="t-dsc-member-div"><div><a href="locale/localeconv.html" title="c/locale/localeconv"> <span class="t-lines"><span>localeconv</span></span></a></div></div>
+</td>
+<td>   queries numeric and monetary formatting details of the current locale <br> <span class="t-mark">(function)</span> </td></tr>
+
+<tr class="t-dsc">
+<td> <div class="t-dsc-member-div"><div><a href="locale/lconv.html" title="c/locale/lconv"> <span class="t-lines"><span>lconv</span></span></a></div></div>
+</td>
+<td> formatting details, returned by <span class="t-lc"><a href="locale/localeconv.html" title="c/locale/localeconv">localeconv</a></span><br><span class="t-mark">(struct)</span></td></tr>
+
+<tr>
+<td colspan="2"> <h5> <span class="mw-headline" id="Locale_categories"> Locale categories </span></h5>
+</td></tr>
+
+<tr class="t-dsc">
+<td>  <div class="t-dsc-member-div"><div><a href="locale/LC_categories.html" title="c/locale/LC categories"> <span class="t-lines"><span>LC_ALL</span><span>LC_COLLATE</span><span>LC_CTYPE</span><span>LC_MONETARY</span><span>LC_NUMERIC</span><span>LC_TIME</span></span></a></div></div>
+</td>
+<td>  locale categories for <span class="t-lc"><a href="locale/setlocale.html" title="c/locale/setlocale">setlocale</a></span> <br> <span class="t-mark">(macro constant)</span> </td></tr>
+</table>
+<h3><span class="mw-headline" id="References">References</span></h3>
+<div class="t-ref-std-23">
+<ul><li> C23 standard (ISO/IEC 9899:2024): 
+</li></ul>
+<dl><dd><ul><li> 7.11 Localization &lt;locale.h&gt; (p: TBD)
+</li></ul>
+</dd></dl>
+<dl><dd><ul><li> 7.31.6 Localization &lt;locale.h&gt; (p: TBD)
+</li></ul>
+</dd></dl>
+</div>
+<div class="t-ref-std-17">
+<ul><li> C17 standard (ISO/IEC 9899:2018): 
+</li></ul>
+<dl><dd><ul><li> 7.11 Localization &lt;locale.h&gt; (p: TBD)
+</li></ul>
+</dd></dl>
+<dl><dd><ul><li> 7.31.6 Localization &lt;locale.h&gt; (p: TBD)
+</li></ul>
+</dd></dl>
+</div>
+<div class="t-ref-std-11">
+<ul><li> C11 standard (ISO/IEC 9899:2011): 
+</li></ul>
+<dl><dd><ul><li> 7.11 Localization &lt;locale.h&gt; (p: 223-230)
+</li></ul>
+</dd></dl>
+<dl><dd><ul><li> 7.31.6 Localization &lt;locale.h&gt; (p: 455)
+</li></ul>
+</dd></dl>
+</div>
+<div class="t-ref-std-c99">
+<ul><li> C99 standard (ISO/IEC 9899:1999): 
+</li></ul>
+<dl><dd><ul><li> 7.11 Localization &lt;locale.h&gt; (p: 204-211)
+</li></ul>
+</dd></dl>
+<dl><dd><ul><li> 7.26.5 Localization &lt;locale.h&gt; (p: 401)
+</li></ul>
+</dd></dl>
+</div>
+<div class="t-ref-std-c89">
+<ul><li> C89/C90 standard (ISO/IEC 9899:1990): 
+</li></ul>
+<dl><dd><ul><li> 4.4 LOCALIZATION &lt;locale.h&gt; 
+</li></ul>
+</dd></dl>
+<dl><dd><ul><li> 4.13.3 Localization &lt;locale.h&gt; 
+</li></ul>
+</dd></dl>
+</div>
+<h3><span class="mw-headline" id="See_also">See also</span></h3>
+<table class="t-dsc-begin">
+
+<tr class="t-dsc">
+<td colspan="2"> <div class="t-dsc-see"><span><a href="../cpp/locale.html" title="cpp/locale">C++ documentation</a></span> for <span class=""><span>Localization library</span></span></div>
+</td></tr>
+
+</table>
+
+
+
+
