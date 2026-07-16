@@ -2,28 +2,73 @@
 
 No external dependencies — pure stdlib.  Fetches pages on-demand from
 cppreference.com when not bundled locally.
+
+Works in CPython, Jupyter, and Pyodide (browser).  In Pyodide, network
+fetches use the browser's Fetch API via pyodide.http instead of urllib.
 """
 
 from __future__ import annotations
 
 import html
 import json
-import os
 import re
-import urllib.parse
-import urllib.request
 from pathlib import Path
 from typing import Any
 
-# ---------------------------------------------------------------------------
+# --------------------------------------------------------------------------- #
+# Environment detection
+# --------------------------------------------------------------------------- #
+
+def _detect_pyodide() -> bool:
+    """Return True if running under Pyodide."""
+    try:
+        import sys
+        return "pyodide" in sys.modules or "pyodide" in getattr(sys, "platform", "")
+    except Exception:
+        return False
+
+
+_IS_PYODIDE = _detect_pyodide()
+
+
+# --------------------------------------------------------------------------- #
+# Network fetch — urllib in CPython, pyodide.http in Pyodide
+# --------------------------------------------------------------------------- #
+
+def _fetch_url(url: str, timeout: int = 15) -> str:
+    """Fetch a URL and return text.  Uses urllib (CPython) or pyfetch (Pyodide)."""
+    if _IS_PYODIDE:
+        return _fetch_pyodide(url)
+    return _fetch_urllib(url, timeout)
+
+
+def _fetch_urllib(url: str, timeout: int) -> str:
+    import urllib.request
+    req = urllib.request.Request(url, headers={"User-Agent": "cppmanlite/0.1"})
+    with urllib.request.urlopen(req, timeout=timeout) as resp:
+        return resp.read().decode("utf-8", errors="replace")
+
+
+def _fetch_pyodide(url: str) -> str:
+    """Fetch via pyodide.http.pyfetch (async under the hood, but Pyodide
+    auto-awaits top-level coroutines)."""
+    from pyodide.http import pyfetch
+    resp = pyfetch(url, headers={"User-Agent": "cppmanlite/0.1"})
+    return resp.string
+
+
+# --------------------------------------------------------------------------- #
 # Index management
-# ---------------------------------------------------------------------------
+# --------------------------------------------------------------------------- #
 
 _INDEX: list[dict[str, str]] = []
 _INDEX_PATH = Path(__file__).parent / "data" / "index.json"
 
-_BASE_URL = "https://en.cppreference.com"
-# cppreference redirects /w/cpp/... → /cpp/...; we use /w/ for canonical URLs
+# When running in Pyodide the bundled index.json ships inside the wheel;
+# when running in CPython without the bundle, fetch from GitHub Pages.
+_INDEX_FALLBACK_URL = "https://dive4dec.github.io/cppmanlite/index.json"
+
+# cppreference page base URL (redirects /w/cpp/... → /cpp/...)
 _PAGE_BASE = "https://en.cppreference.com/w"
 
 
@@ -36,20 +81,12 @@ def _load_index() -> list[dict[str, str]]:
         with open(_INDEX_PATH, encoding="utf-8") as f:
             _INDEX = json.load(f)
     else:
-        # Try fetching from GitHub Pages
+        # Fetch from GitHub Pages (works in both CPython and Pyodide)
         try:
-            url = "https://dive4dec.github.io/cppmanlite/index.json"
-            _INDEX = json.loads(_fetch_url(url))
+            _INDEX = json.loads(_fetch_url(_INDEX_FALLBACK_URL))
         except Exception:
             _INDEX = []
     return _INDEX
-
-
-def _fetch_url(url: str, timeout: int = 15) -> str:
-    """Fetch a URL and return text.  Uses urllib only (no deps)."""
-    req = urllib.request.Request(url, headers={"User-Agent": "cppmanlite/0.1"})
-    with urllib.request.urlopen(req, timeout=timeout) as resp:
-        return resp.read().decode("utf-8", errors="replace")
 
 
 # ---------------------------------------------------------------------------
@@ -113,6 +150,13 @@ _COMMENT_RE = re.compile(r"<!--.*?-->", re.DOTALL)
 _EDIT_RE = re.compile(r'<span class="mw-editsection">.*?</span>', re.DOTALL)
 
 
+_NAVBAR_RE = re.compile(
+    r'<div class="t-navbar"[^>]*>.*?(?:</div>\s*(?=<div|<h[1-6]|<table|<p|\Z))',
+    re.DOTALL,
+)
+_NV_TABLE_RE = re.compile(r'<table class="t-nv-begin"[^>]*>.*?</table>', re.DOTALL)
+
+
 def _fetch_page(url: str) -> str:
     """Fetch a cppreference page and extract the main content HTML."""
     full_url = f"{_PAGE_BASE}/{url}" if not url.startswith("http") else url
@@ -127,6 +171,11 @@ def _fetch_page(url: str) -> str:
     content = _STYLE_RE.sub("", content)
     content = _COMMENT_RE.sub("", content)
     content = _EDIT_RE.sub("", content)
+    # Strip residual [edit] markers left by mw-editsection removal
+    content = re.sub(r"\[edit\]", "", content)
+    # Strip cppreference navigation chrome (t-navbar, t-nv-begin tables)
+    content = _NAVBAR_RE.sub("", content)
+    content = _NV_TABLE_RE.sub("", content)
     # Fix relative URLs
     content = re.sub(r'href="/w/', 'href="https://en.cppreference.com/w/', content)
     content = re.sub(r'src="/', 'src="https://en.cppreference.com/', content)
@@ -206,8 +255,10 @@ def man(query: str) -> Any:
 
         display(HTML(_format_page_html(content)))
     else:
-        # Strip HTML tags for terminal
+        # Strip HTML tags for terminal, then decode entities
         text = re.sub(r"<[^>]+>", "", content)
+        text = html.unescape(text)
+        text = re.sub(r"\[edit\]", "", text)
         text = re.sub(r"\s+", " ", text).strip()
         print(text[:4000])
 
