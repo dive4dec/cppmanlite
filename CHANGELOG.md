@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-07-16
+
+### Fixed
+- **Jupyter link resolution** — relative links in `man()` output resolved
+  against the JupyterHub host (e.g. `https://dive.cs.cityu.edu.hk/cpp/...`)
+  instead of cppreference.com. Now wraps content in an `<iframe srcdoc>` with
+  a `<base href="https://en.cppreference.com/w/...">` tag so all relative
+  links resolve correctly inside the sandboxed iframe.
+
 ## [0.1.1] - 2026-07-16
 
 ### Fixed

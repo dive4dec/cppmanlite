@@ -349,12 +349,29 @@ def _format_search_html(results: list[dict[str, str]]) -> str:
     )
 
 
-def _format_page_html(content: str) -> str:
+def _format_page_html(content: str, page_url: str = "") -> str:
+    """Wrap page content in an iframe with a <base> tag so relative links
+    resolve against cppreference.com, not the JupyterHub host."""
+    base_href = (
+        f"https://en.cppreference.com/w/{page_url}" if page_url
+        else "https://en.cppreference.com/w/"
+    )
+    doc = (
+        '<!DOCTYPE html><html><head><meta charset="utf-8">'
+        f'<base href="{html.escape(base_href)}">'
+        '<style>'
+        'body{font-family:sans-serif;font-size:14px;padding:8px;margin:0}'
+        'table{border-collapse:collapse}td,th{border:1px solid #ddd;padding:2px 6px}'
+        'a{color:#0645ad}'
+        '</style>'
+        '</head><body>' + content + '</body></html>'
+    )
+    srcdoc = html.escape(doc, quote=True)
     return (
-        '<div style="max-height:600px;overflow:auto;'
-        'border:1px solid #ddd;padding:16px;font-size:14px">'
-        + content
-        + "</div>"
+        '<iframe srcdoc="' + srcdoc + '" '
+        'style="width:100%;height:600px;border:1px solid #ddd;" '
+        'sandbox="allow-same-origin allow-popups allow-top-navigation">'
+        '</iframe>'
     )
 
 
@@ -395,7 +412,7 @@ def _man_sync(query: str) -> None:
     if _is_jupyter():
         from IPython.display import HTML, display
 
-        display(HTML(_format_page_html(content)))
+        display(HTML(_format_page_html(content, page_url=url)))
     else:
         # Terminal: print formatted text
         print(f"\n{'=' * 80}\n{title}\n{'=' * 80}\n")
@@ -414,7 +431,7 @@ async def _man_async(query: str) -> None:
     if _is_jupyter():
         from IPython.display import HTML, display
 
-        display(HTML(_format_page_html(content)))
+        display(HTML(_format_page_html(content, page_url=url)))
     else:
         # Pyodide console / terminal
         print(f"\n{'=' * 80}\n{title}\n{'=' * 80}\n")
