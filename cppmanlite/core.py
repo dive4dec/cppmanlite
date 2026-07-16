@@ -350,28 +350,47 @@ def _format_search_html(results: list[dict[str, str]]) -> str:
 
 
 def _format_page_html(content: str, page_url: str = "") -> str:
-    """Wrap page content in an iframe with a <base> tag so relative links
-    resolve against cppreference.com, not the JupyterHub host."""
-    base_href = (
-        f"https://en.cppreference.com/w/{page_url}" if page_url
-        else "https://en.cppreference.com/w/"
-    )
-    doc = (
-        '<!DOCTYPE html><html><head><meta charset="utf-8">'
-        f'<base href="{html.escape(base_href)}">'
-        '<style>'
-        'body{font-family:sans-serif;font-size:14px;padding:8px;margin:0}'
-        'table{border-collapse:collapse}td,th{border:1px solid #ddd;padding:2px 6px}'
-        'a{color:#0645ad}'
-        '</style>'
-        '</head><body>' + content + '</body></html>'
-    )
-    srcdoc = html.escape(doc, quote=True)
+    """Format page content for Jupyter display.
+
+    Uses HTML() directly (not an iframe) and intercepts link clicks via
+    JavaScript. Clicking a link inserts a new code cell that calls
+    cppmanlite.man() with the linked page, keeping navigation within the
+    notebook instead of navigating to cppreference.com.
+    """
+    # Rewrite all href links to JS callbacks with the cppreference path
+    def _rewrite_href(m: re.Match) -> str:
+        href = m.group(1)
+        # Skip anchors, javascript, and wiki edit/upload links
+        if href.startswith("#") or href.startswith("javascript"):
+            return m.group(0)
+        if "action=edit" in href or "action=upload" in href or "/index.php" in href:
+            return 'href="#"'
+        # Extract the cppreference path (strip host if absolute)
+        path = re.sub(r"^https?://en\.cppreference\.com/w/", "", href)
+        path = re.sub(r"^/w/", "", path)
+        if not path:
+            return m.group(0)
+        # Escape quotes
+        path = path.replace("'", "\\'")
+        return f'href="javascript:cppmanlite_nav(\'{path}\')"'
+
+    content = re.sub(r'href="([^"]*)"', _rewrite_href, content)
+
     return (
-        '<iframe srcdoc="' + srcdoc + '" '
-        'style="width:100%;height:600px;border:1px solid #ddd;" '
-        'sandbox="allow-same-origin allow-popups allow-top-navigation">'
-        '</iframe>'
+        '<div class="cppmanlite-content" '
+        'style="max-height:600px;overflow:auto;'
+        'border:1px solid #ddd;padding:16px;font-size:14px">'
+        '<script>'
+        'function cppmanlite_nav(path){'
+        '  if(typeof Jupyter!=="undefined"){'
+        '    var cell=Jupyter.notebook.insert_cell_below("code");'
+        '    cell.set_text("cppmanlite.man(\'"+path+"\')");'
+        '    cell.execute();'
+        '  }'
+        '}'
+        '</script>'
+        + content
+        + "</div>"
     )
 
 

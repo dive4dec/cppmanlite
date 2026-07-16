@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.3] - 2026-07-16
+
+### Fixed
+- **Jupyter in-notebook navigation** — clicking a link in `man()` output no
+  longer navigates to cppreference.com. Links are rewritten to
+  `javascript:cppmanlite_nav(path)` which inserts and executes a new code cell
+  calling `cppmanlite.man(path)`, keeping navigation within the notebook.
+- **Wiki edit links stripped** — `action=edit` and `index.php` links are
+  neutralized to `href="#"`.
+- Removed `<iframe>` (fixes IPython `UserWarning: Consider using
+  IPython.display.IFrame`).
+
 ## [0.1.2] - 2026-07-16
 
 ### Fixed

@@ -8,3 +8,5 @@ build/
 extract/
 gh-pages/
 site_output/
+.ipynb_checkpoints/
+*.ipynb
