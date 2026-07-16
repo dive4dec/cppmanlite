@@ -1,0 +1,6 @@
+apiVersion: v2
+name: cppmanlite
+description: Lightweight serverless C++ documentation search
+type: application
+version: 0.1.0
+appVersion: "0.1.0"

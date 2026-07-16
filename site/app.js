@@ -1,0 +1,181 @@
+// cppmanlite — client-side search + page reader
+// Uses lunr.js for fuzzy search over a static index.json
+
+let lunrIndex = null;
+let allDocs = [];
+let currentQuery = "";
+
+// ---- Load and build the index ----
+async function init() {
+  try {
+    const resp = await fetch("index.json");
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    allDocs = await resp.json();
+    lunrIndex = lunr(function () {
+      this.ref("id");
+      this.field("title", { boost: 10 });
+      this.field("url", { boost: 5 });
+      this.field("snippet");
+      allDocs.forEach((doc, i) => {
+        this.add({ id: i, title: doc.title, url: doc.url, snippet: doc.snippet });
+      });
+    });
+    document.getElementById("result-count").textContent = `${allDocs.length} pages indexed`;
+  } catch (e) {
+    document.getElementById("result-count").textContent = "Failed to load index";
+    console.error(e);
+  }
+}
+
+// ---- Search ----
+function doSearch(query) {
+  currentQuery = query;
+  const resultsDiv = document.getElementById("results");
+  const countSpan = document.getElementById("result-count");
+
+  if (!query.trim()) {
+    resultsDiv.innerHTML = "";
+    countSpan.textContent = `${allDocs.length} pages indexed`;
+    return;
+  }
+
+  // lunr search + fallback to simple substring match
+  let results = [];
+  try {
+    const lunrResults = lunrIndex.search(query);
+    results = lunrResults.map((r) => {
+      const doc = allDocs[parseInt(r.ref)];
+      return { ...doc, score: r.score };
+    });
+  } catch (e) {
+    // lunr throws on syntax errors — fall back to substring
+  }
+
+  // Fallback: if lunr returns nothing, do substring search
+  if (results.length === 0) {
+    const q = query.toLowerCase();
+    const qNorm = q.replace(/^std::/, "");
+    results = allDocs
+      .filter(
+        (d) =>
+          d.title.toLowerCase().includes(q) ||
+          d.url.toLowerCase().includes(q) ||
+          (qNorm && d.title.toLowerCase().includes(qNorm))
+      )
+      .slice(0, 30)
+      .map((d) => ({ ...d, score: 0 }));
+  }
+
+  results = results.slice(0, 30);
+
+  countSpan.textContent = `${results.length} result${results.length !== 1 ? "s" : ""}`;
+
+  if (results.length === 0) {
+    resultsDiv.innerHTML = `<p style="color:var(--muted);text-align:center;padding:2rem">No results for "${escapeHtml(query)}"</p>`;
+    return;
+  }
+
+  resultsDiv.innerHTML = results
+    .map(
+      (r) => `
+    <div class="result-item" data-url="${escapeAttr(r.url)}">
+      <div class="result-title">${escapeHtml(r.title)}</div>
+      <div class="result-url">${escapeHtml(r.url)}</div>
+      ${r.snippet ? `<div class="result-snippet">${escapeHtml(r.snippet)}</div>` : ""}
+    </div>`
+    )
+    .join("");
+
+  // Attach click handlers
+  resultsDiv.querySelectorAll(".result-item").forEach((item) => {
+    item.addEventListener("click", () => loadPage(item.dataset.url));
+  });
+}
+
+// ---- Page loading ----
+async function loadPage(urlPath) {
+  const reader = document.getElementById("reader");
+  const content = document.getElementById("reader-content");
+  const results = document.getElementById("results");
+  const searchBar = document.querySelector(".search-bar");
+
+  // Show reader, hide results
+  results.style.display = "none";
+  searchBar.style.display = "none";
+  reader.style.display = "block";
+  content.innerHTML = '<p style="color:var(--muted)">Loading…</p>';
+
+  try {
+    // Fetch from cppreference.com — no CORS headers, so we use the local
+    // copy if this is served from the same origin (Docker/K8s), or
+    // fetch directly and let the browser handle it.
+    let htmlText;
+    try {
+      // Try local first (when served from Docker with bundled docs)
+      const localResp = await fetch(`docs/${urlPath}`);
+      if (localResp.ok) {
+        htmlText = await localResp.text();
+      } else {
+        throw new Error("not local");
+      }
+    } catch {
+      // Fall back to cppreference.com directly
+      const extResp = await fetch(`https://en.cppreference.com/w/${urlPath}`);
+      htmlText = await extResp.text();
+    }
+
+    // Extract #mw-content-text
+    const m = htmlText.match(/<div id="mw-content-text"[^>]*>([\s\S]*?)(?:<\/div>\s*<!--|\Z)/);
+    let pageContent = m ? m[1] : htmlText;
+
+    // Clean: strip scripts, styles, comments, edit sections
+    pageContent = pageContent.replace(/<script[^>]*>[\s\S]*?<\/script>/g, "");
+    pageContent = pageContent.replace(/<style[^>]*>[\s\S]*?<\/style>/g, "");
+    pageContent = pageContent.replace(/<!--[\s\S]*?-->/g, "");
+    pageContent = pageContent.replace(/<span class="mw-editsection">[\s\S]*?<\/span>/g, "");
+
+    // Fix relative URLs to point to cppreference.com
+    pageContent = pageContent.replace(/href="\/w\//g, 'href="https://en.cppreference.com/w/');
+    pageContent = pageContent.replace(/href="\/cpp\//g, 'href="https://en.cppreference.com/cpp/');
+    pageContent = pageContent.replace(/src="\//g, 'src="https://en.cppreference.com/');
+
+    content.innerHTML = pageContent;
+    content.scrollTop = 0;
+  } catch (e) {
+    content.innerHTML = `<p>Failed to load page: ${escapeHtml(e.message)}</p>
+      <p><a href="https://en.cppreference.com/w/${urlPath}" target="_blank">Open on cppreference.com →</a></p>`;
+  }
+}
+
+// ---- Helpers ----
+function escapeHtml(s) {
+  const d = document.createElement("div");
+  d.textContent = s || "";
+  return d.innerHTML;
+}
+function escapeAttr(s) {
+  return escapeHtml(s).replace(/"/g, "&quot;");
+}
+
+// ---- Event wiring ----
+document.getElementById("search-input").addEventListener("input", (e) => {
+  doSearch(e.target.value);
+});
+
+document.getElementById("back-btn").addEventListener("click", () => {
+  document.getElementById("reader").style.display = "none";
+  document.getElementById("results").style.display = "block";
+  document.querySelector(".search-bar").style.display = "flex";
+  document.getElementById("search-input").focus();
+});
+
+// Keyboard: Enter opens first result
+document.getElementById("search-input").addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    const first = document.querySelector(".result-item");
+    if (first) first.click();
+  }
+});
+
+// Init
+init();

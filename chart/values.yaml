@@ -1,0 +1,21 @@
+image:
+  repository: registry.dive4dec.svc.cluster.local/cppmanlite
+  pullPolicy: Always
+  tag: v1
+
+replicaCount: 1
+
+ingress:
+  enabled: true
+  className: nginx
+  path: /cppmanlite
+  pathType: Prefix
+  host: socratic.cs.cityu.edu.hk
+
+resources:
+  limits:
+    cpu: 200m
+    memory: 128Mi
+  requests:
+    cpu: 50m
+    memory: 64Mi
