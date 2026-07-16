@@ -7,6 +7,44 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-07-16
+
+### Fixed
+- **Pyodide async fetch** — `pyfetch()` returns a coroutine; `_fetch_pyodide()`
+  is now properly `async` with `await pyfetch(...)` and `await resp.string()`.
+  `man()` returns a coroutine in Pyodide (auto-awaited by the REPL).
+- **Pyodide CORS fallback** — `en.cppreference.com` doesn't send CORS headers,
+  so direct browser fetches fail. `man()` now tries cppreference.com first,
+  then falls back to the GitHub Pages mirror (`dive4dec.github.io/cppmanlite/docs/`).
+- **Terminal text formatting** — `man()` output was a single cramped line.
+  New `_html_to_text()` converts HTML to readable 80-column plain text with
+  proper line breaks for block-level tags (p, div, tr, li, h1-h6, etc.).
+- **Template code mangled** — `&lt;class T&gt;` was decoded to `<class T>` before
+  tag stripping, causing it to be eaten as a fake HTML tag. Tags are now
+  stripped **before** entity decoding.
+- **`[edit]` markers in output** — `_EDIT_RE` only matched `mw-editsection`
+  spans; now also matches `editsection noprint plainlinks`. Strips both
+  `&#91;edit&#93;` entities and literal `[edit]` text.
+- **GitHub Actions workflow** — rewrote to use `peaceiris/actions-gh-pages`
+  (deploys to `gh-pages` branch), removed broken `configure-pages`/
+  `upload-pages-artifact`/`deploy-pages` approach. Removed unnecessary
+  `pip install -e .` (build_index.py is pure stdlib).
+- **pyproject.toml build backend** — fixed from invalid
+  `setuptools.backends._legacy:_Backend` to `setuptools.build_meta`.
+  License changed to SPDX string. Removed deprecated license classifier.
+
+### Changed
+- Rebuilt bundled `index.json` with fixed `build_index.py` (no `&lt;`/`&gt;`/`Â`
+  artifacts in titles).
+- `_fetch_page()` strips `t-navbar` and `t-nv-begin` navigation chrome from
+  fetched pages (same treatment as the web UI).
+
+### Tested
+- CPython terminal: `search()`, `man()`, `help_query()` — all pass
+- Pyodide 0.28.2: `import`, `search`, `man` (via CORS fallback), `help_query` — all pass
+- Jupyter: HTML rendering verified (57KB content)
+- Wheel: `py3-none-any`, no build warnings, clean venv install
+
 ## [0.1.0] - 2026-07-16
 
 ### Added
