@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.4] - 2026-07-16
+
+### Fixed
+- **Jupyter link click handler** — `javascript:` URLs in `href` are sanitized
+  by Jupyter's HTML sanitizer, so clicking links opened a blank page. Switched
+  to `data-cppman-path` attributes on `<a>` tags + a delegated click handler
+  registered via `IPython.display.Javascript()` (uses Jupyter's `require`
+  API for `insert_cell_below`). No more `javascript:` URLs or inline `<script>`.
+
 ## [0.1.3] - 2026-07-16
 
 ### Fixed

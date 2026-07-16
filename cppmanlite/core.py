@@ -352,12 +352,12 @@ def _format_search_html(results: list[dict[str, str]]) -> str:
 def _format_page_html(content: str, page_url: str = "") -> str:
     """Format page content for Jupyter display.
 
-    Uses HTML() directly (not an iframe) and intercepts link clicks via
-    JavaScript. Clicking a link inserts a new code cell that calls
-    cppmanlite.man() with the linked page, keeping navigation within the
-    notebook instead of navigating to cppreference.com.
+    Uses HTML() for the content and a separate Javascript() display for
+    click handlers. Links get data-cppman-path attributes; a delegated
+    click handler intercepts them and inserts+executes a new code cell
+    calling cppmanlite.man(path).
     """
-    # Rewrite all href links to JS callbacks with the cppreference path
+    # Rewrite all href links to data-cppman-path attributes
     def _rewrite_href(m: re.Match) -> str:
         href = m.group(1)
         # Skip anchors, javascript, and wiki edit/upload links
@@ -370,9 +370,8 @@ def _format_page_html(content: str, page_url: str = "") -> str:
         path = re.sub(r"^/w/", "", path)
         if not path:
             return m.group(0)
-        # Escape quotes
-        path = path.replace("'", "\\'")
-        return f'href="javascript:cppmanlite_nav(\'{path}\')"'
+        # Use data attribute instead of javascript: URL (Jupyter sanitizes js: URLs)
+        return f'href="#" data-cppman-path="{html.escape(path)}"'
 
     content = re.sub(r'href="([^"]*)"', _rewrite_href, content)
 
@@ -380,18 +379,30 @@ def _format_page_html(content: str, page_url: str = "") -> str:
         '<div class="cppmanlite-content" '
         'style="max-height:600px;overflow:auto;'
         'border:1px solid #ddd;padding:16px;font-size:14px">'
-        '<script>'
-        'function cppmanlite_nav(path){'
-        '  if(typeof Jupyter!=="undefined"){'
-        '    var cell=Jupyter.notebook.insert_cell_below("code");'
-        '    cell.set_text("cppmanlite.man(\'"+path+"\')");'
-        '    cell.execute();'
-        '  }'
-        '}'
-        '</script>'
         + content
         + "</div>"
     )
+
+
+def _display_nav_js() -> None:
+    """Register click handler for cppmanlite links in Jupyter."""
+    from IPython.display import Javascript, display
+
+    js = """
+require(['base/js/namespace'], function(Jupyter) {
+    document.addEventListener('click', function(e) {
+        var el = e.target.closest('[data-cppman-path]');
+        if (!el) return;
+        e.preventDefault();
+        e.stopPropagation();
+        var path = el.getAttribute('data-cppman-path');
+        var cell = Jupyter.notebook.insert_cell_below('code');
+        cell.set_text("cppmanlite.man('" + path + "')");
+        cell.execute();
+    }, true);
+});
+"""
+    display(Javascript(js))
 
 
 # --------------------------------------------------------------------------- #
@@ -432,6 +443,7 @@ def _man_sync(query: str) -> None:
         from IPython.display import HTML, display
 
         display(HTML(_format_page_html(content, page_url=url)))
+        _display_nav_js()
     else:
         # Terminal: print formatted text
         print(f"\n{'=' * 80}\n{title}\n{'=' * 80}\n")
@@ -451,6 +463,7 @@ async def _man_async(query: str) -> None:
         from IPython.display import HTML, display
 
         display(HTML(_format_page_html(content, page_url=url)))
+        _display_nav_js()
     else:
         # Pyodide console / terminal
         print(f"\n{'=' * 80}\n{title}\n{'=' * 80}\n")
