@@ -1,0 +1,95 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    # First day of each month at 09:00 UTC — refresh cppreference docs
+    - cron: "0 9 1 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Download cppreference archive
+        run: |
+          # Try the latest monthly release, fall back to a known-good version
+          VERSION=$(date +%Y%m%d)
+          URL="https://github.com/PeterFeicht/cppreference-doc/releases/download/v${VERSION}/html-book-${VERSION}.tar.xz"
+          FALLBACK="https://github.com/PeterFeicht/cppreference-doc/releases/download/v20250209/html-book-20250209.tar.xz"
+
+          echo "Trying $URL"
+          if curl -sfL "$URL" -o cppref.tar.xz; then
+            echo "Downloaded latest version v${VERSION}"
+          else
+            echo "Latest not available, falling back to v20250209"
+            curl -sL "$FALLBACK" -o cppref.tar.xz
+          fi
+
+          mkdir -p extract
+          tar xf cppref.tar.xz -C extract
+          echo "Extracted $(find extract -name '*.html' | wc -l) HTML files"
+
+      - name: Build search index and strip pages
+        run: |
+          pip install -e .
+          python3 scripts/build_index.py extract/reference/en site_output
+
+          # Update the bundled index used by the Python package
+          cp site_output/index.json cppmanlite/data/index.json
+
+      - name: Assemble GitHub Pages site
+        run: |
+          mkdir -p _site
+          # UI files
+          cp site/index.html site/style.css site/app.js _site/
+          # Search index
+          cp site_output/index.json _site/
+          # Stripped documentation pages
+          cp -r site_output/docs _site/docs
+
+          echo "Site contents:"
+          du -sh _site/
+          du -sh _site/docs/
+          ls -lh _site/index.json
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Commit updated index to repo
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add cppmanlite/data/index.json
+          git diff --staged --quiet || git commit -m "chore: update search index [skip ci]"
+          git push
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
