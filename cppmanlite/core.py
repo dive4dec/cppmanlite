@@ -150,7 +150,7 @@ def list_pages(limit: int = 0) -> list[dict[str, str]]:
 # --------------------------------------------------------------------------- #
 
 _CONTENT_RE = re.compile(
-    r'<div id="mw-content-text"[^>]*>(.*?)(?:</div>\s*<!--|\Z)',
+    r'<div class="mw-content-ltr mw-parser-output"[^>]*>(.*?)(?:</div>\s*<!--|\Z)',
     re.DOTALL,
 )
 _SCRIPT_RE = re.compile(r"<script[^>]*>.*?</script>", re.DOTALL)
@@ -352,57 +352,24 @@ def _format_search_html(results: list[dict[str, str]]) -> str:
 def _format_page_html(content: str, page_url: str = "") -> str:
     """Format page content for Jupyter display.
 
-    Uses HTML() for the content and a separate Javascript() display for
-    click handlers. Links get data-cppman-path attributes; a delegated
-    click handler intercepts them and inserts+executes a new code cell
-    calling cppmanlite.man(path).
+    JupyterLab's HTML sanitizer strips href URLs and event handlers,
+    making clickable links impossible. Instead, we display clean formatted
+    text (same as terminal mode) in a styled <pre> block.
     """
-    # Rewrite all href links to data-cppman-path attributes
-    def _rewrite_href(m: re.Match) -> str:
-        href = m.group(1)
-        # Skip anchors, javascript, and wiki edit/upload links
-        if href.startswith("#") or href.startswith("javascript"):
-            return m.group(0)
-        if "action=edit" in href or "action=upload" in href or "/index.php" in href:
-            return 'href="#"'
-        # Extract the cppreference path (strip host if absolute)
-        path = re.sub(r"^https?://en\.cppreference\.com/w/", "", href)
-        path = re.sub(r"^/w/", "", path)
-        if not path:
-            return m.group(0)
-        # Use data attribute instead of javascript: URL (Jupyter sanitizes js: URLs)
-        return f'href="#" data-cppman-path="{html.escape(path)}"'
-
-    content = re.sub(r'href="([^"]*)"', _rewrite_href, content)
-
+    text = _html_to_text(content, width=100)
+    title_line = ""
+    # Try to extract the title from the page URL
+    if page_url:
+        title_line = page_url.rsplit("/", 1)[-1].replace(".html", "").replace("_", " ")
+    
     return (
         '<div class="cppmanlite-content" '
         'style="max-height:600px;overflow:auto;'
-        'border:1px solid #ddd;padding:16px;font-size:14px">'
-        + content
+        'border:1px solid #ddd;padding:16px;font-size:14px;'
+        'font-family:monospace;white-space:pre-wrap">'
+        + html.escape(text)
         + "</div>"
     )
-
-
-def _display_nav_js() -> None:
-    """Register click handler for cppmanlite links in Jupyter."""
-    from IPython.display import Javascript, display
-
-    js = """
-require(['base/js/namespace'], function(Jupyter) {
-    document.addEventListener('click', function(e) {
-        var el = e.target.closest('[data-cppman-path]');
-        if (!el) return;
-        e.preventDefault();
-        e.stopPropagation();
-        var path = el.getAttribute('data-cppman-path');
-        var cell = Jupyter.notebook.insert_cell_below('code');
-        cell.set_text("cppmanlite.man('" + path + "')");
-        cell.execute();
-    }, true);
-});
-"""
-    display(Javascript(js))
 
 
 # --------------------------------------------------------------------------- #
@@ -443,7 +410,6 @@ def _man_sync(query: str) -> None:
         from IPython.display import HTML, display
 
         display(HTML(_format_page_html(content, page_url=url)))
-        _display_nav_js()
     else:
         # Terminal: print formatted text
         print(f"\n{'=' * 80}\n{title}\n{'=' * 80}\n")
@@ -463,7 +429,6 @@ async def _man_async(query: str) -> None:
         from IPython.display import HTML, display
 
         display(HTML(_format_page_html(content, page_url=url)))
-        _display_nav_js()
     else:
         # Pyodide console / terminal
         print(f"\n{'=' * 80}\n{title}\n{'=' * 80}\n")

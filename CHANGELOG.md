@@ -7,7 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.1.4] - 2026-07-16
+## [0.1.5] - 2026-07-16
+
+### Fixed
+- **Jupyter `man()` link navigation** — JupyterLab's HTML sanitizer strips
+  `href` URLs (rewrites to `#/`), strips `javascript:` URLs, strips
+  `<script>` tags, and strips event handlers (`onclick`). This made every
+  link approach fail:
+  - v0.1.3: `javascript:cppmanlite_nav()` → blank page (sanitizer strips
+    `javascript:` URLs)
+  - v0.1.4: `data-cppman-path` + `IPython.display.Javascript()` → JS output
+    doesn't render in JupyterLab 4 (deprecated)
+  - v0.1.4: absolute URLs with `target="_blank"` → sanitizer strips external
+    URLs, rewrites to `#`
+  - `href="#"` → JupyterHub resolves as file path → 404 GET /api/contents/%23
+- **Fix**: Display clean formatted text (same as terminal mode) in a styled
+  `<pre>`-like container. No links, no JS, no sanitizer issues. The web UI
+  (cppmanlite K8s deployment) retains full HTML with clickable links.
+- Also fixed `_CONTENT_RE` regex to match cppreference's new HTML structure
+  (`mw-content-ltr mw-parser-output` class instead of `id="mw-content-text"`).
 
 ### Fixed
 - **Jupyter link click handler** — `javascript:` URLs in `href` are sanitized
