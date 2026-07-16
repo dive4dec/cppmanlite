@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.6] - 2026-07-16
+
+### Fixed
+- **Jupyter `man()` now displays full HTML with working clickable links!**
+  - Root cause discovered: Jupyter's HTML sanitizer only strips external URLs
+    from `href` in **untrusted** notebooks. In **trusted** notebooks, external
+    `https://` links with `target="_blank"` render and work correctly.
+  - All navigation links rewritten to absolute `https://en.cppreference.com/w/...`
+    URLs with `target="_blank"` and `rel="noopener"` — clicking opens the
+    cppreference page in a new browser tab.
+  - Edit links (`href=".../index.php?...action=edit"`) unwrapped — `<a>` removed,
+    text kept. No more `href="#"` → 404 GET /api/contents/%23.
+  - Anchor links (`href="#section"`) left as-is for in-page navigation.
+  - `javascript:` URLs neutralized to `href="#" onclick="return false"`.
+  - Includes a "Trust Notebook" hint in the footer for untrusted notebooks.
+- Verified in real JupyterLab 4.x (trusted notebook): 78 external links work,
+  19 anchor links work, 0 broken links, 0 404 errors.
+
 ## [0.1.5] - 2026-07-16
 
 ### Fixed

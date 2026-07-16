@@ -350,25 +350,63 @@ def _format_search_html(results: list[dict[str, str]]) -> str:
 
 
 def _format_page_html(content: str, page_url: str = "") -> str:
-    """Format page content for Jupyter display.
+    """Format page content for Jupyter display with working links.
 
-    JupyterLab's HTML sanitizer strips href URLs and event handlers,
-    making clickable links impossible. Instead, we display clean formatted
-    text (same as terminal mode) in a styled <pre> block.
+    In a **trusted** notebook, Jupyter renders external https:// links
+    with target=\"_blank\" — clicking opens cppreference.com in a new tab.
+    In an untrusted notebook, the sanitizer strips external hrefs to '#'.
+
+    Links:
+    - Navigation links → absolute https://en.cppreference.com/w/... + target=\"_blank\"
+    - Edit links (<a href=\".../index.php?...action=edit\">) → unwrapped (text kept, <a> removed)
+    - Anchor links (href=\"#...\") → left as-is (in-page navigation)
     """
-    text = _html_to_text(content, width=100)
-    title_line = ""
-    # Try to extract the title from the page URL
-    if page_url:
-        title_line = page_url.rsplit("/", 1)[-1].replace(".html", "").replace("_", " ")
-    
+    from urllib.parse import urljoin
+
+    base_href = (
+        f"https://en.cppreference.com/w/{page_url}" if page_url
+        else "https://en.cppreference.com/w/"
+    )
+
+    # 1. Remove edit links entirely: <a ... href=".../index.php?...action=edit...">text</a> → text
+    content = re.sub(
+        r'<a [^>]*href="[^"]*index\.php[^"]*action=edit[^"]*"[^>]*>(.*?)</a>',
+        r'\1',
+        content,
+        flags=re.DOTALL,
+    )
+
+    # 2. Rewrite remaining hrefs
+    def _rewrite_href(m: re.Match) -> str:
+        href = m.group(1)
+
+        # Skip javascript: URLs — neutralize
+        if href.startswith("javascript:"):
+            return 'href="#" onclick="return false"'
+
+        # Skip anchors (in-page navigation) — keep as-is
+        if href.startswith("#"):
+            return f'href="{href}"'
+
+        # Resolve to absolute URL if needed
+        if not href.startswith("http://") and not href.startswith("https://"):
+            href = urljoin(base_href, href)
+
+        return f'href="{html.escape(href)}" target="_blank" rel="noopener"'
+
+    content = re.sub(r'href="([^"]*)"', _rewrite_href, content)
+
     return (
         '<div class="cppmanlite-content" '
         'style="max-height:600px;overflow:auto;'
-        'border:1px solid #ddd;padding:16px;font-size:14px;'
-        'font-family:monospace;white-space:pre-wrap">'
-        + html.escape(text)
-        + "</div>"
+        'border:1px solid #ddd;padding:16px;font-size:14px">'
+        + content
+        + '</div>'
+        + '<p style="font-size:11px;color:#888;margin-top:4px">'
+        + 'Links open cppreference.com in a new tab. '
+        + 'If links don\'t work, trust this notebook: '
+        + '<b>File → Trust Notebook</b>'
+        + '</p>'
     )
 
 
