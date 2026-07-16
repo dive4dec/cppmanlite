@@ -116,9 +116,19 @@ async function loadPage(urlPath) {
       htmlText = await extResp.text();
     }
 
-    // Extract #mw-content-text
+    // Extract #mw-content-text if present (full cppreference pages)
     const m = htmlText.match(/<div id="mw-content-text"[^>]*>([\s\S]*?)(?:<\/div>\s*<!--|\Z)/);
     let pageContent = m ? m[1] : htmlText;
+
+    // Strip cppreference navigation chrome that clutters the page:
+    // - t-navbar: site navigation bar (C++, Compiler support, Language, etc.)
+    // - t-nv-begin: header index tables (list of all C++ headers by category)
+    // These have relative links that escape /cppmanlite/ and aren't the main content.
+    pageContent = stripDivByClass(pageContent, "t-navbar");
+    pageContent = stripDivByClass(pageContent, "t-navbar-sep");
+    pageContent = stripDivByClass(pageContent, "t-navbar-head");
+    // Strip t-nv-begin tables (header category index — 20KB+ of links to other headers)
+    pageContent = pageContent.replace(/<table class="t-nv-begin"[\s\S]*?<\/table>/g, "");
 
     // Clean: strip scripts, styles, comments, edit sections
     pageContent = pageContent.replace(/<script[^>]*>[\s\S]*?<\/script>/g, "");
@@ -131,9 +141,15 @@ async function loadPage(urlPath) {
     pageContent = pageContent.replace(/href="\/cpp\//g, 'href="https://en.cppreference.com/cpp/');
     pageContent = pageContent.replace(/src="\//g, 'src="https://en.cppreference.com/');
 
-    // Rewrite relative src (images, etc.) so they load from docs/ bundle
+    // Rewrite relative hrefs so they stay within /cppmanlite/
     const pageDir = urlPath.includes("/") ? urlPath.substring(0, urlPath.lastIndexOf("/") + 1) : "";
     currentPageDir = pageDir;
+    pageContent = pageContent.replace(/href="([^"]+)"/g, (match, href) => {
+      if (href.startsWith("http") || href.startsWith("/") || href.startsWith("#") || href.startsWith("data:") || href.startsWith("mailto:")) return match;
+      const resolved = resolveRelative(pageDir, href.split("#")[0]);
+      return `href="docs/${resolved}${href.includes("#") ? "#" + href.split("#")[1] : ""}"`;
+    });
+    // Rewrite relative src (images, etc.) so they load from docs/ bundle
     pageContent = pageContent.replace(/src="([^"]+)"/g, (match, src) => {
       if (src.startsWith("http") || src.startsWith("/") || src.startsWith("#") || src.startsWith("data:")) return match;
       return `src="docs/${resolveRelative(pageDir, src)}"`;
@@ -164,6 +180,31 @@ function escapeHtml(s) {
 }
 function escapeAttr(s) {
   return escapeHtml(s).replace(/"/g, "&quot;");
+}
+
+// Strip a <div class="className">...</div> block, handling nested divs.
+function stripDivByClass(html, className) {
+  const re = new RegExp(`<div class="${className}"`, "g");
+  let result = html;
+  let match;
+  while ((match = re.exec(result)) !== null) {
+    const start = match.index;
+    let depth = 0;
+    let i = start;
+    while (i < result.length) {
+      if (result.substring(i, i + 4) === "<div") depth++;
+      else if (result.substring(i, i + 6) === "</div>") {
+        depth--;
+        if (depth === 0) {
+          result = result.substring(0, start) + result.substring(i + 6);
+          re.lastIndex = start; // restart search from this position
+          break;
+        }
+      }
+      i++;
+    }
+  }
+  return result;
 }
 
 // Resolve a relative path against a base directory.
@@ -208,6 +249,18 @@ document.getElementById("reader-content").addEventListener("click", (e) => {
   } else if (href.startsWith("#")) {
     const el = document.getElementById("reader-content").querySelector(href);
     if (el) el.scrollIntoView({ behavior: "smooth" });
+  } else if (href.startsWith("docs/")) {
+    // Rewritten relative link — extract page path
+    const hashIdx = href.indexOf("#");
+    const path = hashIdx >= 0 ? href.substring(5, hashIdx) : href.substring(5);
+    loadPage(path);
+    if (hashIdx >= 0) {
+      // Scroll to anchor after load
+      setTimeout(() => {
+        const anchor = document.getElementById("reader-content").querySelector(href.substring(hashIdx));
+        if (anchor) anchor.scrollIntoView({ behavior: "smooth" });
+      }, 500);
+    }
   } else {
     loadPage(resolveRelative(currentPageDir, href));
   }
