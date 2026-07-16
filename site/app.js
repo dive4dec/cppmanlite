@@ -4,6 +4,7 @@
 let lunrIndex = null;
 let allDocs = [];
 let currentQuery = "";
+let currentPageDir = ""; // dir of the currently displayed page, for resolving relative links
 
 // ---- Load and build the index ----
 async function init() {
@@ -134,10 +135,18 @@ async function loadPage(urlPath) {
     pageContent = pageContent.replace(/<!--[\s\S]*?-->/g, "");
     pageContent = pageContent.replace(/<span class="mw-editsection">[\s\S]*?<\/span>/g, "");
 
-    // Fix relative URLs to point to cppreference.com
+    // Fix absolute URLs to point to cppreference.com
     pageContent = pageContent.replace(/href="\/w\//g, 'href="https://en.cppreference.com/w/');
     pageContent = pageContent.replace(/href="\/cpp\//g, 'href="https://en.cppreference.com/cpp/');
     pageContent = pageContent.replace(/src="\//g, 'src="https://en.cppreference.com/');
+
+    // Rewrite relative src (images, etc.) so they load from docs/ bundle
+    const pageDir = urlPath.includes("/") ? urlPath.substring(0, urlPath.lastIndexOf("/") + 1) : "";
+    currentPageDir = pageDir;
+    pageContent = pageContent.replace(/src="([^"]+)"/g, (match, src) => {
+      if (src.startsWith("http") || src.startsWith("/") || src.startsWith("#") || src.startsWith("data:")) return match;
+      return `src="docs/${resolveRelative(pageDir, src)}"`;
+    });
 
     content.innerHTML = pageContent;
     content.scrollTop = 0;
@@ -157,6 +166,19 @@ function escapeAttr(s) {
   return escapeHtml(s).replace(/"/g, "&quot;");
 }
 
+// Resolve a relative path against a base directory.
+// E.g. resolveRelative("cpp/container/vector/", "../flat_map/flat_map.html")
+//   → "cpp/container/flat_map/flat_map.html"
+function resolveRelative(baseDir, relPath) {
+  const baseParts = baseDir.split("/").filter(Boolean);
+  const relParts = relPath.split("/");
+  for (const part of relParts) {
+    if (part === "..") baseParts.pop();
+    else if (part !== "." && part !== "") baseParts.push(part);
+  }
+  return baseParts.join("/");
+}
+
 // ---- Event wiring ----
 document.getElementById("search-input").addEventListener("input", (e) => {
   doSearch(e.target.value);
@@ -174,6 +196,24 @@ document.getElementById("search-input").addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
     const first = document.querySelector(".result-item");
     if (first) first.click();
+  }
+});
+
+// Event delegation: intercept link clicks inside reader-content
+// so relative links stay within the app instead of navigating away.
+document.getElementById("reader-content").addEventListener("click", (e) => {
+  const a = e.target.closest("a");
+  if (!a) return;
+  const href = a.getAttribute("href");
+  if (!href) return;
+  e.preventDefault();
+  if (href.startsWith("http")) {
+    window.open(href, "_blank");
+  } else if (href.startsWith("#")) {
+    const el = document.getElementById("reader-content").querySelector(href);
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  } else {
+    loadPage(resolveRelative(currentPageDir, href));
   }
 });
 
