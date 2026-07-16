@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Build and Deploy to GitHub Pages
 
 on:
   push:
@@ -10,24 +10,17 @@ on:
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
-# Allow only one concurrent deployment
 concurrency:
-  group: pages
-  cancel-in-progress: true
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-        with:
-          enablement: true
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Download cppreference archive
         run: |
@@ -50,31 +43,30 @@ jobs:
 
       - name: Build search index and strip pages
         run: |
-          pip install -e .
           python3 scripts/build_index.py extract/reference/en site_output
-
           # Update the bundled index used by the Python package
           cp site_output/index.json cppmanlite/data/index.json
 
-      - name: Assemble GitHub Pages site
+      - name: Assemble static site
         run: |
           mkdir -p _site
-          # UI files
           cp site/index.html site/style.css site/app.js _site/
-          # Search index
           cp site_output/index.json _site/
-          # Stripped documentation pages
           cp -r site_output/docs _site/docs
-
           echo "Site contents:"
           du -sh _site/
           du -sh _site/docs/
           ls -lh _site/index.json
 
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Create .nojekyll
+        run: touch _site/.nojekyll
+
+      - name: Deploy to gh-pages branch
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          path: _site
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: _site
+          publish_branch: gh-pages
 
       - name: Commit updated index to repo
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
@@ -84,14 +76,3 @@ jobs:
           git add cppmanlite/data/index.json
           git diff --staged --quiet || git commit -m "chore: update search index [skip ci]"
           git push
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
