@@ -28,6 +28,37 @@
   }
 }
 
+/* Explicit themes from the toggle. Both use :root[...], specificity (0,0,2,0),
+   which beats BOTH the base :root AND the @media prefers-color-scheme :root
+   (specificity 0,0,1,0). So an explicit choice always wins over the system.
+   "auto" sets no attribute, so the base + @media block decide by preference. */
+:root[data-theme="light"] {
+  --bg: #fafafa;
+  --fg: #1e1e2e;
+  --accent: #1c6cd1;
+  --accent-hover: #1558a8;
+  --border: #d4d4d8;
+  --card: #ffffff;
+  --code-bg: #f0f0f0;
+  --link: #1c6cd1;
+  --muted: #71717a;
+  --sidebar-bg: #f0f0f0;
+  --hover-bg: #e4e4e7;
+}
+:root[data-theme="dark"] {
+  --bg: #1e1e2e;
+  --fg: #cdd6f4;
+  --accent: #89b4fa;
+  --accent-hover: #b4befe;
+  --border: #45475a;
+  --card: #313244;
+  --code-bg: #181825;
+  --link: #89b4fa;
+  --muted: #6c7086;
+  --sidebar-bg: #181825;
+  --hover-bg: #313244;
+}
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
@@ -38,6 +69,9 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  /* Smooth light/dark switch. Safe on load: the inline head script sets
+     data-theme before first paint, so no transition fires on initial render. */
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 /* ---- Two-panel layout ---- */
@@ -164,6 +198,49 @@ body {
 #back-btn:hover {
   border-color: var(--accent);
 }
+
+/* Theme toggle — compact icon button pushed to the far right of the header */
+#theme-toggle {
+  margin-left: auto;
+  width: 2.25rem;
+  height: 2.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--card);
+  color: var(--fg);
+  cursor: pointer;
+  padding: 0;
+  transition: border-color 0.15s, background 0.15s, transform 0.1s;
+}
+#theme-toggle:hover {
+  border-color: var(--accent);
+  background: var(--hover-bg);
+}
+#theme-toggle:active {
+  transform: scale(0.92);
+}
+#theme-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+#theme-toggle svg {
+  width: 1.15rem;
+  height: 1.15rem;
+  display: block;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+/* "auto" state uses a half-moon (half-filled) glyph */
+#theme-toggle .glyph { display: none; }
+#theme-toggle[data-theme-state="auto"] .glyph-auto { display: block; }
+#theme-toggle[data-theme-state="light"] .glyph-light { display: block; }
+#theme-toggle[data-theme-state="dark"] .glyph-dark { display: block; }
 
 .page-title {
   font-weight: 600;
