@@ -53,6 +53,13 @@ jobs:
           cp site/index.html site/style.css site/app.js _site/
           cp site_output/index.json _site/
           cp -r site_output/docs _site/docs
+          # PWA assets (offline + installable). All referenced relatively by
+          # index.html / sw.js, so this build is deploy-agnostic.
+          cp site/manifest.json site/sw.js site/favicon.ico _site/
+          cp site/favicon-16.png site/favicon-32.png site/favicon-48.png _site/
+          cp site/icon-192.png site/icon-512.png _site/
+          cp site/icon-maskable-192.png site/icon-maskable-512.png _site/
+          cp site/apple-touch-icon.png _site/
           # cppreference pages reference images with RELATIVE paths like
           # "../../../../common/images/7/7c/foo.svg". In the source archive the
           # page is reference/en/<n dirs>/page.html and the image is
