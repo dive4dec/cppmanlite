@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>cppmanlite — C++ Documentation</title>
-  <link rel="stylesheet" href="style.css?v=0.6">
-  <script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script>
+  <link rel="stylesheet" href="style.css?v=0.8">
 </head>
 <body>
   <div class="app">
@@ -15,7 +14,7 @@
         <h1>cppmanlite</h1>
       </div>
       <div class="search-bar">
-        <input type="text" id="search-input" placeholder="Search C++ docs (vector, sort…)" autofocus>
+        <input type="text" id="search-input" placeholder="Search C++ docs (vector, std::max, int64_t…)" autofocus>
       </div>
       <div id="result-count" class="result-count"></div>
       <div id="results" class="results"></div>
@@ -32,8 +31,10 @@
           <h2>Welcome</h2>
           <p>Type a C++ keyword in the search box and press <kbd>Enter</kbd> to view the documentation,
              or click any result in the sidebar.</p>
-          <p>Examples: <code>vector</code>, <code>std::sort</code>, <code>shared_ptr</code>,
-             <code>std::string</code>, <code>flat_map</code></p>
+          <p>Examples: <code>vector</code>, <code>std::max</code>, <code>shared_ptr</code>,
+             <code>int64_t</code>, <code>flat_map</code></p>
+          <p class="dim">Shareable links: append <code>?search=</code> — e.g.
+             <code>…/cppmanlite/?search=std::max</code></p>
         </div>
       </div>
     </main>
@@ -43,6 +44,6 @@
     Documentation from <a href="https://en.cppreference.com" target="_blank">cppreference.com</a> (CC-BY-SA / GFDL).
   </footer>
 
-  <script src="app.js?v=0.6"></script>
+  <script src="app.js?v=0.8"></script>
 </body>
 </html>

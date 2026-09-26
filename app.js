@@ -1,11 +1,117 @@
 // cppmanlite — client-side search + manpage-style reader
 // Two-panel layout: sidebar (search + results) | main (page content)
 // Press Enter to open the top result directly, like `man`.
+//
+// Search is a small deterministic scorer over the index (no lunr). Rationale:
+// lunr's BM25 + tokenizer buried exact-title hits — searching "std::max" never
+// returned the real std::max page, it led with RAND_MAX/fmax. A hand-rolled
+// scorer (exact title ≫ alias title ≫ identifier in terms ≫ url ≫ snippet,
+// whole-token first, substring fallback) puts the right page first and is
+// fully predictable. See the test harness notes in scripts/.
 
-let lunrIndex = null;
 let allDocs = [];
+let docMeta = [];       // precomputed search fields (built once in init)
 let currentQuery = "";
 let currentPageDir = ""; // dir of the currently displayed page, for resolving relative links
+
+// ---- tokenization / normalisation (must match cppmanlite/core.py) ----
+const IDENT_RE = /[a-z_][a-z0-9_]*|[0-9]+/g;
+function norm(s) { return (s || "").toLowerCase(); }
+function tokens(s) { const m = norm(s).match(IDENT_RE); return m ? m : []; }
+function stripNs(s) { return s.replace(/^(std::)+/, ""); }
+function stripArgs(s) { return s.replace(/\(.*\)\s*$/, "").trim(); }
+
+// cppreference-style aliases: map the common name a user types to the
+// canonical identifier used in page titles. (std::string == std::basic_string)
+const ALIAS = {
+  string: "basic_string", wstring: "basic_wstring",
+  u8string: "basic_u8string", u16string: "basic_u16string", u32string: "basic_u32string",
+  str: "basic_string", wstr: "basic_wstring",
+};
+function aliasExpand(s) {
+  return s.split(/[\s_]+/).filter(Boolean).map((t) => ALIAS[t] || t).join("_");
+}
+
+// field weights: whole-token match (full) and substring-inside-larger-token (sub)
+const W = { title: [100, 40], terms: [80, 32], url: [40, 16], snippet: [8, 3] };
+
+function buildMeta(docs) {
+  return docs.map((d) => {
+    // terms is a {identifier: count} map (most frequent first), or [] for older indexes
+    const termFreq = (d.terms && typeof d.terms === "object" && !Array.isArray(d.terms))
+      ? d.terms : {};
+    return {
+      title: d.title, url: d.url, snippet: d.snippet,
+      tLow: norm(d.title), uLow: d.url.toLowerCase(), sLow: norm(d.snippet),
+      tTok: new Set(tokens(d.title)),
+      uTok: new Set(tokens(d.url)),
+      sTok: new Set(tokens(d.snippet)),
+      termFreq,                       // identifier -> occurrence count in body
+      termsLow: Object.keys(termFreq).join(" "),
+    };
+  });
+}
+
+function matchTok(tok, str, tokSet, full, sub) {
+  if (tokSet.has(tok)) return full;
+  if (str.includes(tok)) return sub;
+  return 0;
+}
+
+// term score: the base "terms" weight, scaled up (log) by how often the
+// identifier appears in the page body. A page that defines int64_t (×8)
+// outranks one that mentions it once (×1) in an example.
+function termScore(tok, termFreq, termsLow) {
+  const n = termFreq[tok];
+  if (n) return W.terms[0] * (1 + Math.log2(n));
+  if (termsLow.includes(tok)) return W.terms[1]; // substring inside a larger token
+  return 0;
+}
+
+function docScore(meta, searchToks, wholeCands) {
+  let score = 0, matched = 0;
+  // Whole-title relations: EXACT always; PREFIX only for specific/compound
+  // queries so a bare "string" doesn't beat real pages.
+  for (const wc of wholeCands) {
+    if (!wc || wc.length < 2) continue;
+    const dT = stripNs(meta.tLow);
+    if (dT === wc) score += 1000;
+    else {
+      const specific = searchToks.length >= 2 || wc.includes("_") || wc.length >= 8;
+      if (specific && dT.startsWith(wc + " ")) score += 400;
+    }
+  }
+  for (const tok of searchToks) {
+    const s = Math.max(
+      matchTok(tok, meta.tLow, meta.tTok, W.title[0], W.title[1]),
+      termScore(tok, meta.termFreq, meta.termsLow),
+      matchTok(tok, meta.uLow, meta.uTok, W.url[0], W.url[1]),
+      matchTok(tok, meta.sLow, meta.sTok, W.snippet[0], W.snippet[1]),
+    );
+    if (s > 0) { score += s; matched++; }
+  }
+  // AND semantics: penalise if not every query token matched somewhere.
+  if (searchToks.length > 1 && matched < searchToks.length) score *= matched / searchToks.length;
+  return score;
+}
+
+function search(query, limit = 30) {
+  const qNorm = norm(query).trim();
+  if (!qNorm) return [];
+  let qToks = tokens(query);
+  if (qToks.length && qToks[0] === "std" && qNorm.startsWith("std::")) qToks = qToks.slice(1);
+  if (!qToks.length) return [];
+  const searchToks = [...new Set([...qToks, ...qToks.map((t) => ALIAS[t] || "").filter(Boolean)])];
+  const qTitleWhole = stripArgs(stripNs(qNorm));
+  const wholeCands = [...new Set([qTitleWhole, aliasExpand(qTitleWhole)])].filter((s) => s && s.length >= 2);
+  const scored = [];
+  for (let i = 0; i < docMeta.length; i++) {
+    const score = docScore(docMeta[i], searchToks, wholeCands);
+    if (score > 0) scored.push({ ...allDocs[i], score });
+  }
+  scored.sort((a, b) => b.score - a.score || norm(a.title).length - norm(b.title).length || a.url.localeCompare(b.url));
+  return scored.slice(0, limit);
+}
 
 // ---- Load and build the index ----
 async function init() {
@@ -13,23 +119,23 @@ async function init() {
     const resp = await fetch("index.json");
     if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
     allDocs = await resp.json();
-    lunrIndex = lunr(function () {
-      this.ref("id");
-      this.field("title", { boost: 10 });
-      this.field("url", { boost: 5 });
-      this.field("snippet");
-      allDocs.forEach((doc, i) => {
-        this.add({ id: i, title: doc.title, url: doc.url, snippet: doc.snippet });
-      });
-    });
+    docMeta = buildMeta(allDocs);
     document.getElementById("result-count").textContent = `${allDocs.length} pages indexed`;
   } catch (e) {
     document.getElementById("result-count").textContent = "Failed to load index";
     console.error(e);
   }
+  // Deep link: ?search=foo (and #hash) behaves exactly like typing into the box.
+  const params = new URLSearchParams(location.search);
+  const q = params.get("search") || params.get("q");
+  if (q) {
+    const input = document.getElementById("search-input");
+    input.value = q;
+    doSearch(q);
+  }
 }
 
-// ---- Search ----
+// ---- Search (UI glue over the deterministic `search()` scorer above) ----
 function doSearch(query) {
   currentQuery = query;
   const resultsDiv = document.getElementById("results");
@@ -41,34 +147,7 @@ function doSearch(query) {
     return;
   }
 
-  // lunr search + fallback to simple substring match
-  let results = [];
-  try {
-    const lunrResults = lunrIndex.search(query);
-    results = lunrResults.map((r) => {
-      const doc = allDocs[parseInt(r.ref)];
-      return { ...doc, score: r.score };
-    });
-  } catch (e) {
-    // lunr throws on syntax errors — fall back to substring
-  }
-
-  // Fallback: if lunr returns nothing, do substring search
-  if (results.length === 0) {
-    const q = query.toLowerCase();
-    const qNorm = q.replace(/^std::/, "");
-    results = allDocs
-      .filter(
-        (d) =>
-          d.title.toLowerCase().includes(q) ||
-          d.url.toLowerCase().includes(q) ||
-          (qNorm && d.title.toLowerCase().includes(qNorm))
-      )
-      .slice(0, 30)
-      .map((d) => ({ ...d, score: 0 }));
-  }
-
-  results = results.slice(0, 30);
+  const results = search(query, 30);
 
   countSpan.textContent = `${results.length} result${results.length !== 1 ? "s" : ""}`;
 
