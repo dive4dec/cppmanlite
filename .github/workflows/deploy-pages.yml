@@ -53,9 +53,24 @@ jobs:
           cp site/index.html site/style.css site/app.js _site/
           cp site_output/index.json _site/
           cp -r site_output/docs _site/docs
+          # cppreference pages reference images with RELATIVE paths like
+          # "../../../../common/images/7/7c/foo.svg". In the source archive the
+          # page is reference/en/<n dirs>/page.html and the image is
+          # reference/common/images/..., so N levels up reaches reference/ and
+          # the ref resolves. Our build strips "en/" so the page lands at
+          # _site/docs/<n dirs>/page.html — the same N-levels-up ref now resolves
+          # to the _site/ root. Ship the archive's common/ dir there (images,
+          # fonts, css) so every relative ref resolves to a real local file
+          # (self-contained; the upload.cppreference.com CDN 404s static reqs).
+          if [ -d extract/reference/common ]; then
+            cp -r extract/reference/common _site/common
+          else
+            echo "WARNING: extract/reference/common not found — page images will 404"
+          fi
           echo "Site contents:"
           du -sh _site/
           du -sh _site/docs/
+          du -sh _site/common/ 2>/dev/null || true
           ls -lh _site/index.json
 
       - name: Create .nojekyll
