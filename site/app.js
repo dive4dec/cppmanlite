@@ -125,8 +125,16 @@ async function init() {
     document.getElementById("result-count").textContent = "Failed to load index";
     console.error(e);
   }
-  // Deep link: ?search=foo (and #hash) behaves exactly like typing into the box.
+  // Deep links (both resolve against the index, so they work offline):
+  //   ?page=cpp/algorithm/max.html   → open that page directly (shareable URL)
+  //   ?search=std::max   (or ?q=)    → run the search, show the result list
+  // `page` wins if both are present (a page is a more specific intent).
   const params = new URLSearchParams(location.search);
+  const page = params.get("page");
+  if (page) {
+    loadPage(page);
+    return;
+  }
   const q = params.get("search") || params.get("q");
   if (q) {
     const input = document.getElementById("search-input");
@@ -228,14 +236,32 @@ async function loadPage(urlPath) {
       const resolved = resolveRelative(pageDir, href.split("#")[0]);
       return `href="docs/${resolved}${href.includes("#") ? "#" + href.split("#")[1] : ""}"`;
     });
-    // Rewrite relative src (images, etc.) so they load from docs/ bundle
+    // Rewrite relative src (images, etc.) so they resolve to real local files.
+    // The archive pages reference shared assets with relative paths like
+    // "../../../../common/images/7/7c/foo.svg" — N ".." that, in the source
+    // archive, climb out to reference/ where common/ lives. Our build strips
+    // "en/" so the page is docs/<...>/page.html and common/ ships at the site
+    // root. Resolve against the page's FULL deployed path (docs/<pageDir>) so
+    // the ".." count climbs out of docs/ to the site root exactly as intended.
+    // The result already carries "docs/" when it stays inside, and drops it
+    // when it escapes — so no extra prefix is added here (unlike href below).
     pageContent = pageContent.replace(/src="([^"]+)"/g, (match, src) => {
       if (src.startsWith("http") || src.startsWith("/") || src.startsWith("#") || src.startsWith("data:")) return match;
-      return `src="docs/${resolveRelative(pageDir, src)}"`;
+      return `src="${resolveRelative("docs/" + pageDir, src)}"`;
     });
 
     content.innerHTML = pageContent;
     content.scrollTop = 0;
+
+    // Reflect the open page in the URL (?page=<path>) so it's copy-shareable
+    // and the browser back button returns to the previous view. Using
+    // replaceState (not pushState) keeps history clean while still making the
+    // address bar a valid deep link to this page.
+    try {
+      // encodeURI (not encodeURIComponent) keeps the "/" separators readable:
+      //   ?page=cpp/algorithm/max.html  — clean, copy-pasteable, still valid.
+      history.replaceState(null, "", "?page=" + encodeURI(urlPath));
+    } catch (_) { /* non-file:// contexts */ }
 
     // Update title in header
     const doc = allDocs.find((d) => d.url === urlPath);
