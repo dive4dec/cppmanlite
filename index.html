@@ -16,7 +16,21 @@
   <link rel="icon" href="favicon-32.png" sizes="32x32">
   <link rel="icon" href="favicon-48.png" sizes="48x48">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="stylesheet" href="style.css?v=0.8">
+  <link rel="stylesheet" href="style.css?v=0.10">
+  <script>
+    // Apply the saved theme palette before first paint (no dark→light flash).
+    // Runs synchronously in <head> before body render. "auto" (or unset)
+    // leaves data-theme empty so the CSS @media prefers-color-scheme block
+    // decides; an explicit "light" sets data-theme (dark is always the base
+    // :root, so data-theme="dark" needs no CSS override). The button's glyph
+    // is set by a small script right after the button (it isn't parsed yet).
+    (function () {
+      try {
+        var t = localStorage.getItem("cppmanlite-theme");
+        if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {}
+    })();
+  </script>
 </head>
 <body>
   <div class="app">
@@ -37,6 +51,33 @@
       <div class="main-header">
         <button id="back-btn" style="display:none">← Results</button>
         <span id="page-title" class="page-title"></span>
+        <button id="theme-toggle" type="button" title="Theme: auto (follow system) — click for light / dark"
+                aria-label="Switch color theme" aria-pressed="false" data-theme-state="auto">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <g class="glyph glyph-auto">
+              <circle cx="12" cy="12" r="5"/>
+              <path d="M12 7a5 5 0 0 0 0 10z" fill="currentColor" stroke="none"/>
+            </g>
+            <g class="glyph glyph-light">
+              <circle cx="12" cy="12" r="4"/>
+              <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>
+            </g>
+            <g class="glyph glyph-dark">
+              <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>
+            </g>
+          </svg>
+        </button>
+        <script>
+          // Set the button's icon to the persisted theme before first paint.
+          // (The <head> script set the page palette / data-theme earlier, but
+          //  this button didn't exist yet, so its glyph is set here.)
+          (function () {
+            try {
+              var t = localStorage.getItem("cppmanlite-theme");
+              if (t === "light" || t === "dark") document.getElementById("theme-toggle").setAttribute("data-theme-state", t);
+            } catch (e) {}
+          })();
+        </script>
       </div>
       <div id="reader-content" class="reader-content">
         <div class="welcome">
@@ -58,6 +99,6 @@
     Documentation from <a href="https://en.cppreference.com" target="_blank">cppreference.com</a> (CC-BY-SA / GFDL).
   </footer>
 
-  <script src="app.js?v=0.11"></script>
+  <script src="app.js?v=0.12"></script>
 </body>
 </html>

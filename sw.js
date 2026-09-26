@@ -16,7 +16,7 @@
 //   docs/ & common/   -> network-first (always fresh online), cache-fallback (offline)
 //   other static      -> cache-first on exact URL (so ?v= cache-busting still works)
 
-const SHELL_CACHE = 'cppmanlite-shell-v1';
+const SHELL_CACHE = 'cppmanlite-shell-v2';
 const DATA_CACHE = 'cppmanlite-data-v1';   // fixed name: survives shell version bumps
 
 // What we precache at install (tiny, static-ish). Versioned assets (app.js?v=,

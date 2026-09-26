@@ -371,6 +371,52 @@ document.getElementById("reader-content").addEventListener("click", (e) => {
   }
 });
 
+// ---- Theme: auto (follow system) / light / dark ----
+// The CSS base is dark; `@media (prefers-color-scheme: light)` gives light for
+// system-light users. An explicit `data-theme="light|dark"` on <html> overrides
+// that (higher specificity) for when the user has chosen one. "auto" removes
+// the attribute so the system preference wins again. The choice is persisted in
+// localStorage and applied before first paint by an inline script in <head>
+// (no flash of the wrong theme).
+const THEME_KEY = "cppmanlite-theme";
+const THEME_ORDER = ["auto", "light", "dark"];
+let themeBtn = null;
+function storedTheme() {
+  try {
+    const v = localStorage.getItem(THEME_KEY);
+    return v === "light" || v === "dark" ? v : "auto";
+  } catch (_) { return "auto"; }
+}
+function applyTheme(mode) {
+  const root = document.documentElement;
+  // data-theme drives the page palette (auto => remove, so system CSS wins).
+  if (mode === "auto") root.removeAttribute("data-theme");
+  else root.setAttribute("data-theme", mode);
+  // data-theme-state drives the button's icon (CSS shows one of the three
+  // inline glyph groups). Kept in sync with the palette on every change.
+  themeBtn.setAttribute("data-theme-state", mode);
+  const next = THEME_ORDER[(THEME_ORDER.indexOf(mode) + 1) % THEME_ORDER.length];
+  themeBtn.title = `Theme: ${mode} (click for ${next})`;
+  themeBtn.setAttribute("aria-label", `Theme: ${mode}. Activate to switch to ${next}.`);
+}
+function cycleTheme() {
+  const cur = storedTheme();
+  const next = THEME_ORDER[(THEME_ORDER.indexOf(cur) + 1) % THEME_ORDER.length];
+  try {
+    if (next === "auto") localStorage.removeItem(THEME_KEY);
+    else localStorage.setItem(THEME_KEY, next);
+  } catch (_) {}
+  applyTheme(next);
+}
+function initTheme() {
+  themeBtn = document.getElementById("theme-toggle");
+  if (!themeBtn) return;
+  themeBtn.addEventListener("click", cycleTheme);
+  // The inline <head> script already set data-theme + data-theme-state before
+  // first paint; re-assert here (harmless) so title/aria-label are correct.
+  applyTheme(storedTheme());
+}
+
 // Register the service worker (offline + installable PWA). Best-effort and
 // deploy-agnostic: sw.js is referenced relative to this file's own URL, so the
 // same build works from any host/path. No-op in unsupported/insecure contexts.
@@ -384,4 +430,5 @@ if ("serviceWorker" in navigator && isSecureContext) {
 }
 
 // Init
+initTheme();
 init();
