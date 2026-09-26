@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import html
 import json
+import math
 import re
 import textwrap
 from pathlib import Path
@@ -101,13 +102,127 @@ def _fetch_url_sync(url: str) -> str:
 # --------------------------------------------------------------------------- #
 # Search
 # --------------------------------------------------------------------------- #
+#
+# Deterministic scorer that mirrors site/app.js exactly (same tokenisation,
+# alias table, field weights, AND penalty and sort). Replacing the old naive
+# substring scorer so the Python package and the static site rank identically.
+# Why not BM25/lunr here? There is no lunr dependency in the package (it must
+# stay pure-stdlib / Pyodide-safe), and a hand-rolled scorer puts exact-title
+# hits first in a fully predictable way.
+
+_SEARCH_TOKEN_RE = re.compile(r"[a-z_][a-z0-9_]*|[0-9]+")
+
+# cppreference-style aliases: map a common name to the canonical identifier
+# used in page titles. (std::string == std::basic_string, ...)
+_SEARCH_ALIAS = {
+    "string": "basic_string", "wstring": "basic_wstring",
+    "u8string": "basic_u8string", "u16string": "basic_u16string",
+    "u32string": "basic_u32string", "str": "basic_string", "wstr": "basic_wstring",
+}
+
+# field weights: (whole-token match, substring-inside-larger-token)
+_W = {"title": (100, 40), "terms": (80, 32), "url": (40, 16), "snippet": (8, 3)}
+
+
+def _tok_set(s: str) -> set:
+    return set(_SEARCH_TOKEN_RE.findall(s.lower()))
+
+
+def _strip_ns(s: str) -> str:
+    return re.sub(r"^(std::)+", "", s)
+
+
+def _strip_args(s: str) -> str:
+    return re.sub(r"\(.*\)\s*$", "", s).strip()
+
+
+def _alias_expand(s: str) -> str:
+    parts = [p for p in re.split(r"[\s_]+", s) if p]
+    return "_".join(_SEARCH_ALIAS.get(p, p) for p in parts)
+
+
+def _match_tok(tok: str, s_low: str, tokset: set, full: int, sub: int) -> int:
+    if tok in tokset:
+        return full
+    if tok in s_low:
+        return sub
+    return 0
+
+
+def _term_score(tok: str, term_freq: dict, terms_low: str) -> float:
+    # base "terms" weight, scaled up (log) by how often the identifier appears
+    # in the page body → the defining page outranks a page that just mentions it.
+    n = term_freq.get(tok, 0)
+    if n:
+        return _W["terms"][0] * (1 + math.log2(n))
+    if tok in terms_low:
+        return _W["terms"][1]
+    return 0
+
+
+def _doc_score(meta: dict, search_toks: list, whole_cands: list) -> float:
+    score = 0
+    matched = 0
+    # Whole-title relations: EXACT always; PREFIX only for specific/compound queries.
+    for wc in whole_cands:
+        if not wc or len(wc) < 2:
+            continue
+        d_title = _strip_ns(meta["t_low"])
+        if d_title == wc:
+            score += 1000
+        else:
+            specific = len(search_toks) >= 2 or "_" in wc or len(wc) >= 8
+            if specific and d_title.startswith(wc + " "):
+                score += 400
+    for tok in search_toks:
+        s = max(
+            _match_tok(tok, meta["t_low"], meta["t_tok"], _W["title"][0], _W["title"][1]),
+            _term_score(tok, meta["term_freq"], meta["terms_low"]),
+            _match_tok(tok, meta["u_low"], meta["u_tok"], _W["url"][0], _W["url"][1]),
+            _match_tok(tok, meta["s_low"], meta["s_tok"], _W["snippet"][0], _W["snippet"][1]),
+        )
+        if s > 0:
+            score += s
+            matched += 1
+    # AND semantics: penalise if not every query token matched somewhere.
+    if len(search_toks) > 1 and matched < len(search_toks):
+        score *= matched / len(search_toks)
+    return score
+
+
+def _build_meta(entry: dict) -> dict:
+    t = entry.get("title", "")
+    u = entry.get("url", "")
+    s = entry.get("snippet", "")
+    # terms is a {identifier: count} map; tolerate an older list format.
+    terms = entry.get("terms") or {}
+    if isinstance(terms, list):
+        term_freq = {t: 1 for t in terms}
+    else:
+        term_freq = terms
+    t_low = t.lower()
+    return {
+        "t_low": t_low,
+        "u_low": u.lower(),
+        "s_low": s.lower(),
+        "t_tok": _tok_set(t),
+        "u_tok": _tok_set(u),
+        "s_tok": _tok_set(s),
+        "term_freq": term_freq,
+        "terms_low": " ".join(term_freq.keys()),
+        "title_len": len(t_low),
+    }
 
 
 def search(query: str, limit: int = 20) -> list[dict[str, str]]:
     """Search C++ documentation pages.
 
+    Deterministic scorer (mirrors the static site): exact-title matches rank
+    first, then alias titles, then identifiers found in a page's body (e.g.
+    ``int64_t`` → Fixed width integer types), then URL/snippet substring hits.
+
     Args:
-        query: Search term (e.g. "vector", "std::sort", "shared_ptr").
+        query: Search term (e.g. "vector", "std::max", "int64_t", "shared_ptr").
         limit: Maximum number of results.
 
     Returns:
@@ -116,27 +231,40 @@ def search(query: str, limit: int = 20) -> list[dict[str, str]]:
     idx = _load_index()
     if not idx:
         return []
-    q = query.lower().strip()
-    # Normalise std:: prefix
-    q_norm = re.sub(r"^std::", "", q)
-    results = []
+    q_norm = query.lower().strip()
+    if not q_norm:
+        return []
+
+    q_toks = _SEARCH_TOKEN_RE.findall(q_norm)
+    # drop a leading "std" namespace token (std::vector → ["std","vector"])
+    if q_toks and q_toks[0] == "std" and q_norm.startswith("std::"):
+        q_toks = q_toks[1:]
+    if not q_toks:
+        return []
+
+    # expand each token through the alias table, dedup, preserve order
+    seen = set()
+    search_toks = []
+    for t in q_toks:
+        for cand in (t, _SEARCH_ALIAS.get(t, "")):
+            if cand and cand not in seen:
+                seen.add(cand)
+                search_toks.append(cand)
+
+    q_title_whole = _strip_args(_strip_ns(q_norm))
+    whole_cands = []
+    for c in (q_title_whole, _alias_expand(q_title_whole)):
+        if len(c) >= 2 and c not in whole_cands:
+            whole_cands.append(c)
+
+    scored = []
     for entry in idx:
-        title = entry.get("title", "").lower()
-        url = entry.get("url", "").lower()
-        # Score: exact match > starts with > contains in title > contains in URL
-        score = 0
-        if title == q or title == q_norm:
-            score = 100
-        elif title.startswith(q) or title.startswith(q_norm):
-            score = 80
-        elif q in title or q_norm in title:
-            score = 60
-        elif q in url or q_norm in url:
-            score = 40
+        score = _doc_score(_build_meta(entry), search_toks, whole_cands)
         if score > 0:
-            results.append({**entry, "_score": score})
-    results.sort(key=lambda x: (-x["_score"], x.get("title", "")))
-    return [{k: v for k, v in r.items() if k != "_score"} for r in results[:limit]]
+            scored.append((score, entry))
+
+    scored.sort(key=lambda x: (-x[0], len(x[1].get("title", "").lower()), x[1].get("url", "")))
+    return [entry for _, entry in scored[:limit]]
 
 
 def list_pages(limit: int = 0) -> list[dict[str, str]]:

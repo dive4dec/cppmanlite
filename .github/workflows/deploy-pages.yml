@@ -69,7 +69,12 @@ jobs:
           publish_branch: gh-pages
 
       - name: Commit updated index to repo
-        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        # Runs on every build (push + schedule + manual). Keeps the package's
+        # bundled cppmanlite/data/index.json in lockstep with the deployed site,
+        # so `pip install cppmanlite` picks up a fresh index immediately. The
+        # "[skip ci]" tag means the bot's own push does not re-trigger this
+        # workflow (no push loop), and `git diff --staged --quiet` means it's a
+        # no-op push when the index didn't change.
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"

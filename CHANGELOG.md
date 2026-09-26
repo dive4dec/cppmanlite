@@ -5,7 +5,35 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.1.7] - 2026-09-26
+
+### Added
+- **Shareable search links** — the static site now reads `?search=` (or `?q=`)
+  from the URL, prefills the box, and runs the search on load. You can deep-link
+  straight to a query, e.g. `https://dive4dec.github.io/cppmanlite/?search=std::max`.
+- **Identifier terms in the index** — `build_index.py` now extracts the
+  distinctive C++ identifiers each page's body defines (things containing a
+  digit or underscore: `int64_t`, `int_fast64_t`, `shared_ptr`, `max_size`, …)
+  into a `{term: count}` frequency map. This is the data the old index was
+  missing, which is why `int64_t` used to return nothing.
+
+### Changed
+- **Deterministic search ranking (site + Python package), replacing lunr.**
+  lunr's BM25 + tokenizer buried exact-title hits — searching `std::max` led
+  with `RAND_MAX`/`fmax` and never returned the real `std::max`. The new
+  scorer ranks: exact title ≫ alias title (e.g. `string`→`basic_string`) ≫
+  identifier-in-body (scaled by term frequency) ≫ URL ≫ snippet, with whole-token
+  matches beating substrings and an AND penalty for partial multi-token queries.
+  `site/app.js` and `cppmanlite/core.py` now use the same algorithm, so the
+  package and the site rank identically. The static site no longer needs lunr
+  (its CDN script tag is removed).
+
+### Fixed
+- Searching `std::max` now returns the `std::max` page from `<algorithm>` as
+  the top result (was buried under `RAND_MAX`, `fmax`, …).
+- Searching `int64_t`, `int_fast64_t`, `uint64_t`, `int_least32_t`, … now
+  returns the *Fixed width integer types* page (was zero results).
+- `std::string` / `string` now resolve to `std::basic_string`.
 
 ## [0.1.6] - 2026-07-16
 

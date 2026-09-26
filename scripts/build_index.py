@@ -62,6 +62,44 @@ def extract_snippet(content: str, max_len: int = 200) -> str:
     return ""
 
 
+# --------------------------------------------------------------------------- #
+# Identifier terms — the searchable vocabulary that lives in the *body* of a
+# page but never in its title/url/snippet (e.g. int64_t, int_fast64_t,
+# shared_ptr). Without these, searching "int64_t" returns nothing even though
+# the answer is the "Fixed width integer types" page.
+#
+# A "distinctive" C++ identifier is one that contains a digit or an underscore
+# (int64_t, int_fast64_t, make_shared, max_size). That cleanly excludes plain
+# language keywords (int, void, return, string) which are too generic and noisy
+# to index.
+#
+# We store a {term: count} frequency map (top 80 by count), not a plain set.
+# The count is what lets search rank the page that *defines* int64_t (appears
+# ~8×) above pages that merely *mention* it in an example (1×) — the same
+# term-frequency signal cppreference's search uses.
+# --------------------------------------------------------------------------- #
+_TAG_RE = re.compile(r"<[^>]+>")
+_DISTINCTIVE_RE = re.compile(r"[a-z_][a-z0-9_]*")
+TERMS_CAP = 80
+
+
+def extract_terms(content: str, cap: int = TERMS_CAP) -> dict:
+    """Return a {identifier: count} map of the distinctive C++ identifiers in a
+    page's body, most frequent first, capped at ``cap``. See the block above."""
+    text = html.unescape(content)
+    text = _TAG_RE.sub(" ", text).lower()
+    tokens = _DISTINCTIVE_RE.findall(text)
+    freq: dict[str, int] = {}
+    for t in tokens:
+        if len(t) >= 3 and (any(c.isdigit() for c in t) or "_" in t):
+            freq[t] = freq.get(t, 0) + 1
+    if not freq:
+        return {}
+    ordered = sorted(freq.items(), key=lambda kv: (-kv[1], kv[0]))
+    # JSON serialises dict in insertion order → the map stays sorted by count.
+    return dict(ordered[:cap])
+
+
 def main():
     if len(sys.argv) < 3:
         print("Usage: build_index.py <input_dir> <output_dir>")
@@ -89,8 +127,11 @@ def main():
                     html_text = src_path.read_text(encoding="utf-8", errors="replace")
                     title, content = strip_page(html_text)
                     snippet = extract_snippet(content)
+                    terms = extract_terms(content)
                     url = str(rel_path)
-                    pages.append({"title": title, "url": url, "snippet": snippet})
+                    pages.append(
+                        {"title": title, "url": url, "snippet": snippet, "terms": terms}
+                    )
                     # Write stripped page to output/docs/
                     out_path = docs_dir / rel_path
                     out_path.parent.mkdir(parents=True, exist_ok=True)
