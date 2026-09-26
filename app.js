@@ -371,5 +371,17 @@ document.getElementById("reader-content").addEventListener("click", (e) => {
   }
 });
 
+// Register the service worker (offline + installable PWA). Best-effort and
+// deploy-agnostic: sw.js is referenced relative to this file's own URL, so the
+// same build works from any host/path. No-op in unsupported/insecure contexts.
+if ("serviceWorker" in navigator && isSecureContext) {
+  const swUrl = new URL("sw.js", document.baseURI).href;
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register(swUrl).catch((e) => {
+      console.warn("SW registration failed:", e.message);
+    });
+  });
+}
+
 // Init
 init();
